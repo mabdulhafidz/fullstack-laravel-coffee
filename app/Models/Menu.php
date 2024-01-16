@@ -20,4 +20,9 @@ class Menu extends Model
     {
         return $this->belongsToMany(Category::class, 'category_menu');
     }
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
 }

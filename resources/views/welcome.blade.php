@@ -1,10 +1,10 @@
 <x-guest-layout>
     <!-- Main Hero Content -->
     <div class="container max-w-lg px-4 py-32 mx-auto text-left bg-center bg-no-repeat bg-cover md:max-w-none md:text-center"
-        style="background-image: url('https://cdn.pixabay.com/photo/2016/11/18/14/39/beans-1834984_960_720.jpg')">
+        style="background-image: url('https://wallpapercave.com/wp/wp2352852.jpg')">
         <h1
             class="font-mono text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 md:text-center sm:leading-none lg:text-5xl">
-            <span class="inline md:block">Welcome To Restaurant N Word</span>
+            <span class="inline md:block">Welcome To Coffee Restaurant</span>
         </h1>
         <div class="mx-auto mt-2 text-green-50 md:text-center lg:text-lg">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta voluptatem ab necessitatibus illo
@@ -109,7 +109,7 @@
                 </div>
                 <div class="w-full px-3 mb-12 lg:w-1/2 order-0 lg:order-1 lg:mb-0"><img
                         class="mx-auto sm:max-w-sm lg:max-w-full"
-                        src="https://cdn.pixabay.com/photo/2020/12/31/12/28/cook-5876388_960_720.png"
+                        src="https://cdn.pixabay.com/photo/2020/03/25/16/24/coffee-4967874_1280.png"
                         alt="feature image"></div>
             </div>
         </div>

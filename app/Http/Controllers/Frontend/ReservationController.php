@@ -9,6 +9,7 @@ use App\Models\Table;
 use App\Rules\DateBetween;
 use App\Rules\TimeBetween;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -49,7 +50,11 @@ class ReservationController extends Controller
     {
         $resersvation = $request->session()->get('resersvation');
         $res_table_ids = Resersvation::orderBy('res_date')->get()->filter(function ($value) use ($resersvation) {
-            return $value->res_date->format('Y-m-d') == $resersvation->res_date->format('Y-m-d');
+            if ($value->res_date instanceof DateTime && $resersvation->res_date instanceof DateTime) {
+                return $value->res_date->format('Y-m-d') == $resersvation->res_date->format('Y-m-d');
+            } else {
+                return false;
+            }
         })->pluck('table_id');
         $tables = Table::where('status', TableStatus::Avalaiable)
             ->where('guest_number', '>=', $resersvation->guest_number)

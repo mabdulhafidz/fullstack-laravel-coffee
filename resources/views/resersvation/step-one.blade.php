@@ -5,7 +5,7 @@
                 <div class="flex flex-col md:flex-row">
                     <div class="h-32 md:h-auto md:w-1/2">
                         <img class="object-cover w-full h-full"
-                            src="https://cdn.pixabay.com/photo/2021/01/15/17/01/green-5919790__340.jpg" alt="img" />
+                            src="https://th.bing.com/th/id/OIP.nwG6SFXlTazUK6tt2RC-5gHaL2?rs=1&pid=ImgDetMain" alt="img" />
                     </div>
                     <div class="flex items-center justify-center p-6 sm:p-12 md:w-1/2">
                         <div class="w-full">
@@ -75,7 +75,7 @@
                                         <input type="datetime-local" id="res_date" name="res_date"
                                             min="{{ $min_date->format('Y-m-d\TH:i:s') }}"
                                             max="{{ $max_date->format('Y-m-d\TH:i:s') }}"
-                                            value="{{ $resersvation ? $resersvation->res_date->format('Y-m-d\TH:i:s') : '' }}"
+                                            value="{{ $resersvation && $resersvation->res_date ? $resersvation->res_date->format('Y-m-d\TH:i:s') : '' }}"
                                             class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
                                     </div>
                                     <span class="text-xs">Please choose the time between 17:00-23:00.</span>

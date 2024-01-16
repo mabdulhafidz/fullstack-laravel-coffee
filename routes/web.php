@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ResersvationController;
 use App\Http\Controllers\Admin\TableController;
@@ -10,6 +11,7 @@ use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Admin\StockController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -40,6 +42,8 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/menus', MenuController::class);
     Route::resource('/tables', TableController::class);
     Route::resource('/resersvation', ResersvationController::class);
+    Route::resource('/stocks', StockController::class);
+    Route::resource('/employees', EmployeeController::class);
 
 });
 
