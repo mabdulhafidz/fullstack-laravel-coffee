@@ -18,4 +18,9 @@ class WelcomeController extends Controller
     {
         return view('thankyou');
     }
+
+    public function login() 
+    {
+        return view('auth.login');
+    }
 }

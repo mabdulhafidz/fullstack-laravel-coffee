@@ -22,7 +22,7 @@ class StockStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'jumlah' => 'required'
         ];
     }
 }

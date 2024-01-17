@@ -23,6 +23,7 @@ Route::get('/resersvation/step-one', [ReservationController::class, 'stepOne'])-
 Route::post('/resersvation/step-one', [ReservationController::class, 'storeStepOne'])->name('resersvation.store.step.one');
 Route::get('/resersvation/step-two', [ReservationController::class, 'stepTwo'])->name('resersvation.step.two');
 Route::post('/resersvation/step-two', [ReservationController::class, 'storeStepTwo'])->name('resersvation.store.step.two');
+Route::post('/login', [WelcomeController::class, 'login'])->name('login');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
 
 

@@ -40,47 +40,11 @@
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $employee->nip }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->nik }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->nama }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->jenis_kelamin }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->tempat_lahir }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->tanggal_lahir }}
+                                                {{ $employee->nama }}
                                             </td>
                                             <td
                                             class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                             {{ $employee->telpon }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->agama }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->status_nikah }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->alamat }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->golongan_id }}
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">

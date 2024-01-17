@@ -48,7 +48,7 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $employee = Employee::all();
-        return view('admin.employees.edit', compact('employee', 'employees'));
+        return view('admin.employees.edit', compact('employee'));
     }
 
     public function update($request, Employee $employee)

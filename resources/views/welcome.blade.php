@@ -154,52 +154,42 @@
             <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
                 <div class="flex justify-center -mt-16 md:justify-end">
                     <img class="object-cover w-20 h-20 border-2 border-green-500 rounded-full"
-                        src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
+                        src="food1.jpg">
                 </div>
                 <div>
-                    <h2 class="text-3xl font-semibold text-gray-800">Food</h2>
-                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
-                        deserunt
-                        ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis
-                        pariatur
-                        minus consequuntur!</p>
+                    <h2 class="text-3xl font-semibold text-gray-800">Hot Coffee</h2>
+                    <p class="mt-2 text-gray-600">Netral aja.</p>
                 </div>
                 <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-green-500">John Doe</a>
+                    <a href="#" class="text-xl font-medium text-green-500">Hafidz</a>
                 </div>
             </div>
             <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
                 <div class="flex justify-center -mt-16 md:justify-end">
                     <img class="object-cover w-20 h-20 border-2 border-green-500 rounded-full"
-                        src="https://cdn.pixabay.com/photo/2018/01/04/21/15/young-3061652__340.jpg">
+                        src="food3.jpg">
                 </div>
                 <div>
-                    <h2 class="text-3xl font-semibold text-gray-800">Food</h2>
-                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
-                        deserunt
-                        ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis
-                        pariatur
-                        minus consequuntur!</p>
+                    <h2 class="text-3xl font-semibold text-gray-800">Coffee Late</h2>
+                    <p class="mt-2 text-gray-600">Menurut pendapat saya lebih baik mati daripada pilih EMYU.</p>
                 </div>
                 <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-green-500">John Doe</a>
+                    <a href="#" class="text-xl font-medium text-green-500">Arkha</a>
                 </div>
             </div>
             <div class="max-w-md p-4 bg-white rounded-lg shadow-lg">
                 <div class="flex justify-center -mt-16 md:justify-end">
                     <img class="object-cover w-20 h-20 border-2 border-green-500 rounded-full"
-                        src="https://cdn.pixabay.com/photo/2018/01/18/17/48/purchase-3090818__340.jpg">
+                        src="food2.jpg">
                 </div>
                 <div>
-                    <h2 class="text-3xl font-semibold text-gray-800">Food</h2>
-                    <p class="mt-2 text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae dolores
-                        deserunt
-                        ea doloremque natus error, rerum quas odio quaerat nam ex commodi hic, suscipit in a veritatis
-                        pariatur
-                        minus consequuntur!</p>
+                    <h2 class="text-3xl font-semibold text-gray-800">Ice Coffee</h2>
+                    <p class="mt-2 text-gray-600">Menurut pendapat saya CHELSEA lebih lucu dibandingkan EMYU. minimal Trofi UCL lebih dari 1
+                        - Source: Faktos!!!.com
+                    </p>
                 </div>
                 <div class="flex justify-end mt-4">
-                    <a href="#" class="text-xl font-medium text-green-500">John Doe</a>
+                    <a href="#" class="text-xl font-medium text-green-500">Razka</a>
                 </div>
             </div>
         </div>

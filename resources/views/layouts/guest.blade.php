@@ -27,9 +27,6 @@
         AOS.init();
     </script>
 </head>
-
-
-
 <body>
     <div class="bg-white shadow-md" x-data="{ isOpen: false }">
         <nav class="container px-6 py-8 mx-auto md:flex md:justify-between md:items-center">
@@ -63,6 +60,8 @@
                     href="{{ route('menus.index') }}">Our Menu</a>
                 <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
                     href="{{ route('resersvation.step.one') }}">Make Reservation</a>
+                <a class="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 hover:text-green-400"
+                    href="{{route('login')}}">Login</a>
 
             </div>
         </nav>
