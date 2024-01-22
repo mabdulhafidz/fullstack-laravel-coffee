@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('agama');
             $table->enum('status nikah', ['belum nikah', 'nikah']);
             $table->text('alamat');
-            $table->unsignedBigInteger('golongan_id');
+            $table->integer('golongan_id');
             $table->string('image');
             $table->timestamps();
         });

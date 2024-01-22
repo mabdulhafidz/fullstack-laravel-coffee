@@ -1,10 +1,15 @@
 <x-guest-layout>
     <!-- Main Hero Content -->
     <div class="container max-w-lg px-4 py-32 mx-auto text-left bg-center bg-no-repeat bg-cover md:max-w-none md:text-center"
-        style="background-image: url('https://wallpapercave.com/wp/wp2352852.jpg')">
+        style="background-image: url('https://wallpapercave.com/wp/wp2352852.jpg');
+        min-height: 600px;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;" >
         <h1
-            class="font-mono text-3xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 md:text-center sm:leading-none lg:text-5xl">
-            <span class="inline md:block">Welcome To Coffee Restaurant</span>
+            class="font-mono text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-blue-500 md:text-center sm:leading-none lg:text-5xl">
+            <span class="inline-flex items-center justify-center md:block">Life Is Better With Coffee</span>
         </h1>
         <div class="mx-auto mt-2 text-green-50 md:text-center lg:text-lg">
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Soluta voluptatem ab necessitatibus illo
@@ -139,7 +144,6 @@
                     @endforeach
                 </div>
             @else
-                <p>No specials available.</p>
             @endif
         </div>
         

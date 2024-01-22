@@ -1149,12 +1149,22 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(37 99 235 / var(--tw-bg-opacity));
 }
+
+.bg-dark-600 {
+  --tw-bg-opacity: 1;
+  background-color: #333;
+}
+
 .bg-gradient-to-r {
   background-image: linear-gradient(to right, var(--tw-gradient-stops));
 }
 .from-green-400 {
   --tw-gradient-from: #4ade80;
   --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(74 222 128 / 0));
+}
+.from-black-400 {
+  --tw-gradient-from: #333;
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgba(20, 23, 21, 0));
 }
 .to-blue-500 {
   --tw-gradient-to: #3b82f6;

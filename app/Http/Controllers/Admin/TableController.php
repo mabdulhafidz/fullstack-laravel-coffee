@@ -23,6 +23,7 @@ class TableController extends Controller
      */
     public function create()
     {
+        $tables = Table::all();
         return view('admin.tables.create');
     }
 

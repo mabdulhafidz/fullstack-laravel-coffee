@@ -12,6 +12,7 @@ use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Customer\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -23,7 +24,7 @@ Route::get('/resersvation/step-one', [ReservationController::class, 'stepOne'])-
 Route::post('/resersvation/step-one', [ReservationController::class, 'storeStepOne'])->name('resersvation.store.step.one');
 Route::get('/resersvation/step-two', [ReservationController::class, 'stepTwo'])->name('resersvation.step.two');
 Route::post('/resersvation/step-two', [ReservationController::class, 'storeStepTwo'])->name('resersvation.store.step.two');
-Route::post('/login', [WelcomeController::class, 'login'])->name('login');
+// Route::post('/login', [WelcomeController::class, 'login'])->name('login');
 Route::get('/thankyou', [WelcomeController::class, 'thankyou'])->name('thankyou');
 
 
@@ -45,7 +46,8 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/resersvation', ResersvationController::class);
     Route::resource('/stocks', StockController::class);
     Route::resource('/employees', EmployeeController::class);
-
 });
+
+
 
 require __DIR__.'/auth.php';

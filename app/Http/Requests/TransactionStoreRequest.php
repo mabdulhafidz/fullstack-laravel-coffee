@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MenuStoreRequest extends FormRequest
+class TransactionStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,9 @@ class MenuStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'description' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required'
+            'keterangan' => 'requrired',
+            'total_harga' => 'required',
+            'tanggal' => 'required'
         ];
     }
 }

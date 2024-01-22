@@ -13,8 +13,7 @@
             </div>
             <div class="m-2 p-2 bg-slate-100 rounded">
                 <div class="space-y-8 divide-y divide-gray-200 w-1/2 mt-10">
-                    <form method="POST" action="{{ route('admin.employees.update', $employee->id) }}"
-                        enctype="multipart/form-data">
+                    <form method="POST" action="{{ $employee ? route('admin.employees.update', $employee->id) : '#' }}">   
                         @csrf
                         @method('PUT')
                         <div class="sm:col-span-6">
@@ -25,7 +24,7 @@
                             </div>
                             @error('nip')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
-                            @enderror
+                            @enderror       
                         </div>
                         <div class="sm:col-span-6">
                             <label for="nik" class="block text-sm font-medium text-gray-700"> NIK </label>

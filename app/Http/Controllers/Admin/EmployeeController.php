@@ -45,11 +45,12 @@ class EmployeeController extends Controller
         return redirect()->route('admin.employees.index')->with('success', 'Employee created successfully.');
     }
 
-    public function edit(Employee $employee)
+    public function edit($id)
     {
-        $employee = Employee::all();
+        $employee = Employee::findOrFail($id);
         return view('admin.employees.edit', compact('employee'));
     }
+    
 
     public function update($request, Employee $employee)
     {

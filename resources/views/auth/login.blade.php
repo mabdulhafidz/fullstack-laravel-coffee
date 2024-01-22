@@ -53,10 +53,12 @@
                                     </div>
                                     <span class="ml-3 text-sm font-normal text-grey-900">Keep me logged in</span>
                                 </label>
-                                <a href="javascript:void(0)" class="mr-4 text-sm font-medium text-purple-blue-500">Forget password?</a>
+                                @if (Route::has('password.request'))
+                                <a href="{{ route('password.request') }}"  class="mr-4 text-sm font-medium text-purple-blue-500">Forget password?</a>
+                                @endif
                             </div>
                             <x-primary-button class="w-full px-6 py-5 mb-5 text-sm font-bold leading-none text-white transition duration-300 md:w-96 rounded-2xl hover:bg-purple-blue-600 focus:ring-4 focus:ring-purple-blue-100 bg-purple-blue-500 text-center">  {{ __('Log in') }}</x-primary-button>
-                            <p class="text-sm leading-relaxed text-grey-900">Not registered yet? <a href="javascript:void(0)" class="font-bold text-grey-700">Create an Account</a></p>
+                            <p class="text-sm leading-relaxed text-grey-900">Not registered yet? <a href="{{route('register')}}" class="font-bold text-grey-700">Create an Account</a></p>
                         </form>
                     </div>  
                 </div>
@@ -66,7 +68,7 @@
         <div class="flex flex-wrap -mx-3 my-5">
             <div class="w-full max-w-full sm:w-3/4 mx-auto text-center">
                 <p class="text-sm text-slate-500 py-1">
-                    Tailwind CSS Component from <a href="https://www.loopple.com/theme/motion-landing-library?ref=tailwindcomponents" class="text-slate-700 hover:text-slate-900" target="_blank">Motion Landing Library</a> by <a href="https://www.loopple.com" class="text-slate-700 hover:text-slate-900" target="_blank">Loopple Builder</a>.
+                    Welcome to  <a href="https://www.loopple.com/theme/motion-landing-library?ref=tailwindcomponents" class="text-slate-700 hover:text-slate-900" target="_blank">Coffee Restaurant</a> by <a href="https://www.loopple.com" class="text-slate-700 hover:text-slate-900" target="_blank">M Abdul Hafidz</a>.
                 </p>
             </div>
         </div>

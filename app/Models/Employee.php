@@ -23,4 +23,6 @@ class Employee extends Model
         'golongan_id', 
         'image'
     ];
+
+    protected $primaryKey = 'id';
 }
