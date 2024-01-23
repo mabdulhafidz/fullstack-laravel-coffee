@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\StockExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockStoreRequest;
+use App\Imports\StockImport;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class StockController extends Controller
 {
@@ -73,5 +76,17 @@ class StockController extends Controller
         $stock->delete();
 
         return to_route('admin.stocks.index')->with('danger', 'Stock daleted successfully.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new StockExport, 'stocks.xlsx');
+    }
+
+    public function import()
+    {
+    Excel::import(new StockImport(), request()->file('file'));
+
+    return redirect()->back()->with('success', 'Stocks imported successfully.');
     }
 }

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CategoryExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
+use App\Imports\CategoryImport;
 use App\Models\Category;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -94,4 +97,22 @@ class CategoryController extends Controller
 
         return to_route('admin.categories.index')->with('danger', 'Category is deleted.');
     }
+
+    public function export() 
+    {
+        try {
+            return Excel::download(new CategoryExport, 'categories.xlsx');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function import()
+    {
+        Excel::import(new CategoryImport(), request()->file('file'));
+    
+        return redirect()->back()->with('success', 'Categories imported successfully.');
+    }
+    
 }
+

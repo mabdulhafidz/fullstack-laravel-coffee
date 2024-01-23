@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\EmployeeExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EmployeeStoreRequest;
 use App\Http\Requests\EmployeeUpdateRequest;
+use App\Imports\EmployeeImport;
 use App\Models\Employee;
 use App\Models\Golongan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class EmployeeController extends Controller
 {
@@ -97,5 +100,18 @@ class EmployeeController extends Controller
         Storage::delete($employee->image);
         $employee->delete();
         return redirect()->route('admin.employees.index')->with('danger', 'Employee deleted successfully.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new EmployeeExport, 'employees.xlsx');
+    }
+
+    
+    public function import()
+    {
+    Excel::import(new EmployeeImport(), request()->file('file'));
+
+    return redirect()->back()->with('success', 'Employees imported successfully.');   
     }
 }

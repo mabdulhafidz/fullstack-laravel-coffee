@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TableExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\TableStoreRequest;
+use App\Imports\TableImport;
 use App\Models\Table;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TableController extends Controller
 {
@@ -77,4 +80,16 @@ class TableController extends Controller
 
         return to_route('admin.tables.index')->with('danger', 'Table daleted successfully.');
     }
+
+    public function export() 
+    {
+        return Excel::download(new TableExport, 'tables.xlsx');
+    }
+ 
+    public function import()
+{
+    Excel::import(new TableImport(), request()->file('file'));
+
+    return redirect()->back()->with('success', 'Tables imported successfully.');
+}
 }

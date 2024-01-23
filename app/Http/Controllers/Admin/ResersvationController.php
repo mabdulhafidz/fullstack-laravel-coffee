@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Enums\TableStatus;
+use App\Exports\ResersvationExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ResersvationStoreRequest;
+use App\Imports\ResersvationImport;
 use App\Models\Resersvation;
 use App\Models\Table;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ResersvationController extends Controller
 {
@@ -94,5 +97,17 @@ class ResersvationController extends Controller
         $resersvation->delete();
 
         return to_route('admin.resersvation.index')->with('warning', 'Reservation deleted successfully.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new ResersvationExport, 'resersvation.xlsx');
+    }
+
+    public function import()
+    {
+    Excel::import(new ResersvationImport(), request()->file('file'));
+
+    return redirect()->back()->with('success', 'Reservations imported successfully.');
     }
 }

@@ -41,11 +41,17 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('/categories', CategoryController::class);
+    Route::get('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
     Route::resource('/menus', MenuController::class);
+    Route::get('/menus/export', [MenuController::class, 'export']);
     Route::resource('/tables', TableController::class);
+    Route::get('/tables/export', [TableController::class, 'export']);
     Route::resource('/resersvation', ResersvationController::class);
+    Route::get('/resersvation/export', [ResersvationController::class, 'export']);
     Route::resource('/stocks', StockController::class);
+    Route::get('/stocks/export', [StockController::class, 'export']);
     Route::resource('/employees', EmployeeController::class);
+    Route::get('/employees/export', [EmployeeController::class, 'export']);  
 });
 
 
