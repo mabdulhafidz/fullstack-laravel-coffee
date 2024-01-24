@@ -38,20 +38,22 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(function () {
+Route::middleware(['auth', 'admin', 'web'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('/categories', CategoryController::class);
-    Route::get('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
+    Route::post('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
     Route::resource('/menus', MenuController::class);
-    Route::get('/menus/export', [MenuController::class, 'export']);
+    Route::post('/menus/export', [MenuController::class, 'export'])->name('menus.export');
     Route::resource('/tables', TableController::class);
-    Route::get('/tables/export', [TableController::class, 'export']);
+    Route::post('/tables/export', [TableController::class, 'export'])->name('tables.export');
     Route::resource('/resersvation', ResersvationController::class);
-    Route::get('/resersvation/export', [ResersvationController::class, 'export']);
+    Route::post('/resersvation/export', [ResersvationController::class, 'export'])->name('resersvation.export');
     Route::resource('/stocks', StockController::class);
-    Route::get('/stocks/export', [StockController::class, 'export']);
+    Route::post('/stocks/export', [StockController::class, 'export'])->name('stocks.export');
     Route::resource('/employees', EmployeeController::class);
-    Route::get('/employees/export', [EmployeeController::class, 'export']);  
+    Route::post('/employees/export', [EmployeeController::class, 'export'])->name('employees.export');
+
+
 });
 
 

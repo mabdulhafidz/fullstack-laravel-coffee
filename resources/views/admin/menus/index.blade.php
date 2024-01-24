@@ -8,7 +8,13 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex space-x-4 m-2 p-2">
-                <a href="{{ url('admin/menus/export') }}" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">Export</a>
+                <a href="{{ route('admin.menus.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
+                    Export
+                </a>
+                <form id="export-form" action="{{ route('admin.menus.export') }}" method="POST" style="display: none;">
+                    @csrf
+                </form>
+                
                 <a href="{{ url('admin/menus/import') }}" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Import</a>
             </div>
             <div class="flex justify-end m-2 p-2">
