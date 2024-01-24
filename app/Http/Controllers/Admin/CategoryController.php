@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Imports\CategoryImport;
 use App\Models\Category;
+use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -102,6 +103,20 @@ class CategoryController extends Controller
     {
         try {
             return Excel::download(new CategoryExport, 'categories.xlsx');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    public function exportPdf() 
+    {
+        try {
+            dd('nigga');
+            $data = [
+                'categories' => Category::all(),
+            ];
+    
+            $pdf = FacadePdf::loadView('categories.pdf', $data);
         } catch (\Exception $e) {
             dd($e->getMessage());
         }

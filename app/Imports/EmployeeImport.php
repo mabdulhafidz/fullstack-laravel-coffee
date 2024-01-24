@@ -28,5 +28,6 @@ class EmployeeImport implements ToModel
             'golongan_id' => $row['golongan_id'],
             'image' => $row['image'],
         ]);
+        
     }
 }

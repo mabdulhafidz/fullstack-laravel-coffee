@@ -14,8 +14,13 @@
                 <form id="export-form" action="{{ route('admin.menus.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                
-                <a href="{{ url('admin/menus/import') }}" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Import</a>
+                <a href="{{route('admin.menus.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                    Import
+                </a>
+                <form id="import-form" action="{{ route('admin.menus.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
+                    @csrf
+                    <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
+                </form>
             </div>
             <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.menus.create') }}"
