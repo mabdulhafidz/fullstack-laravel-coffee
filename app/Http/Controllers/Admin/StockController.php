@@ -34,10 +34,10 @@ class StockController extends Controller
      */
     public function store(StockStoreRequest $request)
     {
-        Stock::create([
+        Stock::create(request([
             'jumlah' => $request->jumlah,
-            'menu_id' => $request->menu_id,
-        ]);
+            'menu_id' => auth()->id(),
+        ]));
 
         return to_route('admin.stocks.index')->with('success', 'Stock created successfully.');
     }

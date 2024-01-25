@@ -14,7 +14,7 @@ class Stock extends Model
         'jumlah'
     ];
 
-    public function menus()
+    public function menu()
     {
         return $this->belongsTo(Menu::class);
     }

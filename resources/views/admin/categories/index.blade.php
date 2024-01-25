@@ -14,7 +14,7 @@
                 <form id="export-form" action="{{ route('admin.categories.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.categories.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
+                <a href="{{ route('admin.categories.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                     Export Pdf
                 </a>
                 <form id="export-form" action="{{ route('admin.categories.exportpdf') }}" method="POST" style="display: none;">
