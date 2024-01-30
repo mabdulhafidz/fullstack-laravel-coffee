@@ -16,15 +16,14 @@ return new class extends Migration
             $table->integer('nip');
             $table->integer('nik');
             $table->string('nama');
-            $table->enum('jenis kelamin',['pria','wanita']);
+            $table->enum('jenis kelamin', ['pria','wanita']);
             $table->string('tempat_lahir');
             $table->date('tanggal_lahir');
             $table->integer('telpon');
             $table->string('agama');
             $table->enum('status nikah', ['belum nikah', 'nikah']);
             $table->text('alamat');
-            $table->integer('golongan_id');
-            $table->string('image');
+            $table->string('image');    
             $table->timestamps();
         });
     }

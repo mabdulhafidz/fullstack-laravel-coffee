@@ -18,7 +18,7 @@
                         <div class="sm:col-span-6">
                             <label for="nip" class="block text-sm font-medium text-gray-700"> NIP </label>
                             <div class="mt-1">
-                                <input type="text" id="nip" name="nip"
+                                <input type="number" id="nip" name="nip"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror" />
                             </div>
                             @error('nip')
@@ -28,7 +28,7 @@
                         <div class="sm:col-span-6">
                             <label for="nik" class="block text-sm font-medium text-gray-700"> NIK </label>
                             <div class="mt-1">
-                                <input type="text" id="nik" name="nik"
+                                <input type="number" id="nik" name="nik"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror" />
                             </div>
                             @error('nik')
@@ -50,8 +50,9 @@
                             <div class="mt-1">
                                 <select id="jenis_kelamin" name="jenis_kelamin"
                                 class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('jenis_kelamin') border-red-400 @enderror">
-                                <option value="Pria" {{ old('jenis_kelamin') == 'Pria' ? 'selected' : '' }}>Pria</option>
-                                <option value="Wanita" {{ old('jenis_kelamin') == 'Wanita' ? 'selected' : '' }}>Wanita</option>
+                                <option selected disabled>Jenis Kelamin</option>
+                                <option value="pria">Pria</option>
+                                <option value="wanita">Wanita</option>
                             </select>
                             </div>
                             @error('jenis_kelamin')
@@ -71,7 +72,7 @@
                         <div class="sm:col-span-6">
                             <label for="tanggal_lahir" class="block text-sm font-medium text-gray-700"> Tanggal Lahir </label>
                             <div class="mt-1">
-                                <input type="datetime-local" id="tanggal_lahir" name="tanggal_lahir"
+                                <input type="date" id="tanggal_lahir" name="tanggal_lahir"
                                     class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror" />
                             </div>
                             @error('tanggal_lahir')
@@ -103,8 +104,9 @@
                             <div class="mt-1">
                                 <select id="status_nikah" name="status_nikah"
                                 class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('jenis_kelamin') border-red-400 @enderror">
-                                <option value="Belum Nikah" {{ old('status_nikah') == 'Belum Nikah' ? 'selected' : '' }}>Belum Nikah</option>
-                                <option value="Nikah" {{ old('status_nikah') == 'Nikah' ? 'selected' : '' }}>Nikah</option>
+                                <option selected disabled>Status Nikah</option>
+                                <option value="belum nikah">Belum Nikah</option>
+                                <option value="nikah">Nikah</option>
                             </select>
                             </div>
                             @error('status_nikah')
@@ -118,16 +120,6 @@
                                     class="shadow-sm focus:ring-indigo-500 appearance-none bg-white border py-2 px-3 text-base leading-normal transition duration-150 ease-in-out focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md @error('name') border-red-400 @enderror"></textarea>
                             </div>
                             @error('alamat')
-                                <div class="text-sm text-red-400">{{ $message }}</div>
-                            @enderror
-                        </div>
-                        <div class="sm:col-span-6">
-                            <label for="golongan_id" class="block text-sm font-medium text-gray-700"> Golongan </label>
-                            <div class="mt-1">
-                                <input type="text" id="golongan_id" name="golongan_id"
-                                    class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5 @error('name') border-red-400 @enderror" />
-                            </div>
-                            @error('golongan_id')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
                         </div>

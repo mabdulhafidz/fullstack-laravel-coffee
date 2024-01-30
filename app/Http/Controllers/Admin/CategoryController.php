@@ -111,7 +111,6 @@ class CategoryController extends Controller
     public function exportPdf() 
     {
         try {
-            dd('nigga');
             $data = [
                 'categories' => Category::all(),
             ];

@@ -32,7 +32,6 @@ class EmployeeStoreRequest extends FormRequest
             'agama' => 'required|string',
             'status_nikah' => 'required|in:belum nikah,nikah',
             'alamat' => 'required|string',
-            'golongan_id' => 'required|integer|exists:golongans,id',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ];
     }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ResersvationController;
@@ -58,6 +59,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/stocks/export', [StockController::class, 'export'])->name('stocks.export');
     Route::post('/stocks/import', [StockController::class, 'import'])->name('stocks.import');
     Route::post('/stocks/exportpdf', [StockController::class, 'exportPdf'])->name('stocks.exportpdf');
+    Route::resource('/customer', CustomerController::class);
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/export', [EmployeeController::class, 'export'])->name('employees.export');
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');

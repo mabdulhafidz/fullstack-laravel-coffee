@@ -78,6 +78,13 @@
                     {{ __('Stocks') }}
                     </div>
             </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.customer.index')"
+            :active="request()->routeIs('admin.customer.index')">
+            <div class="flex items-center "> 
+                <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11h6m-3 -3v6" /></svg>
+            {{ __('Customer') }}
+            </div>
+    </x-admin-nav-link>
                     <x-admin-nav-link :href="route('admin.employees.index')"
                     :active="request()->routeIs('admin.employees.index')">
                     <div class="flex items-center "> 

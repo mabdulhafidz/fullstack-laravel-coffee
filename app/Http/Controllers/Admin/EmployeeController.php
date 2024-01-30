@@ -41,7 +41,6 @@ class EmployeeController extends Controller
             'agama' => $request->agama,
             'status_nikah' => $request->status_nikah,
             'alamat' => $request->alamat,
-            'golongan_id' => $request->golongan_id,
             'image' => $image,
         ]);
 
@@ -68,7 +67,6 @@ class EmployeeController extends Controller
             'agama' => 'required',
             'status_nikah' => 'required',
             'alamat' => 'required',
-            'golongan_id' => 'required',
         ]);
 
         $image = $employee->image;
@@ -88,7 +86,6 @@ class EmployeeController extends Controller
             'agama' => $request->agama,
             'status_nikah' => $request->status_nikah,
             'alamat' => $request->alamat,
-            'golongan_id' => $request->golongan_id,
             'image' => $image,
         ]);
 
