@@ -17,4 +17,9 @@ class Customer extends Model
         'email',
         'no_telp'
     ];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

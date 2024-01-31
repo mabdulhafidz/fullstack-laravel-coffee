@@ -46,7 +46,7 @@ class ReservationController extends Controller
         return to_route('resersvation.step.two');
     }
 
-    public function stepTwo(Request $request    )
+    public function stepTwo(Request $request)
     {
         $resersvation = $request->session()->get('resersvation');
         $res_table_ids = Resersvation::orderBy('res_date')->get()->filter(function ($value) use ($resersvation) {
@@ -64,15 +64,20 @@ class ReservationController extends Controller
 
     public function storeStepTwo(Request $request)
     {
-        $validated = $request->validate([
-            'table_id' => ['required'],
-        ]);
+       if (!$request->has('table_id')) {
+
+       }
+
+       $validated = $request->validate([
+        'table_id' => ['required'],
+       ]);
+       
         $resersvation = $request->session()->get('resersvation');
         $resersvation->fill($validated);
         $resersvation->save();
         $request->session()->forget('resersvation');
 
         return to_route('thankyou');
-    }
+    }   
 }
 
