@@ -15,11 +15,22 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
-                    @if (Auth::user()->is_admin)
-                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
-                            {{ __('Admin') }}
-                        </x-nav-link>
-                    @endif
+                    @if (Auth::check() && Auth::user()->role == 1)
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        {{ __('Admin') }}
+                    </x-nav-link>
+                @endif                
+                </div>
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @if (Auth::check() && Auth::user()->role == 3)
+                    <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">
+                        {{ __('Menu') }}
+                    </x-nav-link>
+                    {{-- <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.index')">
+                        {{ __('Transaction') }}
+                    </x-nav-link> --}}
+                @endif                
                 </div>
             </div>
 

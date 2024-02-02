@@ -10,12 +10,12 @@ class Stock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'menu_id',
-        'jumlah'
+        'jumlah',
+        'menu_id'
     ];
 
     public function menu()
     {
-        return $this->belongsTo(Menu::class);
+        return $this->belongsTo(Menu::class, 'menu_id');
     }
 }

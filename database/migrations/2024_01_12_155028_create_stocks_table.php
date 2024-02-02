@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('menus');
+            $table->unsignedBigInteger('menu_id');
             $table->string('jumlah');
             $table->timestamps();
-            $table->foreignId('menu_id')->references('id')->on('menus')->onDelete('cascade');
+            $table->foreign('menu_id')->references('id')->on('menus')->onDelete('cascade');
         });
     }
 

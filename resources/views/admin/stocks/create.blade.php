@@ -28,22 +28,15 @@
                         <div class="sm:col-span-6">
                             <label for="menu_id" class="block text-sm font-medium text-gray-700"> Menu Id </label>
                             <div class="mt-1">
-                               <select name="menu_id" id="menu_id" class="form-multiselect block w-full mt-1"></select>
+                                <select name="menu_id" id="menu_id" class="form-multiselect block w-full mt-1">
+                                    @foreach ($menus as $menu)
+                                        <option value="{{ $menu->id }}">{{ $menu->name }}</option>
+                                    @endforeach
+                                </select>
                             @error('menu_id')
                                 <div class="text-sm text-red-400">{{ $message }}</div>
                             @enderror
                         </div>
-                        {{-- <div class="sm:col-span-6 pt-5">
-                            <label for="categories" class="block text-sm font-medium text-gray-700">Categories</label>
-                            <div class="mt-1">
-                                <select id="categories" name="categories[]" class="form-multiselect block w-full mt-1"
-                                    multiple>
-                                    @foreach ($categories as $category)
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div> --}}
                         <div class="mt-6 p-4">
                             <button type="submit"
                                 class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">Store</button>

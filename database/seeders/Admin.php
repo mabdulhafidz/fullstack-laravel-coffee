@@ -24,8 +24,7 @@ class Admin extends Seeder
             'email_verified_at' => now(),
             'password' => $this->getPassword(),
             'remember_token' => Str::random(10),
-            'is_admin' => 1,
-            'role' => 'admin'
+            'role' => 1
         ]);
 
     }

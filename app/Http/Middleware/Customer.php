@@ -16,9 +16,11 @@ class Customer
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::guard('customer')->check()) {
-            return redirect('/login');
+        if (auth()->check() && auth()->user()->role == 3) {
+            return $next($request);
         }
+
+        abort(403, 'Unauthorized.');
 
         return $next($request);
     }

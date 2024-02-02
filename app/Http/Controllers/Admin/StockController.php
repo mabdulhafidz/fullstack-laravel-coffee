@@ -6,6 +6,7 @@ use App\Exports\StockExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StockStoreRequest;
 use App\Imports\StockImport;
+use App\Models\Menu;
 use App\Models\Stock;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -26,7 +27,8 @@ class StockController extends Controller
      */
     public function create()
     {
-        return view('admin.stocks.create');
+        $menus = Menu::all();
+        return view('admin.menus.create', compact('menus'));
     }
 
     /**
@@ -34,10 +36,13 @@ class StockController extends Controller
      */
     public function store(StockStoreRequest $request)
     {
-        Stock::create(request([
-            'jumlah' => $request->jumlah,
-            'menu_id' => auth()->id(),
-        ]));
+       
+        $validatedData = $request->validate([
+            'jumlah' => 'required|integer',
+            'menu_id' => 'required|exists:menus,id',
+        ]);
+        
+        Stock::create($validatedData);
 
         return to_route('admin.stocks.index')->with('success', 'Stock created successfully.');
     }
