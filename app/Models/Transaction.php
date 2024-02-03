@@ -10,14 +10,31 @@ class Transaction extends Model
     use HasFactory;
 
     protected $fillable = [
-        'keterangan',
-        'total_harga',
-        'tanggal',
+        'employee_id',
+        'customer_id',
+        'description',
+        'total_amount',
+        'transaction_date'
     ];
 
     public function stock()
     {
         return $this->hasOne(Stock::class);
+    }
+
+    public function customer()
+    {
+        return $this->belongsTo(Customer::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function details()
+    {
+        return $this->hasMany(TransactioDetail::class);
     }
 
 

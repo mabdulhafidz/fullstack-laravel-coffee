@@ -13,7 +13,7 @@ use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StockController;
-use App\Http\Controllers\Admin\TransactionController;
+use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -69,7 +69,12 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
 
 Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/menus', [FrontendMenuController::class, 'index'])->name('menus.index');
-    Route::get('/transactions', [TransactionController::class, 'index'])->name('transcations.index');
+    Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
+    Route::get('/transactions/show/{id?}', [TransactionController::class, 'show'])->name('transactions.show');
+    Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+
+
+
 
 });
 

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('keterangan');
-            $table->integer('total_harga');
-            $table->date('tanggal');
+            $table->string('description')->nullable();
+            $table->decimal('total_amount', 10, 2)->default(0);
+            $table->date('transaction_date');
             $table->timestamps();
         });
     }
@@ -25,6 +25,11 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('transactions');
+        Schema::table('transactions', function (Blueprint $table) {
+            $table->dropColumn('description');
+            $table->dropColumn('total_amount');
+            $table->dropColumn('transaction_date');
+        });
+        
     }
 };
