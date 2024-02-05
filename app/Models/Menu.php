@@ -25,4 +25,9 @@ class Menu extends Model
     {
         return $this->hasMany(Stock::class);
     }
+
+    public function transactionDetails()
+    {
+        return $this->hasMany(TransactioDetail::class);
+    }
 }
