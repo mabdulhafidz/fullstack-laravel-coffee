@@ -1169,6 +1169,11 @@ select {
 .to-blue-500 {
   --tw-gradient-to: #3b82f6;
 }
+
+.bg-blue-500 {
+  --tw-gradient-to: #3b82f6;
+}
+
 .bg-cover {
   background-size: cover;
 }

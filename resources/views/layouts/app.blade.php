@@ -15,6 +15,7 @@
 
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="jquery-3.7.1.min.js"></script>
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -34,3 +35,4 @@
         </div>
     </body>
 </html>
+\
