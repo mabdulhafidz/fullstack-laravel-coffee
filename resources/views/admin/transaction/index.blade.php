@@ -6,14 +6,14 @@
     </x-slot>
 
     <!-- Menu Column -->
-    <div class="flex">
-<div class="w-1/2">
+    <div class="flex flex-col md:flex-row">
+<div class="w-full md:w-1/2 mr-2 p-4">
     <h2 class="text-2xl font-bold mb-4b">Menu</h2>
     <div class="grid grid-cols-2 gap-2 content-around">
         @foreach ($categories as $category)
             <div class="mb-4">
                 <h3 class="text-xl font-semibold mb-2">{{ $category->name }}</h3>
-                <div class="grid grid-cols-2 gap-2">
+                <div class="flex space-auto">
                     @foreach ($category->menus as $menu)
                         <div class="border p-4 rounded-md shadow-md hover:shadow-lg transition-transform transform hover:scale-105 w-40">
                             <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
@@ -33,7 +33,7 @@
     </div>
 </div>
  
-        <div class="w-1/2 p-4 bg-green-500">
+        <div class="w-full md:w-1/2 p-4 ml-4">
             <h2 class="text-2xl font-bold mb-4">Order</h2>
             <!-- Display order items in a table -->
             <table class="w-full table-fixed">
@@ -42,6 +42,7 @@
                         <th class="w-1/4">Name</th>
                         <th class="w-1/4">Price</th>
                         <th class="w-1/4">Quantity</th>
+                        <th class="w-1/4">Total Price</th>
                     </tr>
                 </thead>
                 <tbody class="ordered-items"> 
@@ -66,28 +67,57 @@ document.addEventListener('DOMContentLoaded', function() {
     Array.prototype.forEach.call(menuItems, function(menuItem) {
         menuItem.addEventListener('click', function() {
             var name = this.getAttribute('data-name');
-            var price = this.getAttribute('data-price');
+            var price = parseFloat(this.getAttribute('data-price'));
             
-            var row = document.createElement('tr');
-            
-            var nameCell = document.createElement('td');
-            nameCell.textContent = name;
-            row.appendChild(nameCell);
-            
-            var priceCell = document.createElement('td');
-            priceCell.textContent = '$' + price;
-            row.appendChild(priceCell);
-            
-            var quantityCell = document.createElement('td');
-            var quantityInput = document.createElement('input');
-            quantityInput.type = 'number';
-            quantityInput.value =  1;
-            quantityInput.min =  1;
-            quantityCell.appendChild(quantityInput);
-            row.appendChild(quantityCell);
-            
-            orderedItemsBody.appendChild(row);
+            var existingRow = orderedItemsBody.querySelector(`tr[data-name="${name}"]`);
+            if (existingRow) {
+                // If the item already exists in the order, increment the quantity
+                var quantityInput = existingRow.querySelector('input[type="number"]');
+                quantityInput.value = parseInt(quantityInput.value) +  1;
+                updateTotalPrice(existingRow, quantityInput.value, price);
+            } else {
+                // Otherwise, add a new row to the order
+                var row = document.createElement('tr');
+                row.dataset.name = name;
+                
+                var nameCell = document.createElement('td');
+                nameCell.textContent = name;
+                row.appendChild(nameCell);
+                
+                var priceCell = document.createElement('td');
+                priceCell.textContent = '$' + price.toFixed(2);
+                row.appendChild(priceCell);
+                
+                var quantityCell = document.createElement('td');
+                var quantityInput = document.createElement('input');
+                quantityInput.type = 'number';
+                quantityInput.value =  1;
+                quantityInput.min =  1;
+                quantityCell.appendChild(quantityInput);
+                row.appendChild(quantityCell);
+                
+                var totalCell = document.createElement('td');
+                totalCell.textContent = `${quantityInput.value}x $${price.toFixed(2)}`;
+                row.appendChild(totalCell);
+                
+                orderedItemsBody.appendChild(row);
+            }
         });
     });
+
+    orderedItemsBody.addEventListener('input', function(event) {
+        if (event.target.tagName === 'INPUT' && event.target.type === 'number') {
+            var quantityInput = event.target;
+            var row = quantityInput.closest('tr');
+            var name = row.dataset.name;
+            var price = parseFloat(row.cells[1].textContent.replace(/[^\d.]/g, ''));
+            updateTotalPrice(row, quantityInput.value, price);
+        }
+    }, true);
 });
+
+function updateTotalPrice(row, quantity, price) {
+    var totalCell = row.querySelector('td:last-child');
+    totalCell.textContent = `${quantity}x $${(price * quantity).toFixed(2)}`;
+}
 </script>
