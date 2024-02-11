@@ -62,11 +62,22 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StockStoreRequest $request, Stock $stock)
+    public function update(StockStoreRequest $request, Stock $menuId)
     {
-        $stock->update($request->validated());
+        try {
+            $stock = Stock::where('menu_id', $menuId)->firstOrFail();
 
-        return to_route('admin.stocks.index')->with('success', 'Stock updated successfully.');
+            if ($stock->jumlah >= $request->quantity) {
+                // Update stok
+                $stock->decrement('jumlah', $request->quantity);
+
+                return response()->json(['message' => 'Stok berhasil diperbarui']);
+            } else {
+                return response()->json(['error' => 'Stok tidak mencukupi'],   400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Terjadi kesalahan saat memperbarui stok'],   500);
+        }
     }
 
     /**
