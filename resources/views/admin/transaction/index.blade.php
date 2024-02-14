@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurant Menu</title>
+  <title>Transaction</title>
   <!-- Tailwind CSS -->
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <!-- jQuery -->
@@ -59,7 +59,8 @@
           <th class="py-2 px-4 border-b">Action</th>
         </tr>
       </thead>
-      <tbody class="ordered-items"> 
+      <tbody class="ordered-items">
+    
       </tbody>
       <tfoot>
         <tr>
@@ -80,7 +81,7 @@
   </main>
 
   @push('script') 
-  <script>
+  <script>          
     $(document).ready(function () {
       $('.category-menu').hide();
       $('.category-btn').on('click', function () {
