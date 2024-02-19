@@ -17,7 +17,7 @@ class Transaction extends Model
         'transaction_date'
     ];
 
-    public function stock()
+    public function stocks()
     {
         return $this->hasOne(Stock::class);
     }
@@ -32,7 +32,7 @@ class Transaction extends Model
         return $this->belongsTo(Employee::class);
     }
 
-    public function details()
+    public function transactionDetails()
     {
         return $this->hasMany(TransactioDetail::class);
     }

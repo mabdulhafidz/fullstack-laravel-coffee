@@ -7,6 +7,7 @@ use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Menu;
+use App\Models\Stock;
 use App\Models\TransactioDetail;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -17,28 +18,19 @@ class TransactionController extends Controller
 {
     public function index()
     {
-        $menus = Menu::all();
-        $categories = Category::all();
-        return view('admin.transaction.index', compact('menus', 'categories'));
+        return view('admin.transaction.index');
     }
 
-    public function show($id)
-    {
-        try {
-            $transaction = Transaction::findOrFail($id);
-            return view('transactions.show', compact('transaction'));
-        } catch (\Exception $e) {
-            abort(404, 'Transaksi tidak ditemukan');
-        }
-    }
+   
 
     public function create()
     {
         $customers = Customer::all();
         $employees = Employee::all();
         $menus = Menu::all();
+        $stocks = Stock::all();
 
-        return view('transactions.create', compact('customers', 'employees', 'menus'));
+        return view('transactions.create', compact('customers', 'employees', 'menus', 'stocks'));
     }
 
     public function store(Request $request)
@@ -69,7 +61,7 @@ class TransactionController extends Controller
 
             foreach ($request->input('items') as $item) {
                 $menu = Menu::find($item['menu_id']);
-
+            
                 $detail = TransactioDetail::create([
                     'transaction_id' => $transaction->id,
                     'menu_id' => $item['menu_id'],
@@ -77,7 +69,7 @@ class TransactionController extends Controller
                     'unit_price' => $menu->price,
                     'subtotal' => $item['quantity'] * $menu->price,
                 ]);
-
+            
                 $totalAmount += $detail->subtotal;
             }
 

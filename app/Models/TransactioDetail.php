@@ -26,4 +26,9 @@ class TransactioDetail extends Model
     {
     return $this->belongsTo(Transaction::class);
     }
+
+    public function stocks()
+    {
+    return $this->hasOne(Stock::class);
+    }
 }
