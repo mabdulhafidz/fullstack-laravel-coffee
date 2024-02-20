@@ -26,9 +26,11 @@ class Index extends Component
         $employees = Employee::all();
         $stocks = Stock::all();
         $categories = Category::all();
+
         $menus = Menu::when($this->selectedCategory, function ($query) {
             return $query->where('category_id', $this->selectedCategory);
         })->get();
+        
         return view('livewire.transaksi.index', compact('menus', 'categories', 'employees', 'stocks'));
     }
 
@@ -57,19 +59,14 @@ class Index extends Component
             $this->itemCount += $quantity;
     
         } else {
-            $this->emit('stockEmpty', $menuName);
+            $this->handleStockEmpty($menuName);
         }
     }
     
 
-    
-    
-
-    protected $listeners = ['stockEmpty' => 'handleStockEmpty'];
-
     public function handleStockEmpty($menuName)
     {
-        $this->addError('stockEmpty', "$menuName is out of stock.");
+        $this->addError('stockEmpty', "$menuName Sold Out.");
     }
 
 

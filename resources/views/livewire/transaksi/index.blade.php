@@ -1,6 +1,6 @@
 <div>
     <div class="flex h-screen bg-gray-100">
-        <div class="hidden md:flex flex-col items-center w-20 bg-cyan-500 p-4">
+        <div class="hidden md:flex flex-col items-center w-20 bg-gray-500 p-4">
 
             <a href="#" class="text-white mb-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -72,7 +72,7 @@
         </div>
 
         <div class="flex-grow flex flex-col">
-            <div class="relative px-4">
+            <div class="relative mt-3 ml-2">
                 <div class="absolute left-0 top-0 px-2 py-2 rounded-full bg-cyan-500 text-white">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor">
@@ -84,10 +84,9 @@
                     class="bg-white rounded-3xl shadow text-lg w-1/4 h-16 py-4 pl-16 transition-shadow focus:shadow-2xl focus:outline-none"
                     placeholder="Cari menu ..." x-model="keyword" />
             </div>
-            <div wire:poll.1s="">
                 <div class="flex">
                     <!-- Tampilan Menu Card -->
-                    <div class="relative px-4">
+                    <div class="relative mt-3 pl-2">
                         <select wire:model="selectedCategory"
                             class="rounded-full px-4 py-2 focus:outline-none focus:shadow-outline-blue">
                             <option value="">All Categories</option>
@@ -102,7 +101,6 @@
                             <div class="bg-white rounded-md p-4 flex flex-col items-center">
                                 <div class="text-center">
                                     <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
-                                    <p class="text-gray-500">{{ $menu->description }}</p>
                                     @if (isset($menu->stocks))
                                         <p class="text-g  ray-500">{{ $menu->stocks->jumlah }}</p>
                                     @else
@@ -114,9 +112,6 @@
                                     class="bg-blue-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
                                     Add to Order
                                 </button>
-                                    @if ($errors->has('stockEmpty'))
-                                        <p>{{ $errors->first('stockEmpty') }}</p>
-                                    @endif
                                 </div>
 
 
@@ -185,13 +180,15 @@
                             </div>
                         </div>
                         <div class="mt-auto">
+                            @if ($errors->has('stockEmpty'))
+                            <p>{{ $errors->first('stockEmpty') }}</p>
+                        @endif
                             <h1>Subtotal: ${{ $totalPrice }}</h1>
                             <h1>Items: {{ $itemCount }}</h1>
                         </div>
-                <button class="bg-gray-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-green-600 focus:outline-none focus:shadow-outline-blue">Submit</button>
+                <button class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md  focus:outline-none focus:shadow-outline-blue w-full">Submit</button>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
