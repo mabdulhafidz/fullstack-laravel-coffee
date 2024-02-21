@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Menu;
 use App\Models\Stock;
+use App\Models\Transaction;
 use Livewire\Component;
 
 class Index extends Component
@@ -16,6 +17,11 @@ class Index extends Component
     public $totalPrice =  0;
     public $itemCount =  0;
     public $selectedCategory;
+    public $totalAmount =  0;
+    public $transactionDate;
+    public $description;
+    public $updateStock;
+
 
 
     public function render()
@@ -116,4 +122,42 @@ class Index extends Component
             $this->itemCount += $item['qty'];
         }
     }
+
+    public function updateStock()
+    {
+        
+    }
+
+
+    public function submitOrder()
+{
+
+    $transaction = Transaction::create([
+        'total_amount' => $this->totalPrice, 
+        'description' =>  $this->description = $this->description ?? 'No description provided',
+        'transaction_date' => $this->transactionDate = now(),
+    ]);
+
+    foreach ($this->cart as $item) {
+        $this->updateStock($item['id'], $item['qty']);
+
+     $menus =  $transaction->menus()->attach($item['id'], [
+            'quantity' => $item['qty'],
+            'price' => $item['price'],
+            'name' => $item['name'],
+            'description' => $item['description'] ?? 'No description provided',
+            'image' => $item['image'] ?? 'No Image',
+        ]);
+    }
+
+    $this->cart = [];
+    $this->totalPrice =  0;
+    $this->itemCount =  0;
+
+    session()->flash('message', 'Order submitted successfully.');
+    return redirect()->route('admin.transaction.index');
+}
+
+    
+
 }

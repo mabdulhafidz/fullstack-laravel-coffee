@@ -103,7 +103,7 @@
                                     <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
                                     @if (isset($menu->stocks))
                                         <p class="text-g  ray-500">{{ $menu->stocks->jumlah }}</p>
-                                    @else
+                                     @else
                                         <p class="text-gray-500">Sold Out</p>
                                     @endif
                                 </div>
@@ -186,7 +186,8 @@
                             <h1>Subtotal: ${{ $totalPrice }}</h1>
                             <h1>Items: {{ $itemCount }}</h1>
                         </div>
-                <button class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md  focus:outline-none focus:shadow-outline-blue w-full">Submit</button>
+                        <button wire:click="submitOrder" class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue w-full"
+                        type="submit">Submit</button>
                     </div>
                 </div>
         </div>

@@ -37,5 +37,10 @@ class Transaction extends Model
         return $this->hasMany(TransactioDetail::class);
     }
 
+    public function menus()
+    {
+        return $this->belongsToMany(Menu::class);
+    }
+
 
 }
