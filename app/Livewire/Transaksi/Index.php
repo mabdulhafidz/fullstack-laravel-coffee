@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Menu;
 use App\Models\Stock;
 use App\Models\Transaction;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
 class Index extends Component
@@ -17,6 +18,7 @@ class Index extends Component
     public $totalPrice =  0;
     public $itemCount =  0;
     public $selectedCategory;
+    public $categories;
     public $totalAmount =  0;
     public $transactionDate;
     public $description;
@@ -33,10 +35,9 @@ class Index extends Component
         $stocks = Stock::all();
         $categories = Category::all();
 
-        $menus = Menu::when($this->selectedCategory, function ($query) {
-            return $query->where('category_id', $this->selectedCategory);
-        })->get();
-        
+        $menus = $this->selectedCategory
+        ? Menu::where('category_id', $this->selectedCategory)->get()
+        : Menu::all();
         return view('livewire.transaksi.index', compact('menus', 'categories', 'employees', 'stocks'));
     }
 
@@ -67,6 +68,12 @@ class Index extends Component
         } else {
             $this->handleStockEmpty($menuName);
         }
+    }
+
+    
+    public function selectCategory($categoryId)
+    {
+        $this->selectedCategory = $categoryId;
     }
     
 
@@ -129,35 +136,28 @@ class Index extends Component
     }
 
 
-    public function submitOrder()
-{
+    public function submit()
+    {
+        DB::beginTransaction();
 
-    $transaction = Transaction::create([
-        'total_amount' => $this->totalPrice, 
-        'description' =>  $this->description = $this->description ?? 'No description provided',
-        'transaction_date' => $this->transactionDate = now(),
-    ]);
-
-    foreach ($this->cart as $item) {
-        $this->updateStock($item['id'], $item['qty']);
-
-     $menus =  $transaction->menus()->attach($item['id'], [
-            'quantity' => $item['qty'],
-            'price' => $item['price'],
-            'name' => $item['name'],
-            'description' => $item['description'] ?? 'No description provided',
-            'image' => $item['image'] ?? 'No Image',
+        $transaction = Transaction::create([
+            'total_amount' => $this->totalPrice,   
+            'description' =>  $this->description = $this->description ?? 'No description provided',
+            'transaction_date' => $this->transactionDate = now(),
         ]);
+
+        $this->cart = [];
+        $this->totalPrice =   0;
+        $this->itemCount =   0;
+
+        DB::commit();
+    
+        session()->flash('message', 'Order submitted successfully.');
+        return redirect()->route('admin.transaction.index');
     }
-
-    $this->cart = [];
-    $this->totalPrice =  0;
-    $this->itemCount =  0;
-
-    session()->flash('message', 'Order submitted successfully.');
-    return redirect()->route('admin.transaction.index');
-}
-
+    
+    
+    
     
 
 }

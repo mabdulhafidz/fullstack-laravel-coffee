@@ -82,46 +82,49 @@
                 </div>
                 <input type="text"
                     class="bg-white rounded-3xl shadow text-lg w-1/4 h-16 py-4 pl-16 transition-shadow focus:shadow-2xl focus:outline-none"
-                    placeholder="Cari menu ..." x-model="keyword" />
+                    placeholder="Cari menu ..." />
             </div>
                 <div class="flex">
                     <!-- Tampilan Menu Card -->
                     <div class="relative mt-3 pl-2">
-                        <select wire:model="selectedCategory"
-                            class="rounded-full px-4 py-2 focus:outline-none focus:shadow-outline-blue">
-                            <option value="">All Categories</option>
-                            @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                        <div class="flex flex-col">
+                            @if ($categories)
+                                @foreach ($categories as $category)
+                                    <button
+                                        wire:click="selectCategory('{{ $category->id }}')"
+                                        class="bg-blue-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue {{ $selectedCategory == $category->id ? 'bg-blue-600' : '' }}"
+                                    >
+                                        {{ $category->name }}
+                                    </button>
+                                @endforeach
+                            @endif
+                        </div>
                     </div>
-
+                    
                     <div class="flex-grow bg-blue-gray-50 p-4 overflow-auto grid grid-cols-4 gap-4">
                         @foreach ($menus as $menu)
                             <div class="bg-white rounded-md p-4 flex flex-col items-center">
-                                <div class="text-center">
+                                <div class="text-center">   
                                     <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
                                     @if (isset($menu->stocks))
-                                        <p class="text-g  ray-500">{{ $menu->stocks->jumlah }}</p>
-                                     @else
+                                        <p class="text-gray-500">Stock: {{ $menu->stocks->jumlah }}</p>
+                                    @else
                                         <p class="text-gray-500">Sold Out</p>
                                     @endif
                                 </div>
                                 <div>
-                                  <button wire:click="addToCart('{{ $menu->id }}', '{{ $menu->name }}', {{ $menu->price }}, {{ isset($quantity) ? $quantity :  1 }})"
-                                    class="bg-blue-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
-                                    Add to Order
-                                </button>
+                                    <button wire:click="addToCart('{{ $menu->id }}', '{{ $menu->name }}', {{ $menu->price }}, {{ isset($quantity) ? $quantity :   1 }})"
+                                        class="bg-blue-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
+                                        Add to Order
+                                    </button>
                                 </div>
-
-
                             </div>
                         @endforeach
                     </div>
-                    <div class="w-5/12 bg-blue-gray-50 h-full bg-white pr-4 pl-2 py-4 overflow-auto">
+                    
 
-
-                        <div x-show="cartUpdated || orderedItems > 0" class="flex-1 w-full px-4 overflow-auto">
+                    <div class="w-5/12 bg-gray-200 h-full bg-white pr-4 pl-2 py-4 overflow-auto">
+                        <div class="flex-1 w-full px-4 overflow-auto">
                             <div class="select-none h-auto w-full text-center pt-3 pb-4 px-4">
                                 <div class="flex flex-col space-y-4 text-lg font-semibold text-blue-gray-700">
                                     @foreach ($cart as $item)
@@ -186,7 +189,8 @@
                             <h1>Subtotal: ${{ $totalPrice }}</h1>
                             <h1>Items: {{ $itemCount }}</h1>
                         </div>
-                        <button wire:click="submitOrder" class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue w-full"
+                        <textarea wire:model="description" name="description" id="" cols="30" rows="10" class="w-full">{{$description}}</textarea>
+                        <button wire:click="submit" class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue w-full"
                         type="submit">Submit</button>
                     </div>
                 </div>
