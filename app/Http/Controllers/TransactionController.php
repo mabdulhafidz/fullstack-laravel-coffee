@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Customer;
 use App\Models\Employee;
 use App\Models\Menu;
@@ -34,8 +35,9 @@ class TransactionController extends Controller
         $customers = Customer::all();
         $employees = Employee::all();
         $menus = Menu::all();
+        $categories = Category::all();
 
-        return view('transactions.create', compact('customers', 'employees', 'menus'));
+        return view('transactions.index', compact('customers', 'employees', 'menus', 'categories'));
     }
 
     public function store(Request $request)
@@ -67,7 +69,7 @@ class TransactionController extends Controller
             foreach ($request->input('items') as $item) {
                 $menu = Menu::find($item['menu_id']);
 
-                $detail = TransactioDetail::create([
+                $detail = TransactionDetail::create([
                     'transaction_id' => $transaction->id,
                     'menu_id' => $item['menu_id'],
                     'quantity' => $item['quantity'],

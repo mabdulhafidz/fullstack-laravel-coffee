@@ -62,7 +62,7 @@ class TransactionController extends Controller
             foreach ($request->input('items') as $item) {
                 $menu = Menu::find($item['menu_id']);
             
-                $detail = TransactioDetail::create([
+                $detail = TransactionDetail::create([
                     'transaction_id' => $transaction->id,
                     'menu_id' => $item['menu_id'],
                     'quantity' => $item['quantity'],

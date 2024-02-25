@@ -1,6 +1,6 @@
 <div>
     <div class="flex h-screen bg-gray-100">
-        <div class="hidden md:flex flex-col items-center w-20 bg-gray-500 p-4">
+        <div class="hidden md:flex flex-col items-center w-20 bg-gray-50 p-4">
 
             <a href="#" class="text-white mb-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -70,57 +70,56 @@
                 </li>
             </ul>
         </div>
-
         <div class="flex-grow flex flex-col">
             <div class="relative mt-3 ml-2">
                 <div class="absolute left-0 top-0 px-2 py-2 rounded-full bg-cyan-500 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0  0  24  24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21  21l-6-6m2-5a7  7  0  11-14  0  7  7  0  0114  0z" />
                     </svg>
                 </div>
-                <input type="text"
-                    class="bg-white rounded-3xl shadow text-lg w-1/4 h-16 py-4 pl-16 transition-shadow focus:shadow-2xl focus:outline-none"
-                    placeholder="Cari menu ..." />
             </div>
-                <div class="flex">
-                    <!-- Tampilan Menu Card -->
-                    <div class="relative mt-3 pl-2">
-                        <div class="flex flex-col">
-                            @if ($categories)
-                                @foreach ($categories as $category)
-                                    <button
-                                        wire:click="selectCategory('{{ $category->id }}')"
-                                        class="bg-blue-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue {{ $selectedCategory == $category->id ? 'bg-blue-600' : '' }}"
-                                    >
-                                        {{ $category->name }}
-                                    </button>
-                                @endforeach
+        </div>
+       
+
+        <div class="flex">
+            <div class="relative mt-3 pl-2">
+                <div class="flex flex-col">
+                    @if ($categories)
+                    @foreach ($categories as $category)
+                    <button
+                        wire:click="select('{{ $category->id }}')"
+                        class="bg-gray-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-blue {{ $Category == $category->id ? 'bg-blue-600' : '' }}"
+                    >
+                        {{ $category->name }}
+                    </button>
+                @endforeach
+                    @endif
+                </div>
+                {{-- <input type="text" wire:model="searchTerm" placeholder="Cari menu ..."> --}}
+                
+            </div>
+            <div class="flex-grow bg-blue-gray-50 p-4 overflow-auto grid grid-cols-4 gap-4">
+                @foreach ($menus as $menu)
+                    <div class="bg-white rounded-md p-4 flex flex-col items-center">
+                        <div class="text-center">   
+                            <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
+                            @if (isset($menu->stocks))
+                                <p class="text-gray-500">Stock: {{ $menu->stocks->jumlah }}</p>
+                            @else
+                                <p class="text-gray-500">Sold Out</p>
                             @endif
                         </div>
+                        <div>
+                            <button wire:click="addToCart('{{ $menu->id }}', '{{ $menu->name }}', {{ $menu->price }}, {{ isset($quantity) ? $quantity :   1 }})"
+                                class="bg-blue-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
+                                Add to Order
+                            </button>
+                        </div>
                     </div>
-                    
-                    <div class="flex-grow bg-blue-gray-50 p-4 overflow-auto grid grid-cols-4 gap-4">
-                        @foreach ($menus as $menu)
-                            <div class="bg-white rounded-md p-4 flex flex-col items-center">
-                                <div class="text-center">   
-                                    <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
-                                    @if (isset($menu->stocks))
-                                        <p class="text-gray-500">Stock: {{ $menu->stocks->jumlah }}</p>
-                                    @else
-                                        <p class="text-gray-500">Sold Out</p>
-                                    @endif
-                                </div>
-                                <div>
-                                    <button wire:click="addToCart('{{ $menu->id }}', '{{ $menu->name }}', {{ $menu->price }}, {{ isset($quantity) ? $quantity :   1 }})"
-                                        class="bg-blue-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
-                                        Add to Order
-                                    </button>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
+                @endforeach
+            </div>
+        </div>
+        
                     
 
                     <div class="w-5/12 bg-gray-200 h-full bg-white pr-4 pl-2 py-4 overflow-auto">
@@ -186,8 +185,8 @@
                             @if ($errors->has('stockEmpty'))
                             <p>{{ $errors->first('stockEmpty') }}</p>
                         @endif
-                            <h1>Subtotal: ${{ $totalPrice }}</h1>
-                            <h1>Items: {{ $itemCount }}</h1>
+                            <h1>Subtotal: ${{ $subtotal }}</h1>
+                            <h1>Items: {{ $unitPrice }}</h1>
                         </div>
                         <textarea wire:model="description" name="description" id="" cols="30" rows="10" class="w-full">{{$description}}</textarea>
                         <button wire:click="submit" class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue w-full"

@@ -14,6 +14,7 @@ use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
+use App\Http\Controllers\Admin\TransactionDetailController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -67,6 +68,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
     Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');
     Route::resource('/transaction', AdminTransactionController::class);
+    Route::resource('/transactiondetail', TransactionDetailController::class);
 
 });
 

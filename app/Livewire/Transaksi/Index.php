@@ -15,29 +15,39 @@ class Index extends Component
 {
 
     public $cart = [];
-    public $totalPrice =  0;
-    public $itemCount =  0;
-    public $selectedCategory;
-    public $categories;
+    public $subtotal =  0;
+    public $unitPrice =  0;
+    public $Category;
     public $totalAmount =  0;
     public $transactionDate;
     public $description;
     public $updateStock;
+    public $query;
+    public $searchTerm;
+    public $select;
 
-
+    public function select($categoryId)
+    {
+        $this->select = $categoryId;
+    }
 
     public function render()
     {
-        $menus = Menu::all();
+        $menus = Menu::all(); 
         $categories = Category::all();
+        $menus = $this->Category
+    ? Menu::find($this->Category)
+    : Menu::all();
+
+
+        // dd($categories, $menus);
+    
         $customers = Customer::all();
         $employees = Employee::all();
         $stocks = Stock::all();
         $categories = Category::all();
+        
 
-        $menus = $this->selectedCategory
-        ? Menu::where('category_id', $this->selectedCategory)->get()
-        : Menu::all();
         return view('livewire.transaksi.index', compact('menus', 'categories', 'employees', 'stocks'));
     }
 
@@ -62,8 +72,8 @@ class Index extends Component
                 ];
             }
     
-            $this->totalPrice += $price * $quantity;
-            $this->itemCount += $quantity;
+            $this->subtotal += $price * $quantity;
+            $this->unitPrice += $quantity;
     
         } else {
             $this->handleStockEmpty($menuName);
@@ -73,7 +83,7 @@ class Index extends Component
     
     public function selectCategory($categoryId)
     {
-        $this->selectedCategory = $categoryId;
+        $this->Category = $categoryId;
     }
     
 
@@ -92,8 +102,8 @@ class Index extends Component
         $qty = $this->cart[$menuId]['qty'];
         unset($this->cart[$menuId]);
 
-        $this->totalPrice -= $price * $qty;
-        $this->itemCount -= $qty;
+        $this->subtotal -= $price * $qty;
+        $this->unitPrice -= $qty;
 
         $this->restoreStock($menuId, $qty);
     }
@@ -115,24 +125,19 @@ class Index extends Component
         $oldQty = $this->cart[$menuId]['qty'];
         $this->cart[$menuId]['qty'] = $qty;
 
-        $this->totalPrice = $this->totalPrice - $price * $oldQty + $price * $qty;
-        $this->itemCount += $qty - $oldQty;
+        $this->subtotal = $this->subtotal - $price * $oldQty + $price * $qty;
+        $this->unitPrice += $qty - $oldQty;
     }
 }
 
     public function calculateCart()
     {
-        $this->totalPrice =  0;
-        $this->itemCount =  0;
+        $this->subtotal =  0;
+        $this->unitPrice =  0;
         foreach ($this->cart as $item) {
-            $this->totalPrice += $item['price'] * $item['qty'];
-            $this->itemCount += $item['qty'];
+            $this->subtotal += $item['price'] * $item['qty'];
+            $this->unitPrice += $item['qty'];
         }
-    }
-
-    public function updateStock()
-    {
-        
     }
 
 
@@ -141,14 +146,14 @@ class Index extends Component
         DB::beginTransaction();
 
         $transaction = Transaction::create([
-            'total_amount' => $this->totalPrice,   
+            'total_amount' => $this->subtotal,   
             'description' =>  $this->description = $this->description ?? 'No description provided',
             'transaction_date' => $this->transactionDate = now(),
         ]);
 
         $this->cart = [];
-        $this->totalPrice =   0;
-        $this->itemCount =   0;
+        $this->subtotal =   0;
+        $this->unitPrice =   0;
 
         DB::commit();
     
