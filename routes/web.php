@@ -44,7 +44,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::get('/', [AdminController::class, 'index'])->name('index');
     Route::resource('/categories', CategoryController::class);
     Route::post('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
-    Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import');
+    Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import')->middleware('web');
     Route::post('/categories/exportpdf', [CategoryController::class, 'exportPdf'])->name('categories.exportpdf');
     Route::resource('/menus', MenuController::class);
     Route::post('/menus/export', [MenuController::class, 'export'])->name('menus.export');

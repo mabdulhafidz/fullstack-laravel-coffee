@@ -123,9 +123,13 @@ class CategoryController extends Controller
 
     public function import()
     {
-        Excel::import(new CategoryImport(), request()->file('file'));
-    
-        return redirect()->back()->with('success', 'Categories imported successfully.');
+        try {
+            Excel::import(new CategoryImport, 'categories.xlsx');
+            return redirect()->back()->with('success', 'Categories imported successfully.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Failed to import categories.');
+            dd($e->getMessage());
+        }
     }
     
 }

@@ -1,4 +1,4 @@
-<div>
+<div wire:ignore.self>
     <div class="flex h-screen bg-gray-100">
         <div class="hidden md:flex flex-col items-center w-20 bg-gray-50 p-4">
 
@@ -73,35 +73,33 @@
         <div class="flex-grow flex flex-col">
             <div class="relative mt-3 ml-2">
                 <div class="absolute left-0 top-0 px-2 py-2 rounded-full bg-cyan-500 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0  0  24  24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21  21l-6-6m2-5a7  7  0  11-14  0  7  7  0  0114  0z" />
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0  0  24  24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21  21l-6-6m2-5a7  7  0  11-14  0  7  7  0  0114  0z" />
                     </svg>
                 </div>
             </div>
         </div>
-       
+
 
         <div class="flex">
             <div class="relative mt-3 pl-2">
                 <div class="flex flex-col">
                     @if ($categories)
-                    @foreach ($categories as $category)
-                    <button
-                        wire:click="select('{{ $category->id }}')"
-                        class="bg-gray-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-blue {{ $Category == $category->id ? 'bg-blue-600' : '' }}"
-                    >
-                        {{ $category->name }}
-                    </button>
-                @endforeach
+                        @foreach ($categories as $category)
+                            <button wire:click="select('{{ $category->id }}')"
+                                class="bg-gray-500 text-white px-4 py-2 mb-2 rounded-md hover:bg-gray-600 focus:outline-none focus:shadow-outline-blue {{ $Category == $category->id ? 'bg-blue-600' : '' }}">
+                                {{ $category->name }}
+                            </button>
+                        @endforeach
                     @endif
                 </div>
-                {{-- <input type="text" wire:model="searchTerm" placeholder="Cari menu ..."> --}}
-                
             </div>
             <div class="flex-grow bg-blue-gray-50 p-4 overflow-auto grid grid-cols-4 gap-4">
                 @foreach ($menus as $menu)
                     <div class="bg-white rounded-md p-4 flex flex-col items-center">
-                        <div class="text-center">   
+                        <div class="text-center">
                             <h3 class="text-lg font-semibold">{{ $menu->name }}</h3>
                             @if (isset($menu->stocks))
                                 <p class="text-gray-500">Stock: {{ $menu->stocks->jumlah }}</p>
@@ -110,7 +108,8 @@
                             @endif
                         </div>
                         <div>
-                            <button wire:click="addToCart('{{ $menu->id }}', '{{ $menu->name }}', {{ $menu->price }}, {{ isset($quantity) ? $quantity :   1 }})"
+                            <button
+                                wire:click="addToCart('{{ $menu->id }}', '{{ $menu->name }}', {{ $menu->price }}, {{ isset($quantity) ? $quantity : 1 }})"
                                 class="bg-blue-500 text-white menu-item mt-4 px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue">
                                 Add to Order
                             </button>
@@ -119,80 +118,70 @@
                 @endforeach
             </div>
         </div>
-        
-                    
 
-                    <div class="w-5/12 bg-gray-200 h-full bg-white pr-4 pl-2 py-4 overflow-auto">
-                        <div class="flex-1 w-full px-4 overflow-auto">
-                            <div class="select-none h-auto w-full text-center pt-3 pb-4 px-4">
-                                <div class="flex flex-col space-y-4 text-lg font-semibold text-blue-gray-700">
-                                    @foreach ($cart as $item)
-                                        <div class="flex items-center justify-between">
-                                            <p>Name: {{ $item['name'] }}</p>
-                                            <p>Price: ${{ $item['price'] * $item['qty'] }}</p>
-                                            <div class="flex items-center space-x-2">
-                                                <button
-                                                    wire:click="updateCart('{{ $item['id'] }}', {{ $item['qty'] + 1 }})"
-                                                    class="p-2 rounded-full text-white">
-                                                    <svg class="h-8 w-8 text-blue-500" width="24" height="24"
-                                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                                        fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                                        <circle cx="12" cy="12" r="9" />
-                                                        <line x1="9" y1="12" x2="15"
-                                                            y2="12" />
-                                                        <line x1="12" y1="9" x2="12"
-                                                            y2="15" />
-                                                    </svg>
-                                                </button>
-                                                {{ $item['qty'] }}
-                                                <button
-                                                    wire:click="updateCart('{{ $item['id'] }}', {{ $item['qty'] - 1 }})"
-                                                    class="p-2 rounded-full text-white">
-                                                    <svg class="h-8 w-8 text-red-500" fill="none"
-                                                        viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                                    </svg>
 
-                                                </button>
-                                                <button wire:click="removeFromCart('{{ $item['id'] }}')"
-                                                    class="p-2 rounded-full text-white hover:bg-red-600">
-                                                    <svg class="h-8 w-8 text-red-500" width="24" height="24"
-                                                        viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
-                                                        fill="none" stroke-linecap="round"
-                                                        stroke-linejoin="round">
-                                                        <path stroke="none" d="M0 0h24v24H0z" />
-                                                        <line x1="4" y1="7" x2="20"
-                                                            y2="7" />
-                                                        <line x1="10" y1="11" x2="10"
-                                                            y2="17" />
-                                                        <line x1="14" y1="11" x2="14"
-                                                            y2="17" />
-                                                        <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
-                                                        <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
-                                                    </svg>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    @endforeach
+
+        <div class="w-5/12 bg-gray-200 h-full bg-white pr-4 pl-2 py-4 overflow-auto">
+            <div class="flex-1 w-full px-4 overflow-auto">
+                <div class="select-none h-auto w-full text-center pt-3 pb-4 px-4">
+                    <div class="flex flex-col space-y-4 text-lg font-semibold text-blue-gray-700">
+                        @foreach ($cart as $item)
+                            <div class="flex items-center justify-between">
+                                <p>Name: {{ $item['name'] }}</p>
+                                <p>Price: ${{ $item['price'] * $item['qty'] }}</p>
+                                <div class="flex items-center space-x-2">
+                                    <button wire:click="updateCart('{{ $item['id'] }}', {{ $item['qty'] + 1 }})"
+                                        class="p-2 rounded-full text-white">
+                                        <svg class="h-8 w-8 text-blue-500" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" />
+                                            <circle cx="12" cy="12" r="9" />
+                                            <line x1="9" y1="12" x2="15" y2="12" />
+                                            <line x1="12" y1="9" x2="12" y2="15" />
+                                        </svg>
+                                    </button>
+                                    {{ $item['qty'] }}
+                                    <button wire:click="updateCart('{{ $item['id'] }}', {{ $item['qty'] - 1 }})"
+                                        class="p-2 rounded-full text-white">
+                                        <svg class="h-8 w-8 text-red-500" fill="none" viewBox="0 0 24 24"
+                                            stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M15 12H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+
+                                    </button>
+                                    <button wire:click="removeFromCart('{{ $item['id'] }}')"
+                                        class="p-2 rounded-full text-white hover:bg-red-600">
+                                        <svg class="h-8 w-8 text-red-500" width="24" height="24"
+                                            viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
+                                            fill="none" stroke-linecap="round" stroke-linejoin="round">
+                                            <path stroke="none" d="M0 0h24v24H0z" />
+                                            <line x1="4" y1="7" x2="20" y2="7" />
+                                            <line x1="10" y1="11" x2="10" y2="17" />
+                                            <line x1="14" y1="11" x2="14" y2="17" />
+                                            <path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" />
+                                            <path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" />
+                                        </svg>
+                                    </button>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-auto">
-                            @if ($errors->has('stockEmpty'))
-                            <p>{{ $errors->first('stockEmpty') }}</p>
-                        @endif
-                            <h1>Subtotal: ${{ $subtotal }}</h1>
-                            <h1>Items: {{ $unitPrice }}</h1>
-                        </div>
-                        <textarea wire:model="description" name="description" id="" cols="30" rows="10" class="w-full">{{$description}}</textarea>
-                        <button wire:click="submit" class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue w-full"
-                        type="submit">Submit</button>
+                        @endforeach
                     </div>
                 </div>
+            </div>
+            <div class="mt-auto">
+                @if ($errors->has('stockEmpty'))
+                    <p>{{ $errors->first('stockEmpty') }}</p>
+                @endif
+                <h1>Subtotal: ${{ $subtotal }}</h1>
+                <h1>Items: {{ $unitPrice }}</h1>
+            </div>
+            <textarea wire:model="description" name="description" id="" cols="30" rows="10" class="w-full">{{ $description }}</textarea>
+            <button wire:click="submit" class="bg-green-600 text-white menu-item mt-4 px-4 py-2 rounded-md focus:outline-none focus:shadow-outline-blue w-full" type="button">Submit</button>
         </div>
     </div>
+</div>
+</div>
+
 </div>

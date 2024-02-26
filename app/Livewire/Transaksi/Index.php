@@ -9,12 +9,14 @@ use App\Models\Menu;
 use App\Models\Stock;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
 class Index extends Component
 {
 
     public $cart = [];
+    public $alerts = [];
     public $subtotal =  0;
     public $unitPrice =  0;
     public $Category;
@@ -25,6 +27,8 @@ class Index extends Component
     public $query;
     public $searchTerm;
     public $select;
+    public $alert;
+    use LivewireAlert;
 
     public function select($categoryId)
     {
@@ -139,30 +143,37 @@ class Index extends Component
             $this->unitPrice += $item['qty'];
         }
     }
-
-
+    
     public function submit()
     {
         DB::beginTransaction();
-
+    
         $transaction = Transaction::create([
             'total_amount' => $this->subtotal,   
-            'description' =>  $this->description = $this->description ?? 'No description provided',
-            'transaction_date' => $this->transactionDate = now(),
+            'description' => $this->description ?? 'No description provided',
+            'transaction_date' => now(),
         ]);
-
+    
         $this->cart = [];
-        $this->subtotal =   0;
-        $this->unitPrice =   0;
-
+        $this->subtotal = 0;
+        $this->unitPrice = 0;
+    
         DB::commit();
     
-        session()->flash('message', 'Order submitted successfully.');
+        $this->alert('success', 'Print Nota', [
+            'position' => 'center',
+            'toast' => true,
+            'width' => '',
+            'showConfirmButton' => true,
+            'onConfirmed' => '',
+            'showCancelButton' => true,
+            'onDismissed' => '',
+            'cancelButtonText' => 'Cancel',
+            'confirmButtonText' => 'Confirm',
+        ]);
+    
         return redirect()->route('admin.transaction.index');
     }
     
     
-    
-    
-
 }
