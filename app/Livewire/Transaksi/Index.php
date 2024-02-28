@@ -155,25 +155,34 @@ class Index extends Component
         ]);
     
         $this->cart = [];
-        $this->subtotal = 0;
-        $this->unitPrice = 0;
+        $this->subtotal =   0;
+        $this->unitPrice =   0;
     
         DB::commit();
     
-        $this->alert('success', 'Print Nota', [
+        $this->confirm('Print Nota', [
             'position' => 'center',
             'toast' => true,
+            'timer' => null,
             'width' => '',
             'showConfirmButton' => true,
-            'onConfirmed' => '',
+            'onConfirmed' => 'confirmed',
             'showCancelButton' => true,
-            'onDismissed' => '',
             'cancelButtonText' => 'Cancel',
             'confirmButtonText' => 'Confirm',
         ]);
+    }
     
+    public function confirmed()
+    {
         return redirect()->route('admin.transaction.index');
     }
+
+    public function Toinvoice()
+    {
+        
+    }
+    
     
     
 }

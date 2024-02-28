@@ -28,7 +28,7 @@ class StockController extends Controller
     public function create()
     {
         $menus = Menu::all();
-        return view('admin.menus.create', compact('menus'));
+        return view('admin.stocks.create', compact('menus'));
     }
 
     /**

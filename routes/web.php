@@ -68,8 +68,8 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
     Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');
     Route::resource('/transaction', AdminTransactionController::class);
+    Route::get('/invoice', [AdminTransactionController::class, 'invoice']);
     Route::resource('/transactiondetail', TransactionDetailController::class);
-
 });
 
 Route::middleware(['auth', 'customer'])->group(function () {

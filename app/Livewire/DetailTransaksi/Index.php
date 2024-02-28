@@ -17,4 +17,10 @@ class Index extends Component
 
         return view('livewire.detail-transaksi.index', compact('menus', 'transaction', 'Transactiondetail'));
     }
+
+    public function invoice($noinvoive)
+    {
+      $data =  Transaction::where('id', $noinvoive)->with('transactionDetail')->first();
+      dd($data);
+    }
 }

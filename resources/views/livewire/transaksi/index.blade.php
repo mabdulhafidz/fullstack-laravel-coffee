@@ -170,7 +170,7 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-auto">
+            <div class="mt-auto wire:poll">
                 @if ($errors->has('stockEmpty'))
                     <p>{{ $errors->first('stockEmpty') }}</p>
                 @endif
