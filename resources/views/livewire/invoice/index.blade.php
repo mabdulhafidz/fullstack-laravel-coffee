@@ -25,7 +25,7 @@
                <p>CA 1234</p>
               </div>
               <div class="text-sm font-light text-slate-500">
-               <p class="text-sm font-normal text-slate-700">Billed To</p>
+               <p clafeatss="text-sm font-normal text-slate-700">Billed To</p>
                <p>The Boring Company</p>
                <p>Tesla Street 007</p>
                <p>Frisco</p>
