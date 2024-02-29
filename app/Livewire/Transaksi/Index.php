@@ -10,6 +10,7 @@ use App\Models\Stock;
 use App\Models\Transaction;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
@@ -28,6 +29,8 @@ class Index extends Component
     public $searchTerm;
     public $select;
     public $alert;
+    public $transaction_id;
+
     use LivewireAlert;
 
     public function select($categoryId)
@@ -153,6 +156,8 @@ class Index extends Component
             'description' => $this->description ?? 'No description provided',
             'transaction_date' => now(),
         ]);
+
+        $this->transaction_id = $transaction->id;
     
         $this->cart = [];
         $this->subtotal =   0;
@@ -160,29 +165,27 @@ class Index extends Component
     
         DB::commit();
     
-        $this->confirm('Print Nota', [
+        $this->confirm('Transaction Successfully!', [
             'position' => 'center',
             'toast' => true,
             'timer' => null,
             'width' => '',
             'showConfirmButton' => true,
-            'onConfirmed' => 'confirmed',
+            'onConfirmed' => 'Invoiceshow',
             'showCancelButton' => true,
             'cancelButtonText' => 'Cancel',
             'confirmButtonText' => 'Confirm',
         ]);
-    }
-    
-    public function confirmed()
-    {
-        return redirect()->route('admin.transaction.index');
-    }
+    }   
 
-    public function Toinvoice()
-    {
-        
-    }
-    
-    
-    
+    // public function showInvoice()
+    // {
+    //     $this->dispatch('invoiceConfirmed', id: $this->transaction->id);
+    // }
+
+    // #[On('showInvoice')]
+    // public function InputInvoice($id)
+    // {
+  
+    // }
 }

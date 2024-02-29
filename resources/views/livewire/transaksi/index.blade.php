@@ -183,5 +183,14 @@
     </div>
 </div>
 </div>
-
 </div>
+
+@script
+<script>
+    $wire.on('Invoiceshow', () => {
+        let transaction_id = $wire.transaction_id
+        window.open("transaction/invoice/" + transaction_id, "_blank");
+        location.reload();
+    })
+</script>
+@endscript

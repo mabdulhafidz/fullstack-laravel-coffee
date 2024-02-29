@@ -66,9 +66,9 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/export', [EmployeeController::class, 'export'])->name('employees.export');
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
-    Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');
+    Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');         
     Route::resource('/transaction', AdminTransactionController::class);
-    Route::get('/invoice', [AdminTransactionController::class, 'invoice']);
+    Route::get('/transaction/invoice/{id}', [AdminTransactionController::class, 'invoice']);
     Route::resource('/transactiondetail', TransactionDetailController::class);
 });
 
