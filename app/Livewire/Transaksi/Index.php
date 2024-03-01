@@ -8,6 +8,7 @@ use App\Models\Employee;
 use App\Models\Menu;
 use App\Models\Stock;
 use App\Models\Transaction;
+use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Attributes\On;
@@ -40,22 +41,23 @@ class Index extends Component
 
     public function render()
     {
-        $menus = Menu::all(); 
+        $menus = Menu::all();
         $categories = Category::all();
         $menus = $this->Category
-    ? Menu::find($this->Category)
-    : Menu::all();
+            ? Menu::find($this->Category)
+            : Menu::all();
 
-
-        // dd($categories, $menus);
-    
         $customers = Customer::all();
         $employees = Employee::all();
         $stocks = Stock::all();
         $categories = Category::all();
-        
 
-        return view('livewire.transaksi.index', compact('menus', 'categories', 'employees', 'stocks'));
+        // Menampilkan detail transaksi jika $transaction_id sudah di-set
+        $transactionDetail = $this->transaction_id
+            ? Transaction::findOrFail($this->transaction_id)->transactionDetail
+            : collect();
+
+        return view('livewire.transaksi.index', compact('menus', 'categories', 'employees', 'stocks', 'transactionDetail'));
     }
 
     public function addToCart($menuId, $menuName, $price, $quantity =  1)
@@ -150,7 +152,7 @@ class Index extends Component
     public function submit()
     {
         DB::beginTransaction();
-    
+
         $transaction = Transaction::create([
             'total_amount' => $this->subtotal,   
             'description' => $this->description ?? 'No description provided',
@@ -158,13 +160,23 @@ class Index extends Component
         ]);
 
         $this->transaction_id = $transaction->id;
-    
+
+        foreach ($this->cart as $item) {
+            TransactionDetail::create([
+                'transaction_id' => $transaction->id,
+                'menu_id' => $item['id'],
+                'quantity' => $item['qty'],
+                'unit_price' => $item['price'],
+                'subtotal' => $item['price'] * $item['qty'],
+            ]);
+        }
+
         $this->cart = [];
-        $this->subtotal =   0;
-        $this->unitPrice =   0;
-    
+        $this->subtotal = 0;
+        $this->unitPrice = 0;
+
         DB::commit();
-    
+
         $this->confirm('Transaction Successfully!', [
             'position' => 'center',
             'toast' => true,
@@ -177,15 +189,4 @@ class Index extends Component
             'confirmButtonText' => 'Confirm',
         ]);
     }   
-
-    // public function showInvoice()
-    // {
-    //     $this->dispatch('invoiceConfirmed', id: $this->transaction->id);
-    // }
-
-    // #[On('showInvoice')]
-    // public function InputInvoice($id)
-    // {
-  
-    // }
 }
