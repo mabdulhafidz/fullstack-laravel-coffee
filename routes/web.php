@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmployeeController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ResersvationController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TableController;
 use App\Http\Controllers\Frontend\CategoryController as FrontendCategoryController;
 use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
@@ -45,7 +46,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/categories', CategoryController::class);
     Route::post('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
     Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import')->middleware('web');
-    Route::post('/categories/exportpdf', [CategoryController::class, 'exportPdf'])->name('categories.exportpdf');
+    Route::get('/categories/exportpdf', [CategoryController::class, 'exportPdf'])->name('categories.exportpdf');
     Route::resource('/menus', MenuController::class);
     Route::post('/menus/export', [MenuController::class, 'export'])->name('menus.export');
     Route::post('/menus/exportpdf', [MenuController::class, 'exportPdf'])->name('menus.exportpdf');
@@ -70,6 +71,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/transaction', AdminTransactionController::class);
     Route::get('/transaction/invoice/{id}', [AdminTransactionController::class, 'invoice']);
     Route::resource('/transactiondetail', TransactionDetailController::class);
+    Route::resource('/roles', RoleController::class);
 });
 
 Route::middleware(['auth', 'customer'])->group(function () {

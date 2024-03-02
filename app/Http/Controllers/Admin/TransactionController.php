@@ -15,18 +15,16 @@ class TransactionController extends Controller
     }
 
 
-  // Contoh di dalam controller
-public function invoice($id)
-{
-    try {
-        $transaction = Transaction::findOrFail($id);
-    } catch (ModelNotFoundException $e) {
-       return('error');
-       dd($transaction);
+    // Contoh di dalam controller
+    public function invoice($id)
+    {
+        try {
+            $transaction = Transaction::with('transactionDetails')->findOrFail($id);
+            // dd($transaction->transactionDetails);
+        } catch (ModelNotFoundException $e) {
+            return ('error');
+        }
+
+        return view('admin.invoice.index', compact('transaction'));
     }
-
-    return view('admin.invoice.index', compact('transaction'));
-}
-
-    
 }

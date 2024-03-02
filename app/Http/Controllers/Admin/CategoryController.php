@@ -108,18 +108,13 @@ class CategoryController extends Controller
         }
     }
 
-    public function exportPdf() 
-    {
-        try {
-            $data = [
-                'categories' => Category::all(),
-            ];
-    
-            $pdf = FacadePdf::loadView('categories.pdf', $data);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
+
+    public function exportPdf() {
+        $data = Category::all();
+        $pdf = FacadePdf::loadView('admin.categories.index', compact('data'));
+        return $pdf->download('categories_'.now().'.pdf');
     }
+    
 
     public function import()
     {
