@@ -34,36 +34,32 @@
                     <p>San Javier</p>
                     <p>CA 1234</p>
                   </div>
-
+            
                   <!-- Billed To -->
+                  {{-- customer --}}
                   <div class="text-sm font-light text-slate-500">
                     <p class="text-sm font-normal text-slate-700">Billed To</p>
                     <p>The Boring Company</p>
                     <p>Tesla Street 007</p>
                     <p>Frisco</p>
                     <p>CA 0000</p>
-                  </div>      
-
-                  <!-- Invoice Number and Date of Issue -->
-                  <div class="text-sm font-light text-slate-500">
-                    <p class="text-sm font-normal text-slate-700">Invoice Number</p>
-                    <p>000000</p>
-                    <p class="mt-2 text-sm font-normal text-slate-700">Date of Issue</p>
-                    <p>00.00.00</p>
                   </div>
-
-                  <!-- Terms and Due Date -->
-                  <div class="text-sm font-light text-slate-500">
-                    <p class="text-sm font-normal text-slate-700">Terms</p>
-                    <p>0 Days</p>
-                    <p class="mt-2 text-sm font-normal text-slate-700">Due</p>
-                    <p>00.00.00</p>
-                  </div>
+            
+                  @if ($transaction)
+                    <div class="text-sm font-light text-slate-500 ml-auto"> 
+                      <p class="text-sm font-normal text-slate-700">Invoice Number</p>
+                      <p>{{ $transaction->id }}</p>
+            
+                      <p class="mt-2 text-sm font-normal text-slate-700">Date of Issue</p>
+                      <p>{{ $transaction->transaction_date }}</p>
+                    </div>
+                  @else
+                    <p class="text-sm font-light text-slate-500 ml-auto">No transactions found.</p>
+                  @endif
                 </div>
               </div>
             </div>
-
-            <!-- Transaction Details -->
+            
             <div class="p-9">
               @if ($transaction)
               @if ($transaction->transactionDetails && count($transaction->transactionDetails) > 0)
@@ -95,8 +91,6 @@
             @endif
             </div>
             
-
-            <!-- Total Amount -->
             @php
             $totalAmount = $transaction->transactionDetails->sum('subtotal');
             $item = $transaction->transactionDetails->count('unit_price');

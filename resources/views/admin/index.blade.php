@@ -11,6 +11,13 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     {{ __("You're logged in!") }}
                 </div>
+                <a 
+                href="admin/transaction"
+                class="flex"
+                ><svg class="h-6 w-6 text-red-500 mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                  </svg>
+                  GO TO TRANSACTION</a>
             </div>
         </div>
     </div>

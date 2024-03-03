@@ -1,6 +1,10 @@
 <div wire:ignore.self>
     <div class="flex h-screen bg-gray-100">
         <div class="hidden md:flex flex-col items-center w-20 bg-gray-50 p-4">
+            <a href="/admin"><svg class="h-6 w-6 text-gray-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+              </svg>
+              </a>
 
             <a href="#" class="text-white mb-8">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -9,7 +13,7 @@
                 </svg>
             </a>
 
-
+          
             <ul class="flex flex-col space-y-4">
                 <li>
                     <a href="#" class="text-white">
