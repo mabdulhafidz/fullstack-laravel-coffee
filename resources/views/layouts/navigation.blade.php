@@ -25,6 +25,12 @@
                 @endif                
                 </div>
 
+                {{-- @if (Auth::check() && Auth::user()->role == 2)
+                <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.index')">
+                    {{ __('Transaction') }}
+                </x-nav-link>
+            @endif                 --}}
+
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if (Auth::check() && Auth::user()->role == 3)
                     <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">

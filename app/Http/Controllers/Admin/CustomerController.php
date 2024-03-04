@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CustomerExport;
+use App\Imports\CustomerImport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerStoreRequest;
 use App\Models\Customer;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -82,31 +83,31 @@ class CustomerController extends Controller
         return to_route('admin.customer.index')->with('danger', 'customer is deleted.');
     }
 
-    // public function export() 
-    // {
-    //     try {
-    //         return Excel::download(new customerExport, 'categories.xlsx');
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage());
-    //     }
-    // }
+    public function export() 
+    {
+        try {
+            return Excel::download(new CustomerExport, 'categories.xlsx');
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 
-    // public function exportPdf() 
-    // {
-    //     try {
-    //         $data = [
-    //             'categories' => customer::all(),
-    //         ];
+    public function exportPdf() 
+    {
+        try {
+            $data = [
+                'customers' => Customer::all(),
+            ];
     
-    //         $pdf = FacadePdf::loadView('categories.pdf', $data);
-    //     } catch (\Exception $e) {
-    //         dd($e->getMessage());
-    //     }
-    // }
+            $pdf = FacadePdf::loadView('customers.pdf', $data);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 
     // public function import()
     // {
-    //     Excel::import(new customerImport(), request()->file('file'));
+    //     Excel::download(new CustomerImport(), request()->file('file'));
     
     //     return redirect()->back()->with('success', 'Categories imported successfully.');
     // }

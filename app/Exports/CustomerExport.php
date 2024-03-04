@@ -2,21 +2,20 @@
 
 namespace App\Exports;
 
-use App\Models\Menu;
-use App\Models\Table;
+use App\Models\Customer;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class TableExport implements FromCollection, WithHeadings, WithStyles
+class CustomerExport implements FromCollection, WithHeadings, WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
     */
     public function collection()
     {
-        return Table::all();
+        return Customer::all();
     }
 
     /**
@@ -26,10 +25,10 @@ class TableExport implements FromCollection, WithHeadings, WithStyles
     {
         return [
             'Id',
-            'Name',
-            'Guest Number',
-            'Status',
-            'Location',
+            'Nama',
+            'Alamat',
+            'Email',
+            'No Telp',
             'Created_at',
             'Updated_at'
         ];

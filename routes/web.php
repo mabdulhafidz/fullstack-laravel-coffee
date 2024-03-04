@@ -16,6 +16,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StockController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Admin\TransactionDetailController;
+use App\Http\Controllers\Admin\TransactionListController;
+use App\Http\Controllers\Cashier\TransactionController as CashierTransactionController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
 
@@ -69,6 +71,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
     Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');         
     Route::resource('/transaction', AdminTransactionController::class);
+    Route::resource('/transactionlist', TransactionListController::class);
     Route::get('/transaction/invoice/{id}', [AdminTransactionController::class, 'invoice']);
     Route::resource('/transactiondetail', TransactionDetailController::class);
     Route::resource('/roles', RoleController::class);
@@ -79,9 +82,10 @@ Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::get('/transactions/show/{id?}', [TransactionController::class, 'show'])->name('transactions.show');
     Route::get('/transactions/create', [TransactionController::class, 'create'])->name('transactions.create');
+});
 
-
-
+Route::middleware(['auth', 'cashier'])->group(function () {
+    Route::resource('/transaction', CashierTransactionController::class);
 
 });
 

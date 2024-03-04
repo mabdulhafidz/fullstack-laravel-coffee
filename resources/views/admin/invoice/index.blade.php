@@ -66,7 +66,7 @@
               <div class="flex flex-col mx-0 mt-8">
                 <table class="min-w-full divide-y divide-slate-500">
                     <thead>
-                        <tr class="mr-4">
+                        <tr>
                             <th>Menu Name</th>
                             <th>Quantity</th>
                             <th>Total Amount</th>
@@ -99,15 +99,11 @@
             <p class="text-xl font-bold mt-4">Total Item: {{ $item }}</p>
           </div>
           <div class="mt-4 p-4 flex justify-center">
-            <button class="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded">
-                Print
-            </button>
         </div>
         </article>
       </div>
     </section>
   </div>
-  
 </body>
 
 </html>

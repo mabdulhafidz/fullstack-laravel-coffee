@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryStoreRequest;
 use App\Imports\CategoryImport;
 use App\Models\Category;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\PDF;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -21,6 +21,7 @@ class CategoryController extends Controller
     {
         $categories = Category::all();
         return view('admin.categories.index', compact('categories'));
+        
     }
 
     /**
@@ -108,14 +109,16 @@ class CategoryController extends Controller
         }
     }
 
-
     public function exportPdf() {
         $data = Category::all();
-        $pdf = FacadePdf::loadView('admin.categories.index', compact('data'));
+    
+        if ($data->isEmpty()) {
+            return redirect()->route('categories.index')->with('warning', 'No data available for PDF export.');
+        }
+        $pdf = PDF::loadView('admin.categories.index', compact('data'));
         return $pdf->download('categories_'.now().'.pdf');
     }
     
-
     public function import()
     {
         try {

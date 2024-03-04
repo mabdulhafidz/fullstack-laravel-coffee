@@ -52,7 +52,6 @@ class Index extends Component
         $stocks = Stock::all();
         $categories = Category::all();
 
-        // Menampilkan detail transaksi jika $transaction_id sudah di-set
         $transactionDetail = $this->transaction_id
             ? Transaction::findOrFail($this->transaction_id)->transactionDetail
             : collect();
@@ -189,4 +188,9 @@ class Index extends Component
             'confirmButtonText' => 'Confirm',
         ]);
     }   
+
+    public function print()
+    {
+        
+    }
 }

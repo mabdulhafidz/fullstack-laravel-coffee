@@ -124,7 +124,6 @@
         </div>
 
 
-
         <div class="w-5/12 bg-gray-200 h-full bg-white pr-4 pl-2 py-4 overflow-auto">
             <div class="flex-1 w-full px-4 overflow-auto">
                 <div class="select-none h-auto w-full text-center pt-3 pb-4 px-4">
