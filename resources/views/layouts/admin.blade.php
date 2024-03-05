@@ -10,6 +10,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
+    {{-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> --}}
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -84,7 +85,7 @@
                 <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="9" cy="7" r="4" />  <path d="M3 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />  <path d="M16 11h6m-3 -3v6" /></svg>
             {{ __('Customer') }}
             </div>
-    </x-admin-nav-link>
+            </x-admin-nav-link>
                     <x-admin-nav-link :href="route('admin.employees.index')"
                     :active="request()->routeIs('admin.employees.index')">
                     <div class="flex items-center "> 
@@ -101,21 +102,45 @@
                 <svg class="h-4 w-4 text-red-500 mr-2" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M15 21h-9a3 3 0 0 1 -3 -3v-1h10v2a2 2 0 0 0 4 0v-14a2 2 0 1 1 2 2h-2m2 -4h-11a3 3 0 0 0 -3 3v11" />  <line x1="9" y1="7" x2="13" y2="7" />  <line x1="9" y1="11" x2="13" y2="11" /></svg>
             {{ __('TransactionDetail') }}
             </div>
-    </x-admin-nav-link>
-    <x-admin-nav-link :href="route('admin.transactionlist.index')"
-    :active="request()->routeIs('admin.transaction.index')">
-    <div class="flex items-center "> 
-        <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" />  <line x1="13" y1="8" x2="15" y2="8" />  <line x1="13" y1="12" x2="15" y2="12" /></svg>
-    {{ __('Transaction List') }}
-    </div>
-</x-admin-nav-link>
-    <h1 class="ml-4 m-2">Roles</h1>
-    <x-admin-nav-link :href="route('admin.roles.index')"
-    :active="request()->routeIs('admin.roles.index')">
-    <div class="flex items-center "> 
-        <svg class="h-4 w-4 text-red-500 mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-          </svg>
+                </x-admin-nav-link>
+                <x-admin-nav-link :href="route('admin.transactionlist.index')"
+                :active="request()->routeIs('admin.transaction.index')">
+                <div class="flex items-center "> 
+                    <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" />  <line x1="13" y1="8" x2="15" y2="8" />  <line x1="13" y1="12" x2="15" y2="12" /></svg>
+                {{ __('Transaction List') }}
+                </div>
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.produktitipan.index')"
+            :active="request()->routeIs('admin.produktitipan.index')">
+            <div class="flex items-center "> 
+                <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M6 4h11a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-11a1 1 0 0 1 -1 -1v-14a1 1 0 0 1 1 -1m3 0v18" />  <line x1="13" y1="8" x2="15" y2="8" />  <line x1="13" y1="12" x2="15" y2="12" /></svg>
+            {{ __('Produk Titipan') }}
+            </div>
+            </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.categories.index')"
+            :active="request()->routeIs('admin.categories.index')">
+            <div class="flex items-center "> 
+                <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  
+                    <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" />  <line x1="8" y1="8" x2="12" y2="8" />  <line x1="8" y1="12" x2="12" y2="12" />  
+                    <line x1="8" y1="16" x2="12" y2="16" /></svg>      
+            {{ __('Data Produk') }}
+            </div>
+            </x-admin-nav-link>
+            <h1 class="ml-4 m-2">About</h1>
+            <x-admin-nav-link :href="route('admin.tentang.index')"
+            :active="request()->routeIs('admin.tentang.index')">
+            <div class="flex items-center "> 
+                <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />  <circle cx="12" cy="12" r="3" /></svg>
+            {{ __('Tentang Aplikasi') }}
+            </div>
+            </x-admin-nav-link>
+                <h1 class="ml-4 m-2">Roles</h1>
+                <x-admin-nav-link :href="route('admin.roles.index')"
+                :active="request()->routeIs('admin.roles.index')">
+                <div class="flex items-center "> 
+                    <svg class="h-4 w-4 text-red-500 mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>    
           
     {{ __('Roles') }}
     </div>

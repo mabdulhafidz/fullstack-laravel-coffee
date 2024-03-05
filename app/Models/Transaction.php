@@ -42,5 +42,10 @@ class Transaction extends Model
         return $this->belongsToMany(Menu::class);
     }
 
+    public function produktitipan()
+    {
+        return $this->belongsToMany(ProdukTitipan::class);
+    }
+
 
 }

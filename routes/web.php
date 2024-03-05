@@ -4,7 +4,9 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ProdukTitipanController;
 use App\Http\Controllers\Admin\ResersvationController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\TableController;
@@ -14,6 +16,7 @@ use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\TentangController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Admin\TransactionDetailController;
 use App\Http\Controllers\Admin\TransactionListController;
@@ -75,7 +78,12 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::get('/transaction/invoice/{id}', [AdminTransactionController::class, 'invoice']);
     Route::resource('/transactiondetail', TransactionDetailController::class);
     Route::resource('/roles', RoleController::class);
-});
+    Route::resource('/produktitipan', ProdukTitipanController::class);
+    Route::post('/produktitipan/export', [ProdukTitipanController::class, 'export'])->name('produktitipan.export');
+    Route::post('/produktitipan/pdf', [ProdukTitipanController::class, 'pdf'])->name('produktitipan.pdf');
+    Route::post('/produktitipan/import', [ProdukTitipanController::class, 'import'])->name('produktitipan.import');
+    Route::resource('/tentang', TentangController::class);
+}); 
 
 Route::middleware(['auth', 'customer'])->group(function () {
     Route::get('/menus', [FrontendMenuController::class, 'index'])->name('menus.index');

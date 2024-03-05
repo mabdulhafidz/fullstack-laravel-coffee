@@ -161,14 +161,32 @@ class Index extends Component
         $this->transaction_id = $transaction->id;
 
         foreach ($this->cart as $item) {
-            TransactionDetail::create([
-                'transaction_id' => $transaction->id,
-                'menu_id' => $item['id'],
-                'quantity' => $item['qty'],
-                'unit_price' => $item['price'],
-                'subtotal' => $item['price'] * $item['qty'],
-            ]);
+            // Check if the 'tipped' key exists in the $item array
+            $isTipped = isset($item['tipped']) && $item['tipped'];
+        
+            // Use if-else statements to handle the logic based on whether the item is tipped
+            if ($isTipped) {
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'menu_id' => null, // Set menu_id to null if the item is tipped
+                    'produktitipan_id' => $item['id'], // Set produktitipan_id to the item's id
+                    'quantity' => $item['qty'],
+                    'unit_price' => $item['price'],
+                    'subtotal' => $item['price'] * $item['qty'],
+                ]);
+            } else {
+                TransactionDetail::create([
+                    'transaction_id' => $transaction->id,
+                    'menu_id' => $item['id'], // Set menu_id to the item's id if the item is not tipped
+                    'produktitipan_id' => null, // Set produktitipan_id to null if the item is not tipped
+                    'quantity' => $item['qty'],
+                    'unit_price' => $item['price'],
+                    'subtotal' => $item['price'] * $item['qty'],
+                ]);
+            }
         }
+        
+        
 
         $this->cart = [];
         $this->subtotal = 0;
@@ -189,8 +207,4 @@ class Index extends Component
         ]);
     }   
 
-    public function print()
-    {
-        
-    }
 }

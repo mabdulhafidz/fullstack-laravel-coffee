@@ -31,4 +31,9 @@ class TransactionDetail extends Model
     {
     return $this->hasOne(Stock::class);
     }
+
+    public function produktitipan()
+    {
+        return $this->belongsTo(ProdukTitipan::class, 'produktitipan_id');
+    }
 }
