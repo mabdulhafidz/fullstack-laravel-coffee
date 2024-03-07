@@ -10,7 +10,7 @@
 
     <!-- Fonts -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
-    {{-- <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet"> --}}
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -117,7 +117,7 @@
             {{ __('Produk Titipan') }}
             </div>
             </x-admin-nav-link>
-            <x-admin-nav-link :href="route('admin.categories.index')"
+            {{-- <x-admin-nav-link :href="route('admin.categories.index')"
             :active="request()->routeIs('admin.categories.index')">
             <div class="flex items-center "> 
                 <svg class="h-4 w-4 text-red-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  
@@ -125,7 +125,7 @@
                     <line x1="8" y1="16" x2="12" y2="16" /></svg>      
             {{ __('Data Produk') }}
             </div>
-            </x-admin-nav-link>
+            </x-admin-nav-link> --}}
             <h1 class="ml-4 m-2">About</h1>
             <x-admin-nav-link :href="route('admin.tentang.index')"
             :active="request()->routeIs('admin.tentang.index')">

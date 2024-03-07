@@ -19,6 +19,7 @@ class StockController extends Controller
     public function index()
     {
         $stocks = Stock::all();
+        $stocks = Stock::paginate(5);
         return view('admin.stocks.index', compact('stocks'));
     }
 
@@ -99,10 +100,9 @@ class StockController extends Controller
         return Excel::download(new StockExport, 'stocks.xlsx');
     }
 
-    public function import()
+    public function import(Request $request)
     {
-    Excel::import(new StockImport(), request()->file('file'));
-
-    return redirect()->back()->with('success', 'Stocks imported successfully.');
+        Excel::import(new StockImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Menu imported successfully.');
     }
 }

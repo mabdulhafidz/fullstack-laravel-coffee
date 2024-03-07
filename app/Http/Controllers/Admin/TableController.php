@@ -18,6 +18,7 @@ class TableController extends Controller
     public function index()
     {
         $tables = Table::all();
+        $tables = Table::paginate(5);
         return view('admin.tables.index', compact('tables'));
     }
 
@@ -86,10 +87,9 @@ class TableController extends Controller
         return Excel::download(new TableExport, 'tables.xlsx');
     }
  
-    public function import()
-{
-    Excel::import(new TableImport(), request()->file('file'));
-
-    return redirect()->back()->with('success', 'Tables imported successfully.');
-}
+    public function import(Request $request)
+    {
+        Excel::import(new TableImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Table imported successfully.');
+    }
 }

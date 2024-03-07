@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Enums\TableStatus;
 use App\Http\Controllers\Controller;
+use App\Imports\ResersvationImport;
 use App\Models\Resersvation;
 use App\Models\Table;
 use App\Rules\DateBetween;
@@ -11,6 +12,7 @@ use App\Rules\TimeBetween;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReservationController extends Controller
 {
@@ -79,5 +81,10 @@ class ReservationController extends Controller
 
         return to_route('thankyou');
     }   
+    public function import(Request $request)
+    {
+        Excel::import(new ResersvationImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Reservation imported successfully.');
+    }
 }
 

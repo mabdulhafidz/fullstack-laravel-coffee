@@ -18,13 +18,31 @@ class Admin extends Seeder
      */
     public function run(): void
     {
+        // User::create([
+        //     'name' => 'Admin',
+        //     'email' => 'admin@gmail.com',
+        //     'email_verified_at' => now(),
+        //     'password' => $this->getPassword(),
+        //     'remember_token' => Str::random(10),
+        //     'role' => 1
+        // ]);
+
         User::create([
-            'name' => 'Admin',
-            'email' => 'admin@gmail.com',
+            'name' => 'Cashier',
+            'email' => 'cashier@gmail.com',
             'email_verified_at' => now(),
             'password' => $this->getPassword(),
             'remember_token' => Str::random(10),
-            'role' => 1
+            'role' => 2
+        ]);
+
+        User::create([
+            'name' => 'Customer',
+            'email' => 'customer@gmail.com',
+            'email_verified_at' => now(),
+            'password' => $this->getPassword(),
+            'remember_token' => Str::random(10),
+            'role' => 3
         ]);
 
     }

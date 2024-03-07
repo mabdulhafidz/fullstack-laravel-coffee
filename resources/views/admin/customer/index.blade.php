@@ -8,22 +8,22 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="flex space-x-4 m-2 p-2">
-                <a href="{{ route('admin.categories.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
+                <a href="{{ route('admin.customer.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
                     Export Excel
                 </a>
-                <form id="export-form" action="{{ route('admin.categories.export') }}" method="POST" style="display: none;">
+                <form id="export-form" action="{{ route('admin.customer.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.categories.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
+                {{-- <a href="{{ route('admin.customer.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                     Export Pdf
                 </a>
-                <form id="export-form" action="{{ route('admin.categories.exportpdf') }}" method="POST" style="display: none;">
+                <form id="export-form" action="{{ route('admin.customer.exportpdf') }}" method="POST" style="display: none;">
                     @csrf
-                </form>
-                <a href="{{route('admin.categories.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                </form> --}}
+                <a href="{{route('admin.customer.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                     Import
                 </a>
-                <form id="import-form" action="{{ route('admin.categories.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
+                <form id="import-form" action="{{ route('admin.customer.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
                     @csrf
                     <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
                 </form>
@@ -97,6 +97,40 @@
                     </div>
                 </div>
             </div>
+        </div>
+          <!-- Pagination Section -->
+          <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
+            @if ($customer->total() > 0)
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <!-- Tombol-tombol navigasi pagination untuk tampilan layar kecil -->
+                    {{ $customer->links('pagination::tailwind') }}
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <!-- Informasi halaman saat ini dan navigasi pagination -->
+                    <div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-5">
+                            Showing
+                            <span class="font-medium">{{ $customer->firstItem() }}</span>
+                            to
+                            <span class="font-medium">{{ $customer->lastItem() }}</span>
+                            of
+                            <span class="font-medium">{{ $customer->total() }}</span>
+                            results
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Tampilkan nomor halaman secara eksplisit -->
+                        @foreach ($customer as $c)
+                            <a href="{{ $c->url }}"
+                                class="px-3 py-1 mx-1 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white">{{ $c->page }}</a>
+                        @endforeach
+                    </div>
+                    <div>
+                        <!-- Tombol navigasi pagination untuk tampilan besar -->
+                        {{ $customer->links('pagination::tailwind') }}
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </x-admin-layout>

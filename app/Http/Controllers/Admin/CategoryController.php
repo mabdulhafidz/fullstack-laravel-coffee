@@ -107,28 +107,23 @@ class CategoryController extends Controller
         try {
             return Excel::download(new CategoryExport, 'categories.xlsx');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
         }
     }
 
     public function exportPdf()
     {
         $data = Category::all();
-        $pdf = Pdf::loadView('pdf.categories', ['data' => $data]);
-        return $pdf->download('categories.pdf');
+        $pdf = Pdf::loadView('admin.categories.pdf', ['data' => $data]);
+        return $pdf->stream('');
     }
     
-    
-    public function import()
+    public function import(Request $request)
     {
-        try {
-            Excel::import(new CategoryImport, 'categories.xlsx');
-            return redirect()->back()->with('success', 'Categories imported successfully.');
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Failed to import categories.');
-            dd($e->getMessage());
-        }
+        Excel::import(new CategoryImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Categories imported successfully.');
     }
+
     
 }
 

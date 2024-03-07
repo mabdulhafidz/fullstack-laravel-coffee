@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Exports\CustomerExport;
-use App\Imports\CustomerImport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CustomerStoreRequest;
+use App\Imports\CustomerImport;
 use App\Models\Customer;
-use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
@@ -19,6 +19,7 @@ class CustomerController extends Controller
     public function index()
     {
         $customer = Customer::all();
+        $customer = Customer::paginate(5);
         return view('admin.customer.index', compact('customer'));
     }
 
@@ -86,31 +87,24 @@ class CustomerController extends Controller
     public function export() 
     {
         try {
-            return Excel::download(new CustomerExport, 'categories.xlsx');
+            return Excel::download(new CustomerExport, 'customer.xlsx');
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
         }
     }
 
-    public function exportPdf() 
-    {
-        try {
-            $data = [
-                'customers' => Customer::all(),
-            ];
-    
-            $pdf = FacadePdf::loadView('customers.pdf', $data);
-        } catch (\Exception $e) {
-            dd($e->getMessage());
-        }
-    }
-
-    // public function import()
+    // public function exportPdf()
     // {
-    //     Excel::download(new CustomerImport(), request()->file('file'));
-    
-    //     return redirect()->back()->with('success', 'Categories imported successfully.');
+    //     $data = Customer::all();
+    //     $pdf = Pdf::loadView('admin.customer.index', ['data' => $data]);
+    //     return $pdf->stream('');
     // }
+    
+    public function import(Request $request)
+    {
+        Excel::import(new CustomerImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Customer imported successfully.');
+    }
     
 }
 

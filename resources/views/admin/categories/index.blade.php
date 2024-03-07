@@ -24,19 +24,16 @@
             <form id="export-form" action="{{ route('admin.categories.export') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            <a href="{{ route('admin.categories.exportpdf') }}"
+            <a href="{{ route('admin.categories.pdf') }}"
                 class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                 Export Pdf
             </a>
-            <form action="{{ route('admin.categories.exportpdf') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
             <a href="{{ route('admin.categories.import') }}"
                 onclick="event.preventDefault(); document.getElementById('file-input').click();"
                 class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                 Import
             </a>
-            <form id="import-form" action="{{ route('admin.categories.import') }}" method="post"
+            <form id="import-form" action="{{ route('admin.categories.import') }}" method="POST"
                 enctype="multipart/form-data" style="display: none;">
                 @csrf
                 <input type="file" name="file" id="file-input"

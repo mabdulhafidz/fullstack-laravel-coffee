@@ -11,7 +11,6 @@ use App\Models\Transaction;
 use App\Models\TransactionDetail;
 use Illuminate\Support\Facades\DB;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Index extends Component
@@ -65,7 +64,7 @@ class Index extends Component
     
        
         if ($stock && $stock->jumlah >= $quantity) {
-            $stock->decrement('jumlah', $quantity);
+            $stock->decrement('jumlah', $quantity); 
     
             if (array_key_exists($menuId, $this->cart)) {
               
@@ -160,16 +159,14 @@ class Index extends Component
 
         $this->transaction_id = $transaction->id;
 
-        foreach ($this->cart as $item) {
-            // Check if the 'tipped' key exists in the $item array
+        foreach ($this->cart as $item) {    
             $isTipped = isset($item['tipped']) && $item['tipped'];
         
-            // Use if-else statements to handle the logic based on whether the item is tipped
             if ($isTipped) {
                 TransactionDetail::create([
                     'transaction_id' => $transaction->id,
-                    'menu_id' => null, // Set menu_id to null if the item is tipped
-                    'produktitipan_id' => $item['id'], // Set produktitipan_id to the item's id
+                    'menu_id' => null,
+                    'produktitipan_id' => $item['id'],
                     'quantity' => $item['qty'],
                     'unit_price' => $item['price'],
                     'subtotal' => $item['price'] * $item['qty'],
@@ -177,15 +174,14 @@ class Index extends Component
             } else {
                 TransactionDetail::create([
                     'transaction_id' => $transaction->id,
-                    'menu_id' => $item['id'], // Set menu_id to the item's id if the item is not tipped
-                    'produktitipan_id' => null, // Set produktitipan_id to null if the item is not tipped
+                    'menu_id' => $item['id'], 
+                    'produktitipan_id' => null,
                     'quantity' => $item['qty'],
                     'unit_price' => $item['price'],
                     'subtotal' => $item['price'] * $item['qty'],
                 ]);
             }
         }
-        
         
 
         $this->cart = [];

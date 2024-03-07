@@ -19,15 +19,18 @@
                 </a>
                 <form id="export-form" action="{{ route('admin.produktitipan.pdf') }}" method="POST" style="display: none;">
                     @csrf
-                </form>
-                      
-                <a href="{{route('admin.produktitipan.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
-                    Import
-                </a>
-                <form id="import-form" action="{{ route('admin.produktitipan.import') }}" method="POST" enctype="multipart/form-data" style="display: none;">
-                    @csrf
-                    <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
-                </form>
+                </form>  
+                <a href="{{ route('admin.produktitipan.import') }}"
+                onclick="event.preventDefault(); document.getElementById('file-input').click();"
+                class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                Import
+            </a>
+            <form id="import-form" action="{{ route('admin.produktitipan.import') }}" method="POST"
+                enctype="multipart/form-data" style="display: none;">
+                @csrf
+                <input type="file" name="file" id="file-input"
+                    onchange="document.getElementById('import-form').submit();">
+            </form>
             </div>
             <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.produktitipan.create') }}"
@@ -122,6 +125,40 @@
                     </div>
                 </div>
             </div>
+        </div>
+          <!-- Pagination Section -->
+          <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
+            @if ($produktitipan->total() > 0)
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <!-- Tombol-tombol navigasi pagination untuk tampilan layar kecil -->
+                    {{ $produktitipan->links('pagination::tailwind') }}
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <!-- Informasi halaman saat ini dan navigasi pagination -->
+                    <div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-5">
+                            Showing
+                            <span class="font-medium">{{ $produktitipan->firstItem() }}</span>
+                            to
+                            <span class="font-medium">{{ $produktitipan->lastItem() }}</span>
+                            of
+                            <span class="font-medium">{{ $produktitipan->total() }}</span>
+                            results
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Tampilkan nomor halaman secara eksplisit -->
+                        @foreach ($produktitipan as $p)
+                            <a href="{{ $p->url }}"
+                                class="px-3 py-1 mx-1 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white">{{ $p->page }}</a>
+                        @endforeach
+                    </div>
+                    <div>
+                        <!-- Tombol navigasi pagination untuk tampilan besar -->
+                        {{ $produktitipan->links('pagination::tailwind') }}
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 </x-admin-layout>

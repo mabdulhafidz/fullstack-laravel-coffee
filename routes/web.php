@@ -51,11 +51,11 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/categories', CategoryController::class);
     Route::post('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
     Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import')->middleware('web');
-    Route::get('/categories/exportpdf', [CategoryController::class, 'exportPdf'])->name('categories.exportpdf');
+    Route::get('/categories/exportpdf', [CategoryController::class, 'exportPdf'])->name('categories.pdf');
     Route::resource('/menus', MenuController::class);
     Route::post('/menus/export', [MenuController::class, 'export'])->name('menus.export');
     Route::post('/menus/exportpdf', [MenuController::class, 'exportPdf'])->name('menus.exportpdf');
-    Route::post('/menus/import', [MenuController::class, 'import'])->name('menus.import');
+    Route::post('/menus/import', [MenuController::class, 'import'])->name('menus.import')->middleware('web');
     Route::resource('/tables', TableController::class);
     Route::post('/tables/export', [TableController::class, 'export'])->name('tables.export');
     Route::post('/tables/import', [TableController::class, 'import'])->name('tables.import');
@@ -69,6 +69,8 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/stocks/import', [StockController::class, 'import'])->name('stocks.import');
     Route::post('/stocks/exportpdf', [StockController::class, 'exportPdf'])->name('stocks.exportpdf');
     Route::resource('/customer', CustomerController::class);
+    Route::post('/customer/export', [CustomerController::class, 'export'])->name('customer.export');
+    Route::post('/customer/import', [CustomerController::class, 'import'])->name('customer.import');
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/export', [EmployeeController::class, 'export'])->name('employees.export');
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');

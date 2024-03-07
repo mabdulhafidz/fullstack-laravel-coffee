@@ -4,8 +4,9 @@ namespace App\Imports;
 
 use App\Models\Stock;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class StockImport implements ToModel
+class StockImport implements ToModel, WithHeadingRow
 {
     /**
     * @param array $row

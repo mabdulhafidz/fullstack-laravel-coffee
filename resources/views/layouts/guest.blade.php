@@ -47,7 +47,7 @@
             </div>
             <nav :class="{'flex': isOpen, 'hidden': !isOpen}" class="flex-col flex-grow pb-4 md:pb-0 hidden md:flex md:justify-end md:flex-row">
                 <a class="px-4 py-2 mt-2 text-sm font-semibold text-gray-900 bg-gray-200 rounded-lg hover:text-gray-900 focus:text-gray-900 focus:outline-none focus:shadow-outline" href="/">Home</a>
-                <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 focus:outline-none focus:shadow-outline" href="{{ route('categories.index') }}">Categories</a>
+                {{-- <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 focus:outline-none focus:shadow-outline" href="{{ route('categories.index') }}">Categories</a> --}}
                 <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 focus:outline-none focus:shadow-outline" href="{{ route('menus.index') }}">Our Menu</a>
                 <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 focus:outline-none focus:shadow-outline" href="{{ route('resersvation.step.one') }}">Make Reservation</a>
                 <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-lg hover:text-gray-900 focus:text-gray-900 focus:outline-none focus:shadow-outline" href="{{route('login')}}">Login</a>

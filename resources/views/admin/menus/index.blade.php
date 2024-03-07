@@ -20,13 +20,17 @@
                 <form id="export-form" action="{{ route('admin.menus.exportpdf') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{route('admin.menus.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
-                    Import
-                </a>
-                <form id="import-form" action="{{ route('admin.menus.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
-                    @csrf
-                    <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
-                </form>
+                <a href="{{ route('admin.menus.import') }}"
+                onclick="event.preventDefault(); document.getElementById('file-input').click();"
+                class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                Import
+            </a>
+            <form id="import-form" action="{{ route('admin.menus.import') }}" method="POST"
+                enctype="multipart/form-data" style="display: none;">
+                @csrf
+                <input type="file" name="file" id="file-input"
+                    onchange="document.getElementById('import-form').submit();">
+            </form>
             </div>
             <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.menus.create') }}"
@@ -96,5 +100,40 @@
                 </div>
             </div>
         </div>
+
+        <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
+            @if ($menus->total() > 0)
+                <div class="flex-1 flex justify-between sm:hidden">
+                    <!-- Tombol-tombol navigasi pagination untuk tampilan layar kecil -->
+                    {{ $menus->links('pagination::tailwind') }}
+                </div>
+                <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+                    <!-- Informasi halaman saat ini dan navigasi pagination -->
+                    <div>
+                        <p class="text-sm text-gray-700 dark:text-gray-300 leading-5">
+                            Showing
+                            <span class="font-medium">{{ $menus->firstItem() }}</span>
+                            to
+                            <span class="font-medium">{{ $menus->lastItem() }}</span>
+                            of
+                            <span class="font-medium">{{ $menus->total() }}</span>
+                            results
+                        </p>
+                    </div>
+                    <div class="flex items-center">
+                        <!-- Tampilkan nomor halaman secara eksplisit -->
+                        @foreach ($menus as $menu)
+                            <a href="{{ $menu->url }}"
+                                class="px-3 py-1 mx-1 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white">{{ $menu->page }}</a>
+                        @endforeach
+                    </div>
+                    <div>
+                        <!-- Tombol navigasi pagination untuk tampilan besar -->
+                        {{ $menus->links('pagination::tailwind') }}
+                    </div>
+                </div>
+            @endif
+        </div>
+
     </div>
 </x-admin-layout>

@@ -22,6 +22,7 @@ class MenuController extends Controller
     public function index()
     {
         $menus = Menu::all();
+        $menus = Menu::paginate(5);
         return view('admin.menus.index', compact('menus'));
     }
 
@@ -125,10 +126,9 @@ class MenuController extends Controller
         return Excel::download(new MenuExport, 'menus.xlsx');
     }
 
-    public function import()
+    public function import(Request $request)
     {
-    Excel::import(new MenuImport(), request()->file('file'));
-
-    return redirect()->back()->with('success', 'Menu imported successfully.');
+        Excel::import(new MenuImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Menu imported successfully.');
     }
 }

@@ -22,6 +22,7 @@ class ProdukTitipanController extends Controller
     public function index()
     {
         $produktitipan = ProdukTitipan::all();
+        $produktitipan = ProdukTitipan::paginate(5);
         return view('admin.produktitipan.index', compact('produktitipan'));
     }
 
@@ -125,10 +126,9 @@ class ProdukTitipanController extends Controller
     }
 
 
-    public function import($request)
+    public function import(Request $request)
     {
-    Excel::import(new ProdukTitipanImport(), $request->file('file'));
-
-    return redirect()->back()->with('success', 'Produk Titipan imported successfully.');
+        Excel::import(new ProdukTitipan, $request->file('file'));
+        return redirect()->back()->with('success', 'Produk Titipan imported successfully.');
     }
 }

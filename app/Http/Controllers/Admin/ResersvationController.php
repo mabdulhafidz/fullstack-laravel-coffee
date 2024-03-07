@@ -21,6 +21,7 @@ class ResersvationController extends Controller
     public function index()
     {
         $resersvation = Resersvation::all();
+        $resersvation = Resersvation::paginate(5);
         return view('admin.resersvation.index', compact('resersvation'));
     }
 
@@ -104,10 +105,9 @@ class ResersvationController extends Controller
         return Excel::download(new ResersvationExport, 'resersvation.xlsx');
     }
 
-    public function import()
+    public function import(Request $request)
     {
-    Excel::import(new ResersvationImport(), request()->file('file'));
-
-    return redirect()->back()->with('success', 'Reservations imported successfully.');
+        Excel::import(new ResersvationImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Reservation imported successfully.');
     }
 }

@@ -18,6 +18,7 @@ class EmployeeController extends Controller
     public function index()
     {
         $employees = Employee::all();
+        $employees = Employee::paginate(5);
         return view('admin.employees.index', compact('employees'));
     }
 
@@ -43,6 +44,8 @@ class EmployeeController extends Controller
             'alamat' => $request->alamat,
             'image' => $image,
         ]);
+
+        dd($request);
 
         return redirect()->route('admin.employees.index')->with('success', 'Employee created successfully.');
     }
@@ -105,10 +108,9 @@ class EmployeeController extends Controller
     }
 
     
-    public function import()
+    public function import(Request $request)
     {
-    Excel::import(new EmployeeImport(), request()->file('file'));
-
-    return redirect()->back()->with('success', 'Employees imported successfully.');   
+        Excel::import(new EmployeeImport, $request->file('file'));
+        return redirect()->back()->with('success', 'Employee imported successfully.');
     }
 }
