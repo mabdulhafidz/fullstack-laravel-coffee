@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="flex space-x-4 m-2 p-2">
                 <a href="{{ route('admin.resersvation.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
                     Export
@@ -63,6 +63,10 @@
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Table
                                         </th>
+                                        <th scope="col"
+                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            Action
+                                        </th>
                                         <th scope="col" class="relative py-3 px-6">
                                             <span class="sr-only">Edit</span>
                                         </th>
@@ -95,13 +99,14 @@
                                                     <a href="{{ route('admin.resersvation.edit', $reservation->id) }}"
                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
                                                     <form
+                                                        id="myForm"
                                                         class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                         method="POST"
                                                         action="{{ route('admin.resersvation.destroy', $reservation->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
+                                                        onsubmit="return myScript(event);">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit">Delete</button>   
+                                                        <button type="submit" id="btn-submit">Delete</button>   
                                                     </form>
                                                 </div>
                                             </td>
@@ -135,13 +140,6 @@
                             results
                         </p>
                     </div>
-                    <div class="flex items-center">
-                        <!-- Tampilkan nomor halaman secara eksplisit -->
-                        @foreach ($resersvation as $r)
-                            <a href="{{ $r->url }}"
-                                class="px-3 py-1 mx-1 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white">{{ $r->page }}</a>
-                        @endforeach
-                    </div>
                     <div>
                         <!-- Tombol navigasi pagination untuk tampilan besar -->
                         {{ $resersvation->links('pagination::tailwind') }}
@@ -151,3 +149,22 @@
         </div>
     </div>
 </x-admin-layout>
+
+<script>
+    window.myScript = function(event) {
+       event.preventDefault(); 
+       Swal.fire({
+       title: 'Are you sure?',
+       text: "You won't be able to revert this!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+       if (result.isConfirmed) {
+           event.target.submit();
+       }
+   });
+   };  
+   </script>

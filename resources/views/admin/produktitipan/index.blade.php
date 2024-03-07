@@ -107,13 +107,14 @@
                                                     <a href="{{ route('admin.produktitipan.edit', $item->id) }}"
                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
                                                     <form
+                                                        id="myForm"
                                                         class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                                         method="POST"
                                                         action="{{ route('admin.produktitipan.destroy', $item->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
+                                                        onsubmit="return myScript(event);">
                                                         @csrf
                                                         @method('DELETE')
-                                                        <button type="submit">Delete</button>
+                                                        <button type="submit" id="btn-submit">Delete</button>
                                                     </form>
                                                 </div>
                                             </td>
@@ -162,12 +163,22 @@
         </div>
     </div>
 </x-admin-layout>
+
 <script>
-       document.addEventListener('DOMContentLoaded', function () {
-        document.querySelectorAll('[wire\\:id="stock-editor"]').forEach(function (element) {
-            element.addEventListener('dblclick', function () {
-                this.querySelector('input').focus();
-            });
-        });
-    });
-</script>
+    window.myScript = function(event) {
+       event.preventDefault(); 
+       Swal.fire({
+       title: 'Are you sure?',
+       text: "You won't be able to revert this!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+       if (result.isConfirmed) {
+           event.target.submit();
+       }
+   });
+   };  
+   </script>

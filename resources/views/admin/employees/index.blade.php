@@ -6,54 +6,55 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="flex space-x-4 m-2 p-2">
                 <a href="{{ route('admin.employees.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
-                    Export
+                    Export Excel
                 </a>
                 <form id="export-form" action="{{ route('admin.employees.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.employees.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
+                <a href="{{ route('admin.employees.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                     Export Pdf
                 </a>
-                <form id="export-form" action="{{ route('admin.employees.exportpdf') }}" method="POST" style="display: none;">
+                <form id="export-form" action="{{ route('admin.employees.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.employees.import') }}"
-                onclick="event.preventDefault(); document.getElementById('file-input').click();"
-                class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
-                Import
-            </a>
-            <form id="import-form" action="{{ route('admin.employees.import') }}" method="POST"
-                enctype="multipart/form-data" style="display: none;">
-                @csrf
-                <input type="file" name="file" id="file-input"
-                    onchange="document.getElementById('import-form').submit();">
-            </form>
+                <a href="{{route('admin.employees.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                    Import
+                </a>
+                <form id="import-form" action="{{ route('admin.employees.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
+                    @csrf
+                    <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
+                </form>
             </div>
+            
             <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.employees.create') }}"
-                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Employee</a>
+                    class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New employee</a>
             </div>
             <div class="flex flex-col">
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden shadow-md sm:rounded-lg">
                             <table class="min-w-full">
-                                <thead class="bg-gray-50 dark:bg-gray-700">
+                                <thead class="bg-gray-100 dark:bg-gray-700">
                                     <tr>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Nama
+                                            Name
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Telpon
+                                            Telepon
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Image
+                                        </th>
+                                        <th scope="col"
+                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            Action
                                         </th>
                                         <th scope="col" class="relative py-3 px-6">
                                             <span class="sr-only">Edit</span>
@@ -61,35 +62,34 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($employees as $employee)
+                                    @foreach ($employees as $c)
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $employee->nama }}
-                                            </td>
-                                            <td
-                                            class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                            {{ $employee->telpon }}
+                                                {{ $c->nama }}
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                <img src="{{ Storage::url($employee->image) }}"
-                                                    class="w-16 h-16 rounded">
+                                                {{ $c->telpon }}
+                                            </td>
+                                            <td
+                                                class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $c->image }}
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 <div class="flex space-x-2">
-                                                    <a href="{{ route('admin.employees.edit', $employee->id) }}"
+                                                    <a href="{{ route('admin.employees.edit', $c->id) }}"
                                                         class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg  text-white">Edit</a>
-                                                    <form
-                                                        class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                        <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                                        id="myForm"
                                                         method="POST"
-                                                        action="{{ route('admin.employees.destroy', $employee->id) }}"
-                                                        onsubmit="return confirm('Are you sure?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit">Delete</button>
-                                                    </form>
+                                                        action="{{ route('admin.employees.destroy', $employees->id) }}"
+                                                        onsubmit="return myScript(event);">
+                                                      @csrf
+                                                      @method('DELETE')
+                                                      <button type="submit" id="btn-submit">Delete</button>
+                                                  </form>   
                                                 </div>
                                             </td>
                                         </tr>
@@ -122,13 +122,6 @@
                             results
                         </p>
                     </div>
-                    <div class="flex items-center">
-                        <!-- Tampilkan nomor halaman secara eksplisit -->
-                        @foreach ($employees as $e)
-                            <a href="{{ $e->url }}"
-                                class="px-3 py-1 mx-1 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white">{{ $e->page }}</a>
-                        @endforeach
-                    </div>
                     <div>
                         <!-- Tombol navigasi pagination untuk tampilan besar -->
                         {{ $employees->links('pagination::tailwind') }}
@@ -138,3 +131,22 @@
         </div>
     </div>
 </x-admin-layout>
+
+<script>
+    window.myScript = function(event) {
+       event.preventDefault(); 
+       Swal.fire({
+       title: 'Are you sure?',
+       text: "You won't be able to revert this!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+       if (result.isConfirmed) {
+           event.target.submit();
+       }
+   });
+   };  
+   </script>

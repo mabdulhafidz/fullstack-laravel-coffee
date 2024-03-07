@@ -10,12 +10,8 @@
 
     <div class="mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
         <!-- Search Bar -->
-        <div class="flex w-full gap-2 shrink-0 md:w-max">
-            <!-- ... Your existing search bar code ... -->
-        </div>
-
         <!-- Export and Import Buttons -->
-        <div class="flex space-x-4 m-2 p-2">
+        <div class="flex space-x-4 m-2 p-2" id="searchResults">
             <a href="{{ route('admin.categories.export') }}"
                 onclick="event.preventDefault(); document.getElementById('export-form').submit();"
                 class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
@@ -43,8 +39,15 @@
         <div class="flex justify-end m-2 p-2">
             <a href="{{ route('admin.categories.create') }}"
                 class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Categories</a>
-        </div>
+            </div>
+            <div class="flex w-full gap-2 shrink-0 md:w-max">
+                <form class="flex items-center" wire:submit.prevent="search">
+                    <input id="searchinput" type="text" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2" placeholder="Search..." required>
+                </form>
+            </div>
+            
         <!-- Table -->
+        <div class="flex flex-col">
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-md sm:rounded-lg">
@@ -62,6 +65,10 @@
                                 <th scope="col"
                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                     Description
+                                </th>
+                                <th scope="col"
+                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                 Action
                                 </th>
                                 <th scope="col" class="relative py-3 px-6">
                                     <span class="sr-only">Edit</span>
@@ -91,14 +98,15 @@
                                     <div class="flex space-x-2">
                                         <a href="{{ route('admin.categories.edit', $category->id) }}"
                                             class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
-                                        <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                            <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
+                                            id="myForm"
                                             method="POST"
                                             action="{{ route('admin.categories.destroy', $category->id) }}"
-                                            onsubmit="return confirm('Are you sure?');">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit">Delete</button>
-                                        </form>
+                                            onsubmit="return myScript(event);">
+                                          @csrf
+                                          @method('DELETE')
+                                          <button type="submit" id="btn-submit">Delete</button>
+                                      </form>                                      
                                     </div>
                                 </td>
                             </tr>
@@ -112,6 +120,8 @@
                 </div>
             </div>
         </div>
+    </div>
+
 
         <!-- Pagination Section -->
         <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
@@ -134,14 +144,8 @@
                         </p>
                     </div>
                     <div class="flex items-center">
-                        <!-- Tampilkan nomor halaman secara eksplisit -->
-                        @foreach ($categories as $category)
-                            <a href="{{ $category->url }}"
-                                class="px-3 py-1 mx-1 rounded-lg border border-blue-500 hover:bg-blue-500 hover:text-white">{{ $category->page }}</a>
-                        @endforeach
                     </div>
                     <div>
-                        <!-- Tombol navigasi pagination untuk tampilan besar -->
                         {{ $categories->links('pagination::tailwind') }}
                     </div>
                 </div>
@@ -151,3 +155,21 @@
     </div>
 </x-admin-layout>
 
+<script>
+    window.myScript = function(event) {
+       event.preventDefault(); 
+       Swal.fire({
+       title: 'Are you sure?',
+       text: "You won't be able to revert this!",
+       icon: 'warning',
+       showCancelButton: true,
+       confirmButtonColor: '#3085d6',
+       cancelButtonColor: '#d33',
+       confirmButtonText: 'Yes, delete it!'
+   }).then((result) => {
+       if (result.isConfirmed) {
+           event.target.submit();
+       }
+   });
+   };  
+   </script>
