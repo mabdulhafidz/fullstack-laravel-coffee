@@ -30,6 +30,7 @@ class Index extends Component
     public $select;
     public $alert;
     public $transaction_id;
+    public $transactions;
 
     use LivewireAlert;
 
@@ -202,5 +203,14 @@ class Index extends Component
             'confirmButtonText' => 'Confirm',
         ]);
     }   
+
+    public function updatedFilter()
+    {
+        if ($this->filter === 'Last 7 Days') {
+            $this->transactions = Transaction::whereDate('transaction_date', '>=', now()->subDays(7))->get();
+        } else {
+            $this->transactions = Transaction::all();
+        }
+    }
 
 }

@@ -111,11 +111,11 @@ class CategoryController extends Controller
         }
     }
 
-    public function exportPdf()
-    {
+    public function pdf()
+     {
         $data = Category::all();
-        $pdf = Pdf::loadView('admin.categories.pdf', ['data' => $data]);
-        return $pdf->stream('');
+        $pdf = PDF::loadView('admin.categories.exportpdf', $data); 
+        return $pdf->download('categories.pdf');
     }
     
     public function import(Request $request)
@@ -124,6 +124,5 @@ class CategoryController extends Controller
         return redirect()->back()->with('success', 'Categories imported successfully.');
     }
 
-    
 }
 

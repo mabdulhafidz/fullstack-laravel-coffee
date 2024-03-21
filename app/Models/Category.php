@@ -23,5 +23,10 @@ class Category extends Model
         return $this->belongsToMany(Menu::class, 'category_menu');
     }
 
+    public function types()
+    {
+        return $this->belongsToMany(Type::class, 'type_category');
+    }
+
    
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Admin\LaporanController;
 use App\Http\Controllers\Admin\LayananController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ProdukTitipanController;
@@ -15,11 +16,12 @@ use App\Http\Controllers\Frontend\MenuController as FrontendMenuController;
 use App\Http\Controllers\Frontend\ReservationController;
 use App\Http\Controllers\Frontend\WelcomeController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\StockController;
+use App\Http\Controllers\Admin\StockController;                                                 
 use App\Http\Controllers\Admin\TentangController;
 use App\Http\Controllers\Admin\TransactionController as AdminTransactionController;
 use App\Http\Controllers\Admin\TransactionDetailController;
 use App\Http\Controllers\Admin\TransactionListController;
+use App\Http\Controllers\Admin\TypeController;
 use App\Http\Controllers\Cashier\TransactionController as CashierTransactionController;
 use App\Http\Controllers\TransactionController;
 use Illuminate\Support\Facades\Route;
@@ -51,7 +53,10 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/categories', CategoryController::class);
     Route::post('/categories/export', [CategoryController::class, 'export'])->name('categories.export');
     Route::post('/categories/import', [CategoryController::class, 'import'])->name('categories.import')->middleware('web');
-    Route::get('/categories/exportpdf', [CategoryController::class, 'exportPdf'])->name('categories.pdf');
+    Route::get('/categories/pdf', [CategoryController::class, 'pdf'])->name('categories.pdf');
+    Route::resource('/types', TypeController::class);
+    Route::post('/types/export', [TypeController::class, 'export'])->name('types.export');
+    Route::post('/types/import', [TypeController::class, 'import'])->name('types.import')->middleware('web');
     Route::resource('/menus', MenuController::class);
     Route::post('/menus/export', [MenuController::class, 'export'])->name('menus.export');
     Route::post('/menus/exportpdf', [MenuController::class, 'exportPdf'])->name('menus.exportpdf');
@@ -85,6 +90,7 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/produktitipan/pdf', [ProdukTitipanController::class, 'pdf'])->name('produktitipan.pdf');
     Route::post('/produktitipan/import', [ProdukTitipanController::class, 'import'])->name('produktitipan.import');
     Route::resource('/tentang', TentangController::class);
+    Route::resource('/laporan', LaporanController::class);
 }); 
 
 Route::middleware(['auth', 'customer'])->group(function () {

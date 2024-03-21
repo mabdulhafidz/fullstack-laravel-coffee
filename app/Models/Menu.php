@@ -21,6 +21,11 @@ class Menu extends Model
         return $this->belongsToMany(Category::class, 'category_menu');
     }
 
+    public function types()
+    {
+        return $this->belongsToMany(Type::class, 'type_menu');
+    }
+
     public function stocks()
     {
         return $this->hasOne(Stock::class);

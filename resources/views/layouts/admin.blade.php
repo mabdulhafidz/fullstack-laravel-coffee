@@ -51,6 +51,14 @@
                         {{ __('Categories') }}
                     </div>
                 </x-admin-nav-link>
+                <x-admin-nav-link :href="route('admin.types.index')" :active="request()->routeIs('admin.types.index')">
+                    <div class="flex items-center "> 
+                        <svg class="h-4 w-4 text-black-500 mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                          </svg>                          
+                        {{ __('Types') }}
+                    </div>
+                </x-admin-nav-link>
                 <x-admin-nav-link :href="route('admin.menus.index')" :active="request()->routeIs('admin.menus.index')">
                     <div class="flex items-center "> 
                         <svg class="h-4 w-4 text-black-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  
@@ -120,15 +128,16 @@
             {{ __('Produk Titipan') }}
             </div>
             </x-admin-nav-link>
-            {{-- <x-admin-nav-link :href="route('admin.categories.index')"
-            :active="request()->routeIs('admin.categories.index')">
+            <h1 class="ml-4 m-2">Laporan</h1>
+            <x-admin-nav-link :href="route('admin.laporan.index')"
+            :active="request()->routeIs('admin.laporan.index')">
             <div class="flex items-center "> 
                 <svg class="h-4 w-4 text-black-500 mr-2"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  
                     <path d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1 -4 0v-13a1 1 0 0 0 -1 -1h-10a1 1 0 0 0 -1 1v12a3 3 0 0 0 3 3h11" />  <line x1="8" y1="8" x2="12" y2="8" />  <line x1="8" y1="12" x2="12" y2="12" />  
                     <line x1="8" y1="16" x2="12" y2="16" /></svg>      
-            {{ __('Data Produk') }}
+            {{ __('Laporan') }}
             </div>
-            </x-admin-nav-link> --}}
+            </x-admin-nav-link>
             <h1 class="ml-4 m-2">About</h1>
             <x-admin-nav-link :href="route('admin.tentang.index')"
             :active="request()->routeIs('admin.tentang.index')">

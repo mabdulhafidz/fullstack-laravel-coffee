@@ -12,24 +12,24 @@
         <!-- Search Bar -->
         <!-- Export and Import Buttons -->
         <div class="flex space-x-4 m-2 p-2" id="searchResults">
-            <a href="{{ route('admin.categories.export') }}"
+            <a href="{{ route('admin.types.export') }}"
                 onclick="event.preventDefault(); document.getElementById('export-form').submit();"
                 class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
                 Export Excel
             </a>
-            <form id="export-form" action="{{ route('admin.categories.export') }}" method="POST" style="display: none;">
+            <form id="export-form" action="{{ route('admin.types.export') }}" method="POST" style="display: none;">
                 @csrf
             </form>
             <a href="{{ route('admin.categories.pdf') }}"
-            class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-white">
-             Export Pdf
-         </a>
-            <a href="{{ route('admin.categories.import') }}"
+                class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
+                Export Pdf
+            </a>
+            <a href="{{ route('admin.types.import') }}"
                 onclick="event.preventDefault(); document.getElementById('file-input').click();"
                 class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                 Import
             </a>
-            <form id="import-form" action="{{ route('admin.categories.import') }}" method="POST"
+            <form id="import-form" action="{{ route('admin.types.import') }}" method="POST"
                 enctype="multipart/form-data" style="display: none;">
                 @csrf
                 <input type="file" name="file" id="file-input"
@@ -37,8 +37,8 @@
             </form>
         </div>
         <div class="flex justify-end m-2 p-2">
-            <a href="{{ route('admin.categories.create') }}"
-                class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Categories</a>
+            <a href="{{ route('admin.types.create') }}"
+                class="px-4 py-2 bg-indigo-500 hover:bg-indigo-700 rounded-lg text-white">New Types</a>
             </div>
             <div class="flex w-full gap-2 shrink-0 md:w-max">
                 <form class="flex items-center" wire:submit.prevent="search">
@@ -60,15 +60,7 @@
                                 </th>
                                 <th scope="col"
                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                    Image
-                                </th>
-                                <th scope="col"
-                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                    Description
-                                </th>
-                                <th scope="col"
-                                class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                 Action
+                                    Categories
                                 </th>
                                 <th scope="col" class="relative py-3 px-6">
                                     <span class="sr-only">Edit</span>
@@ -77,31 +69,32 @@
 
                         </thead>
                         <tbody>
-                            @foreach ($categories as $category)
+                            @foreach ($types as $type)
                                 <!-- Table Body -->
                         <tbody>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td
                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $type->name }}
+                                </td>
+                                <td
+                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    @foreach ($type->categories as $category)
                                     {{ $category->name }}
-                                </td>
-                                <td
-                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    <img src="{{ Storage::url($category->image) }}" class="w-16 h-16 rounded">
-                                </td>
-                                <td
-                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ $category->description }}
+                                    @if (!$loop->last)
+                                        ,
+                                    @endif
+                                @endforeach
                                 </td>
                                 <td
                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="flex space-x-2">
-                                        <a href="{{ route('admin.categories.edit', $category->id) }}"
+                                        <a href="{{ route('admin.types.edit', $type->id) }}"
                                             class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
                                             <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                             id="myForm"
                                             method="POST"
-                                            action="{{ route('admin.categories.destroy', $category->id) }}"
+                                            action="{{ route('admin.categories.destroy', $type->id) }}"
                                             onsubmit="return myScript(event);">
                                           @csrf
                                           @method('DELETE')
@@ -125,28 +118,28 @@
 
         <!-- Pagination Section -->
         <div class="flex items-center justify-between p-4 border-t border-blue-gray-50">
-            @if ($categories->total() > 0)
+            @if ($types->total() > 0)
                 <div class="flex-1 flex justify-between sm:hidden">
                     <!-- Tombol-tombol navigasi pagination untuk tampilan layar kecil -->
-                    {{ $categories->links('pagination::tailwind') }}
+                    {{ $types->links('pagination::tailwind') }}
                 </div>
                 <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                     <!-- Informasi halaman saat ini dan navigasi pagination -->
                     <div>
                         <p class="text-sm text-gray-700 dark:text-gray-300 leading-5">
                             Showing
-                            <span class="font-medium">{{ $categories->firstItem() }}</span>
+                            <span class="font-medium">{{ $types->firstItem() }}</span>
                             to
-                            <span class="font-medium">{{ $categories->lastItem() }}</span>
+                            <span class="font-medium">{{ $types->lastItem() }}</span>
                             of
-                            <span class="font-medium">{{ $categories->total() }}</span>
+                            <span class="font-medium">{{ $types->total() }}</span>
                             results
                         </p>
                     </div>
                     <div class="flex items-center">
                     </div>
                     <div>
-                        {{ $categories->links('pagination::tailwind') }}
+                        {{ $types->links('pagination::tailwind') }}
                     </div>
                 </div>
             @endif
