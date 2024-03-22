@@ -106,6 +106,15 @@
                     {{ __('Employees') }}
                     </div>
             </x-admin-nav-link>
+            <x-admin-nav-link :href="route('admin.absensi.index')"
+            :active="request()->routeIs('admin.absensi.index')">
+            <div class="flex items-center "> 
+                <svg class="h-4 w-4 text-black-500 mr-2"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+                  </svg>
+            {{ __('Absensi') }}
+            </div>
+    </x-admin-nav-link>
             <h1 class="ml-4 m-2">Transaction</h1>
             <x-admin-nav-link :href="route('admin.transactiondetail.index')"
             :active="request()->routeIs('admin.transactiondetail.index')">

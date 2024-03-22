@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\AbsensiController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CustomerController;
@@ -79,7 +80,10 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::resource('/employees', EmployeeController::class);
     Route::post('/employees/export', [EmployeeController::class, 'export'])->name('employees.export');
     Route::post('/employees/import', [EmployeeController::class, 'import'])->name('employees.import');
-    Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');         
+    Route::post('/employees/exportpdf', [EmployeeController::class, 'exportPdf'])->name('employees.exportpdf');  
+    Route::resource('/absensi', AbsensiController::class);     
+    Route::post('/absensi/export', [AbsensiController::class, 'export'])->name('absensi.export');
+    Route::post('/absensi/import', [AbsensiController::class, 'import'])->name('absensi.import');
     Route::resource('/transaction', AdminTransactionController::class);
     Route::resource('/transactionlist', TransactionListController::class);
     Route::get('/transaction/invoice/{id}', [AdminTransactionController::class, 'invoice']);
