@@ -20,7 +20,7 @@
                 <form id="export-form" action="{{ route('admin.employees.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{route('admin.absensi.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
+                <a href="{{route('admin.absensi.import')}}" id="import-form" onclick="evenht.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                     Import
                 </a>
                 <form id="import-form" action="{{ route('admin.absensi.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
@@ -37,8 +37,8 @@
                 <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
                     <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                         <div class="overflow-hidden shadow-md sm:rounded-lg">
-                            <table class="min-w-full">
-                                <thead class="bg-gray-100 dark:bg-gray-700">
+                            <table id="absensi-table" class="min-w-full">
+                                <thead class="bg-gray-100 dark:bg-gray-700  data-twe-fixed-header">
                                     <tr>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">

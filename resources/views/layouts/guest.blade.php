@@ -70,7 +70,7 @@
                     <li>Terms</li>
                 </ul>
             </div>
-            <div class="flex justify-center mt-4 lg:mt-0">
+            <div class="flex justify-center mt-4  lg:mt-0">
                 <a>
                     <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                         class="w-6 h-6 text-blue-600" viewBox="0 0 24 24">

@@ -37,7 +37,7 @@
                         {{ __('Menu') }}
                     </x-nav-link>
                     <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.index')">
-                        {{ __('Transaction') }}
+                        {{ __('Pembelian') }}
                     </x-nav-link>
                 @endif                
                 </div>
