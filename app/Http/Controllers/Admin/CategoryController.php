@@ -111,12 +111,17 @@ class CategoryController extends Controller
         }
     }
 
-    public function pdf()
-     {
+    public function generatePdf()
+    {
         $data = Category::all();
-        $pdf = PDF::loadView('admin.categories.exportpdf', $data); 
-        return $pdf->download('categories.pdf');
+          
+
+        $pdf = PDF::loadView('category-pdf', $data);
+            return response()->download(function() use ($pdf) {
+            return $pdf->output();
+        }, 'category-pdf.pdf');
     }
+
     
     public function import(Request $request)
     {
