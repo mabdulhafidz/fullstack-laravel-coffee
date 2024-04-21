@@ -99,7 +99,7 @@ class CategoryController extends Controller
         $category->menus()->detach();
         $category->delete();
 
-        return to_route('admin.categories.index')->with('danger', 'Category is deleted.');
+        return to_route('admin.categories.index')->with('danger', 'Category is  deleted.');
     }
 
     public function export() 
@@ -111,17 +111,14 @@ class CategoryController extends Controller
         }
     }
 
-    public function generatePdf()
+    public function pdf()
     {
         $data = Category::all();
-          
-
-        $pdf = PDF::loadView('category-pdf', $data);
-            return response()->download(function() use ($pdf) {
-            return $pdf->output();
-        }, 'category-pdf.pdf');
+    
+        $pdf = PDF::loadView('admin.categories.category-pdf', compact('data'));
+        return $pdf->download('category-pdf.pdf');
     }
-
+    
     
     public function import(Request $request)
     {

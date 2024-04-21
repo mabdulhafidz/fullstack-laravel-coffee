@@ -6,80 +6,30 @@
         <div class="mr-3">
             <label for="large" class="block text-sm font-medium text-gray-700">Status</label>
             <div class="mt-1">
-                <select id="large" class="block w-1/4 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Show All</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
+                <div class="flex space-x-4 m-2 p-2" id="searchResults">
+                    <a href="{{ route('admin.transactionlist.export') }}"
+                        onclick="event.preventDefault(); document.getElementById('export-form').submit();"
+                        class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
+                        Export Excel
+                    </a>
+                    <form id="export-form" action="{{ route('admin.transactionlist.export') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+
+
+
+        <form action="{{ route('admin.transactionlist.index') }}" method="GET">
+            <div class="flex items-center">
+                <label for="transaction_date" class="mr-2">Transaction Date:</label>
+                <input type="date" id="transaction_date" name="transaction_date" class="mr-2">
+                <button type="submit" class="bg-gray-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Search</button>
+                @if (request()->has('transaction_date'))
+                    <a href="{{ route('admin.transactionlist.index') }}" class="text-sm ml-2">Clear Search</a>
+                @endif
             </div>
-            @error('status')
-                <div class="text-sm text-red-400">{{ $message }}</div>
-            @enderror
-        </div>
-    
-        <div class="ml-3">
-            <label for="large" class="block text-sm font-medium text-gray-700">Status</label>
-            <div class="mt-1">
-                <select id="large" class="block w-1/4 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Show All</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
-            </div>
-            @error('status')
-                <div class="text-sm text-red-400">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="ml-3">
-            <label for="large" class="block text-sm font-medium text-gray-700">Payment Method</label>
-            <div class="mt-1">
-                <select id="large" class="block w-1/4 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Show All</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
-            </div>
-            @error('status')
-                <div class="text-sm text-red-400">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="ml-3">
-            <label for="large" class="block text-sm font-medium text-gray-700">Status</label>
-            <div class="mt-1">
-                <select id="large" class="block w-1/4 p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Show All</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
-            </div>
-            @error('status')
-                <div class="text-sm text-red-400">{{ $message }}</div>
-            @enderror
-        </div>
-        <div class="ml-3">
-            <label for="large" class="block text-sm font-medium text-gray-700">Time</label>
-            <div class="mt-1">
-                <select id="large" class="block p-2 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option selected>Show All</option>
-                    <option value="US">United States</option>
-                    <option value="CA">Canada</option>
-                    <option value="FR">France</option>
-                    <option value="DE">Germany</option>
-                </select>
-            </div>
-            @error('status')
-                <div class="text-sm text-red-400">{{ $message }}</div>
-            @enderror
-        </div>
+        </form>
         
+
     </div>
     
     
@@ -114,34 +64,25 @@
                         </thead>
                         <tbody>
                             @foreach ($Transactiondetail as $d)
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                                    <td
-                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $d->transaction_id }}
-                                    </td>
-                                    <td
-                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $d->quantity }}
-                                    </td>
-                                    <td
-                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $d->unit_price }}
-                                    </td>
-                                    <td
-                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $d->subtotal }}
-                                    </td>
-                                    {{-- @if ($transaction)
-                                        
-                                    <td
-                                        class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $transaction->transaction_date }}
-                                    </td>
-                                    @else
-                                        
-                                    @endif --}}
-                                </tr>
-                            @endforeach
+                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $d->transaction_id }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $d->quantity }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $d->unit_price }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $d->subtotal }}
+                                </td>
+                                <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    {{ $d->transaction->transaction_date }}
+                                </td>
+                            </tr>
+                        @endforeach
+                        
                         </tbody>
                     </table>
                 </div>

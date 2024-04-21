@@ -86,6 +86,10 @@ Route::middleware(['auth', 'admin'])->name('admin.')->prefix('admin')->group(fun
     Route::post('/absensi/import', [AbsensiController::class, 'import'])->name('absensi.import');
     Route::resource('/transaction', AdminTransactionController::class);
     Route::resource('/transactionlist', TransactionListController::class);
+    Route::get('/transactionlist/search', [TransactionListController::class, 'search'])->name('transactionlist.search');
+    // Route::get('/transactionlist/{id}', [TransactionListController::class, 'show'])->name('transactionlist.show');
+    Route::post('/transactionlist/export', [TransactionListController::class, 'export'])->name('transactionlist.export');
+
     Route::get('/transaction/invoice/{id}', [AdminTransactionController::class, 'invoice']);
     Route::resource('/transactiondetail', TransactionDetailController::class);
     Route::resource('/roles', RoleController::class);
