@@ -89,7 +89,7 @@ class StockController extends Controller
      */
     public function destroy(Stock $stock)
     {
-        $stock->reservations()->delete();
+        $stock->delete();
         $stock->delete();
 
         return to_route('admin.stocks.index')->with('danger', 'Stock daleted successfully.');

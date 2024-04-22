@@ -15,7 +15,20 @@ class CategoryExport implements FromCollection, WithHeadings, WithStyles
     */
     public function collection()
     {
-        return Category::all();
+        // Ambil seluruh data kategori
+        $categories = Category::all();
+
+        // Buat koleksi baru dengan hanya mengambil kolom-kolom yang diinginkan
+        $selectedColumns = $categories->map(function ($category) {
+            return [
+                'Id' => $category->id,
+                'Name' => $category->name,
+                'Image' => $category->image,
+                'Description' => $category->description,
+            ];
+        });
+
+        return $selectedColumns;
     }
 
     /**
@@ -23,13 +36,12 @@ class CategoryExport implements FromCollection, WithHeadings, WithStyles
     */
     public function headings(): array
     {
+        // Judul kolom
         return [
             'Id',
             'Name',
-            'Description',
             'Image',
-            'Created_at',
-            'Updated_at'
+            'Description',
         ];
     }
 
@@ -38,8 +50,38 @@ class CategoryExport implements FromCollection, WithHeadings, WithStyles
     */
     public function styles(Worksheet $sheet)
     {
-        $cellRange = 'A1:H1';
-
+        // Merge cells untuk judul "Category"
+        // $sheet->mergeCells('A1:D1');
+        // $sheet->setCellValue('A1', 'Category');
+    
+        // Set style untuk judul "Category"
+        $sheet->getStyle('A1:D1')->applyFromArray([
+            'font' => [
+                'bold' => true,
+                'size' => 14,
+                'color' => ['rgb' => 'FFFFFF'],
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+                'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+            ],
+            'fill' => [
+                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                'rotation' => 90,
+                'startColor' => [
+                    'argb' => 'FF2F75B5', 
+                ],
+                'endColor' => [
+                    'argb' => 'FF2F75B5',
+                ],
+            ],
+        ]);
+    
+        // Menyesuaikan lebar kolom untuk "Description"
+        $sheet->getColumnDimension('D')->setWidth(30);
+    
+        // Style untuk headings
+        $cellRange = 'A2:D1';
         $styleArray = [
             'font' => [
                 'bold' => true,
@@ -56,8 +98,11 @@ class CategoryExport implements FromCollection, WithHeadings, WithStyles
                 ],
             ],
         ];
-
-        $sheet->getStyle('A2:H' . ($sheet->getHighestRow()))->applyFromArray([
+    
+        $sheet->getStyle($cellRange)->applyFromArray($styleArray);
+    
+        // Style untuk seluruh data
+        $sheet->getStyle('A2:D' . ($sheet->getHighestRow()))->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
@@ -65,7 +110,5 @@ class CategoryExport implements FromCollection, WithHeadings, WithStyles
                 ],
             ],
         ]);
-
-        $sheet->getStyle($cellRange)->applyFromArray($styleArray);
     }
 }

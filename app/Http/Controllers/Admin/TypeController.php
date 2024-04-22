@@ -70,8 +70,7 @@ class TypeController extends Controller
      */
     public function edit(Type $type)
     {
-        $categories = Type::all();
-        return view('admin.types.edit', compact('type', 'categories'));
+        return view('admin.types.edit', compact('type'));
     }
 
     /**
@@ -81,7 +80,7 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Menu $type)
+    public function update(Request $request, Type $type)
     {
         $request->validate([
             'name' => 'required',
@@ -90,10 +89,6 @@ class TypeController extends Controller
         $type->update([
             'name' => $request->name,
         ]);
-
-        if ($request->has('categories')) {
-            $type->categories()->sync($request->categories);
-        }
 
         return to_route('admin.types.index')->with('success', 'Type updated successfully.');
     }
@@ -104,9 +99,9 @@ class TypeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($type)
+    public function destroy(Type $type)
     {
-        $type->types()->detach();
+        // $type->types()->detach();
         $type->delete();
         return to_route('admin.types.index')->with('danger', 'Type deleted successfully.');
     }

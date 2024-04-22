@@ -11,11 +11,11 @@ class Type extends Model
 
     protected $fillable = [
         'name',
-        'categories_id'
+        // 'categories_id'
     ];
 
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'type_category');
-    }
+    // public function categories()
+    // {
+    //     return $this->belongsToMany(Category::class, 'type_category');
+    // }
 }

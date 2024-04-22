@@ -22,7 +22,7 @@
             </form>
             <a href="{{ route('admin.categories.pdf') }}"
             onclick="event.preventDefault(); document.getElementById('export-pdf').submit();"
-            class="px-4 py-2 bg-gray-700 hover:bg-gray-800 rounded-lg text-white">
+            class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white">
             Export Pdf
         </a>
         <form id="export-pdf" action="{{ route('admin.categories.pdf') }}" method="POST" style="display: none;">

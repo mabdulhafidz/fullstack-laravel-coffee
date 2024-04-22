@@ -58,10 +58,10 @@
                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                     Name
                                 </th>
-                                <th scope="col"
+                                {{-- <th scope="col"
                                     class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                     Categories
-                                </th>
+                                </th> --}}
                                 <th scope="col" class="relative py-3 px-6">
                                     <span class="sr-only">Edit</span>
                                 </th>
@@ -77,7 +77,7 @@
                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $type->name }}
                                 </td>
-                                <td
+                                {{-- <td
                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     @foreach ($type->categories as $category)
                                     {{ $category->name }}
@@ -85,7 +85,7 @@
                                         ,
                                     @endif
                                 @endforeach
-                                </td>
+                                </td> --}}
                                 <td
                                     class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="flex space-x-2">
@@ -94,7 +94,7 @@
                                             <form class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white"
                                             id="myForm"
                                             method="POST"
-                                            action="{{ route('admin.categories.destroy', $type->id) }}"
+                                            action="{{ route('admin.types.destroy', $type->id) }}"
                                             onsubmit="return myScript(event);">
                                           @csrf
                                           @method('DELETE')
