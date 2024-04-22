@@ -5,28 +5,73 @@ namespace App\Exports;
 use App\Models\Employee;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
+use Maatwebsite\Excel\Concerns\WithEvents;
 use Maatwebsite\Excel\Concerns\WithStyles;
+use Maatwebsite\Excel\Events\AfterSheet;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class EmployeeExport implements FromCollection, WithHeadings, WithStyles
+class EmployeeExport implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles, WithEvents
 {
     /**
-    * @return \Illuminate\Support\Collection
-    */
+     * @return \Illuminate\Support\Collection
+     */
     public function collection()
     {
         return Employee::all();
     }
 
     /**
-    * @return array
-    */
+     * @return string
+     */
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function (AfterSheet $event) {
+                $event->sheet->getColumnDimension('A')->setWidth(5); //no
+                $event->sheet->getColumnDimension('B')->setAutoSize(True); //nama produk
+                $event->sheet->getColumnDimension('C')->setAutoSize(True); //created at
+                $event->sheet->getColumnDimension('D')->setAutoSize(True); //Updated at
+
+                //judul atas
+                $event->sheet->insertNewRowBefore(1, 3);
+                $event->sheet->mergeCells('A1:D1');
+                $event->sheet->mergeCells('A2:D2');
+                $event->sheet->setCellValue('A1', "DATA PEGAWAI");
+                $event->sheet->SetCellValue('A2', "PER TANGGAL " . date('d M Y'));
+
+                //style
+                $event->sheet->getStyle('A1:A2')->applyFromArray([
+                    'font' => [
+                        'bold' => true,
+                    ],
+                ]);
+
+                $event->sheet->getStyle('A1:B1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+                $event->sheet->getStyle('A2:B2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+                //border
+                $event->sheet->getStyle('A4:N' . $event->sheet->getHighestRow())->ApplyFromArray([
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' =>  \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['rgb' => '000000'],
+                        ],
+                    ],
+                ]);
+            }
+        ];
+    }
+
+    /**
+     * @return array
+     */
     public function headings(): array
     {
         return [
-            'Id',
-            'Nip',
-            'Nik',
+            'ID',
+            'NIP',
+            'NIK',
             'Nama',
             'Jenis Kelamin',
             'Tempat Lahir',
@@ -36,44 +81,19 @@ class EmployeeExport implements FromCollection, WithHeadings, WithStyles
             'Status Nikah',
             'Alamat',
             'Image',
-            'Created_at',
-            'Updated_at'
+            'Created At',
+            'Updated At',
         ];
     }
 
     /**
-    * @param \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet $sheet
-    */
+     * @return array
+     */
     public function styles(Worksheet $sheet)
     {
-        $cellRange = 'A1:P1';
-
-        $styleArray = [
-            'font' => [
-                'bold' => true,
-                'color' => ['rgb' => 'FFFFFF'],
-            ],
-            'fill' => [
-                'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
-                'rotation' => 90,
-                'startColor' => [
-                    'argb' => 'FF2F75B5', 
-                ],
-                'endColor' => [
-                    'argb' => 'FF2F75B5',
-                ],
-            ],
+        return [
+            1 => ['font' => ['bold' => true]],
+            'A1:N1' => ['fill' => ['fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID, 'startColor' => ['rgb' => '00FF00']]],
         ];
-
-        $sheet->getStyle('A2:P' . ($sheet->getHighestRow()))->applyFromArray([
-            'borders' => [
-                'allBorders' => [
-                    'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                    'color' => ['rgb' => '000000'],
-                ],
-            ],
-        ]);
-
-        $sheet->getStyle($cellRange)->applyFromArray($styleArray);
     }
 }
