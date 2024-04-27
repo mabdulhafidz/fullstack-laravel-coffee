@@ -45,7 +45,7 @@
                             </div>
                     
                             <div class="flex flex-row justify-between mb-8">
-                                <label class="relative inline-flex items-center mr-3 cursor-pointer select-none">
+                                <label class="relative inline-flex items-center mr-3 cursor-pointer select-none">   
                                     <input type="checkbox" checked class="sr-only peer"/>
                                     <div class="w-5 h-5 bg-white border-2 rounded-sm border-grey-500 peer peer-checked:border-0 peer-checked:bg-purple-blue-500">
                                         <img class="" src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/icons/check.png" alt="tick">

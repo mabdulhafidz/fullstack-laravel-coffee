@@ -8,7 +8,10 @@
         </p>
     </x-slot>
 
-    <div class="mx-4 mt-4 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
+    <div class="py-12">
+    <div class="mx-2 mt-2 overflow-hidden text-gray-700 bg-white rounded-none bg-clip-border">
+        <div class="max-w-2xl mx-auto sm:px-6 lg:px-8">
+
         <!-- Search Bar -->
         <!-- Export and Import Buttons -->
         <div class="flex space-x-4 m-2 p-2" id="searchResults">
@@ -20,7 +23,7 @@
             <form id="export-form" action="{{ route('admin.types.export') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            <a href="{{ route('admin.categories.pdf') }}"
+            <a href="{{ route('admin.cek') }}"
                 class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                 Export Pdf
             </a>
@@ -51,18 +54,18 @@
         <div class="overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="inline-block py-2 min-w-full sm:px-6 lg:px-8">
                 <div class="overflow-hidden shadow-md sm:rounded-lg">
-                    <table class="min-w-full">
+                    <table id="mytable" class="min-w-full">
                         <thead class="bg-gray-100 dark:bg-gray-700">
                             <tr>
                                 <th scope="col"
-                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                    class="px-4 py-2 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                     Name
                                 </th>
-                                {{-- <th scope="col"
-                                    class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                    Categories
-                                </th> --}}
-                                <th scope="col" class="relative py-3 px-6">
+                                <th scope="col"
+                                class="px-4 py-2 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                Action
+                            </th>
+                                <th scope="col" class="relative px-4 py-2">
                                     <span class="sr-only">Edit</span>
                                 </th>
                             </tr>
@@ -70,24 +73,14 @@
                         </thead>
                         <tbody>
                             @foreach ($types as $type)
-                                <!-- Table Body -->
                         <tbody>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td
-                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    class="border px-4 py-2 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     {{ $type->name }}
                                 </td>
-                                {{-- <td
-                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    @foreach ($type->categories as $category)
-                                    {{ $category->name }}
-                                    @if (!$loop->last)
-                                        ,
-                                    @endif
-                                @endforeach
-                                </td> --}}
                                 <td
-                                    class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    class="border px-4 py-2 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                     <div class="flex space-x-2">
                                         <a href="{{ route('admin.types.edit', $type->id) }}"
                                             class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">Edit</a>
@@ -114,6 +107,10 @@
             </div>
         </div>
     </div>
+        </div>
+    </div>
+    </div>
+
 
 
         <!-- Pagination Section -->
@@ -144,11 +141,18 @@
                 </div>
             @endif
         </div>
-
     </div>
 </x-admin-layout>
 
 <script>
+jQuery.noConflict();
+jQuery(document).ready(function($) {
+    $('#mytable').DataTable();
+});
+
+</script>
+<script>
+
     window.myScript = function(event) {
        event.preventDefault(); 
        Swal.fire({

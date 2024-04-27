@@ -12,6 +12,7 @@ use App\Imports\TypeImport;
 use App\Models\Category;
 use App\Models\Menu;
 use App\Models\Type;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -109,6 +110,13 @@ class TypeController extends Controller
     public function export() 
     {
         return Excel::download(new TypeExport, 'types.xlsx');
+    }
+
+    public function pdf()
+    {
+     $data ['types'] = Type::get();
+        $pdf = Pdf::loadView('admin.types.exportpdf', $data);
+        return $pdf->stream('');
     }
 
     public function import(Request $request)

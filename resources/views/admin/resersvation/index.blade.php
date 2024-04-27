@@ -14,12 +14,10 @@
                 <form id="export-form" action="{{ route('admin.resersvation.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.resersvation.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
-                    Export Pdf
-                </a>
-                <form id="export-form" action="{{ route('admin.resersvation.exportpdf') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                <a href="{{ route('admin.reservasi') }}"
+                class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
+                Export Pdf
+            </a>
                 <a href="{{ route('admin.resersvation.import') }}"
                 onclick="event.preventDefault(); document.getElementById('file-input').click();"
                 class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">

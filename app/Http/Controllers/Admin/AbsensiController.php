@@ -8,9 +8,13 @@ use App\Models\Absensi;
 use App\Http\Requests\StoreAbsensiRequest;
 use App\Http\Requests\UpdateAbsensiRequest;
 use App\Imports\AbsensiImport;
+use Barryvdh\DomPDF\facade\PDF;
+// use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+
+// use PDF;
 
 class AbsensiController extends Controller
 {
@@ -19,6 +23,7 @@ class AbsensiController extends Controller
      */
     public function index()
     {
+        // $this->authorize('view-any', Absensi::class);
         $absensis = Absensi::all();
         $absensis = Absensi::paginate(5);
 
@@ -28,16 +33,19 @@ class AbsensiController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create($absensi)
     {
+        // $this->authorize('create', $absensi);
         return view('admin.absensi.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreAbsensiRequest $request)
+    public function store(StoreAbsensiRequest $request, $absensi)
     {
+        // $this->authorize('create', $absensi);
+
         $validatedData = $request->validated();
     
         $namaKaryawan = $validatedData['namaKaryawan'];
@@ -64,6 +72,24 @@ class AbsensiController extends Controller
         return redirect()->route('admin.absensi.index')->with('success', 'Absensi berhasil disimpan.');
     }
 
+
+    public function updateStatus(Request $request)
+        {
+            $id = $request->input('id');
+            $status = $request->input('status');
+
+            // Temukan data absensi berdasarkan id
+            $absensi = Absensi::findOrFail($id);
+
+            // Perbarui status
+            $absensi->status = $status;
+            $absensi->save();
+
+            // Kirim respons kembali ke klien
+            return response()->json(['message' => 'Status berhasil diperbarui']);
+        }
+
+
     /**
      * Display the specified resource.
      */
@@ -73,6 +99,8 @@ class AbsensiController extends Controller
     }
     public function edit(Absensi $absensi)
     {
+        // $this->authorize('update', $absensi);
+
         return view('admin.absensi.edit', compact('absensi'));
     }
 
@@ -81,6 +109,8 @@ class AbsensiController extends Controller
      */
     public function update(UpdateAbsensiRequest $request, Absensi $absensi)
     {
+        // $this->authorize('update', $absensi);
+
         $validatedData = $request->validated();
 
         $absensi->update([
@@ -99,6 +129,8 @@ class AbsensiController extends Controller
      */
     public function destroy(Absensi $absensi)
     {
+        // $this->authorize('delete', $absensi);
+
         $absensi->delete();
 
         return redirect()->route('admin.absensi.index')->with('success', 'Absensi berhasil dihapus.');
@@ -113,9 +145,18 @@ class AbsensiController extends Controller
         }
     }
 
+    public function pdf()
+    {
+     $data ['absensi'] = Absensi::get();
+        $pdf = PDF::loadView('admin.absensi.exportpdf', $data);
+        return $pdf->stream('');
+    }
+
     public function import(Request $request)
     {
         Excel::import(new AbsensiImport, $request->file('file'));
         return redirect()->back()->with('success', 'Absensi imported successfully.');
     }
+
+    
 }

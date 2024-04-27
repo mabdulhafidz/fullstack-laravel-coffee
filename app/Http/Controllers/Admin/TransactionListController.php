@@ -16,6 +16,8 @@ class TransactionListController extends Controller
 {
     public function index(Request $request)
     {
+        // $this->authorize('view-any', TransactionList::class);
+
         $customer = Customer::all();
         $transaction = Transaction::all();
         $tables = Table::all();
@@ -35,8 +37,10 @@ class TransactionListController extends Controller
     }
 
 
-    public function show($id)
+    public function show($id, $transactionlist)
     {
+        $this->authorize('view', $transactionlist);
+
         $transaction = Transaction::findOrFail($id);
         $Transactiondetail = TransactionDetail::where('transaction_id', $id)->get(); // Menampilkan detail transaksi yang terkait dengan transaksi tersebut
         $customer = Customer::findOrFail($transaction->customer_id); // Mengambil informasi pelanggan yang terkait dengan transaksi

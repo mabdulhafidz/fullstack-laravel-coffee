@@ -11,6 +11,8 @@ class TransactionController extends Controller
 {
     public function index()
     {
+        // $this->authorize('view-any', Transaction::class);
+        
         return view('admin.transaction.index');
     }
 

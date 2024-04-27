@@ -12,6 +12,8 @@ class TransactionDetailController extends Controller
 {
     public function index() 
     {
+        // $this->authorize('view-any', TransactionDetail::class);
+
         $menus = Menu::all();
         $transaction = Transaction::all();
         $Transactiondetail = TransactionDetail::all();

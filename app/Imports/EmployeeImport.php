@@ -19,7 +19,7 @@ class EmployeeImport implements ToModel, WithHeadingRow
             'nip' => $row['nip'],
             'nik' => $row['nik'],
             'nama' => $row['nama'],
-            'jenis_kelamin' => $row['jenis_kelamin'],
+            'jenis_kelamin' => $row['jenis_kelamin'] ?? 'Default Value',
             'tempat_lahir' => $row['tempat_lahir'],
             'tanggal_lahir' => $row['tanggal_lahir'],
             'telpon' => $row['telpon'] ?? 'Default Value',

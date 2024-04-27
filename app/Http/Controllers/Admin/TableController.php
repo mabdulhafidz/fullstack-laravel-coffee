@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\TableStoreRequest;
 use App\Imports\TableImport;
 use App\Models\Table;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -17,6 +18,8 @@ class TableController extends Controller
      */
     public function index()
     {
+        // $this->authorize('view-any', Table::class);
+
         $tables = Table::all();
         $tables = Table::paginate(5);
         return view('admin.tables.index', compact('tables'));
@@ -27,14 +30,14 @@ class TableController extends Controller
      */
     public function create()
     {
-        $tables = Table::all();
-        return view('admin.tables.create');
+        $table = Table::all();
+        return view('admin.tables.create', compact('table'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TableStoreRequest $request)
+    public function store(TableStoreRequest $request, $table)
     {
         Table::create([
             'name' => $request->name,
@@ -51,6 +54,8 @@ class TableController extends Controller
      */
     public function edit(Table $table)
     {
+        // $this->authorize('update', $table);
+
         return view('admin.tables.edit', compact('table'));
     }
 
@@ -63,6 +68,8 @@ class TableController extends Controller
      */
     public function update(TableStoreRequest $request, Table $table)
     {
+        // $this->authorize('update', $table);
+
         $table->update($request->validated());
 
         return to_route('admin.tables.index')->with('success', 'Table updated successfully.');
@@ -76,6 +83,8 @@ class TableController extends Controller
      */
     public function destroy(Table $table)
     {
+        // $this->authorize('delete', $table);
+
         $table->resersvation()->delete();
         $table->delete();
 
@@ -86,6 +95,14 @@ class TableController extends Controller
     {
         return Excel::download(new TableExport, 'tables.xlsx');
     }
+
+    public function pdf()
+    {
+     $data ['tables'] = Table::get();
+        $pdf = Pdf::loadView('admin.tables.exportpdf', $data);
+        return $pdf->stream('');
+    }
+
  
     public function import(Request $request)
     {

@@ -8,25 +8,6 @@
     <div class="py-12">
         <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
             <div class="flex space-x-4 m-2 p-2">
-                {{-- <a href="{{ route('admin.roles.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-red-500 hover:bg-red-700 rounded-lg text-white">
-                    Export
-                </a>
-                <form id="export-form" action="{{ route('admin.roles.export') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                <a href="{{ route('admin.roles.exportpdf') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
-                    Export Pdf
-                </a>
-                <form id="export-form" action="{{ route('admin.roles.exportpdf') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                <a href="{{ route('admin.roles.import') }}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
-                    Import
-                </a>
-                <form id="import-form" action="{{ route('admin.roles.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
-                    @csrf
-                    <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
-                </form> --}}
             </div>
             <div class="flex justify-end m-2 p-2">
                 <a href="{{ route('admin.roles.create') }}"
@@ -49,10 +30,6 @@
                                         </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
-                                            Password
-                                        </th>
-                                        <th scope="col"
-                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Roles
                                         </th>
                                         <th scope="col" class="relative py-3 px-6">
@@ -69,10 +46,6 @@
                                             <td
                                                 class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
                                                 {{ $role->email }}
-                                            </td>
-                                            <td
-                                                class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">
-                                                {{ $role->password }}
                                             </td>
                                             <td
                                                 class="py-4 px-6 text-sm text-gray-500 whitespace-nowrap dark:text-gray-400">

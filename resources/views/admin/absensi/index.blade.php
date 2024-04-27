@@ -14,19 +14,20 @@
                 <form id="export-form" action="{{ route('admin.absensi.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.employees.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
+                <a href="{{ route('admin.tes') }}" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                     Export Pdf
                 </a>
-                <form id="export-form" action="{{ route('admin.employees.export') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
-                <a href="{{route('admin.absensi.import')}}" id="import-form" onclick="evenht.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
-                    Import
-                </a>
-                <form id="import-form" action="{{ route('admin.absensi.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
-                    @csrf
-                    <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
-                </form>
+                <a href="{{ route('admin.absensi.import') }}"
+                onclick="event.preventDefault(); document.getElementById('file-input').click();"
+                class="px-4 py-2 bg-green-500 hover:bg-green-700 rounde d-lg text-white">
+                Import
+            </a>
+            <form id="import-form" action="{{ route('admin.absensi.import') }}" method="POST"
+                enctype="multipart/form-data" style="display: none;">
+                @csrf
+                <input type="file" name="file" id="file-input"
+                    onchange="document.getElementById('import-form').submit();">
+            </form>
             </div>
             
             <div class="flex justify-end m-2 p-2">
@@ -40,6 +41,10 @@
                             <table id="absensi-table" class="min-w-full">
                                 <thead class="bg-gray-100 dark:bg-gray-700  data-twe-fixed-header">
                                     <tr>
+                                        <th scope="col"
+                                            class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
+                                            No
+                                        </th>
                                         <th scope="col"
                                             class="py-3 px-6 text-xs font-medium tracking-wider text-left text-gray-700 uppercase dark:text-gray-400">
                                             Nama Karyawan
@@ -73,6 +78,9 @@
                                     @foreach ($absensis as $a)
                                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                             <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                                {{ $a->id }}
+                                            </td>
+                                            <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 {{ $a->namaKaryawan }}
                                             </td>
                                             <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
@@ -86,7 +94,17 @@
                                                 @endif
                                             </td>
                                             <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                                {{ $a->status }}
+                                                <div class="relative">
+                                                    <select
+                                                        class="form-select appearance-none block w-auto px-2 py-2 text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+                                                        name="status_{{ $a->id }}"
+                                                        onchange="updateStatus({{ $a->id }}, this.value)"
+                                                    >
+                                                        <option value="Masuk" {{ $a->status === 'Masuk' ? 'selected' : '' }}>Masuk</option>
+                                                        <option value="Sakit" {{ $a->status === 'Sakit' ? 'selected' : '' }}>Sakit</option>
+                                                        <option value="Cuti" {{ $a->status === 'Cuti' ? 'selected' : '' }}>Cuti</option>
+                                                    </select>
+                                                </div>
                                             </td>
                                             <td class="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                                 @if ($a->status === 'Masuk')
@@ -108,7 +126,7 @@
                                                         id="myForm"
                                                         method="POST"
                                                         action="{{ route('admin.absensi.destroy', $a->id) }}"
-                                                        onsubmit="return myScript(event);">
+                                                        onsubmit="return tes(event);">
                                                       @csrf
                                                       @method('DELETE')
                                                       <button type="submit" id="btn-submit">Delete</button>
@@ -156,7 +174,7 @@
 </x-admin-layout>
 
 <script>
-    window.myScript = function(event) {
+    window.tes = function(event) {
        event.preventDefault(); 
        Swal.fire({
        title: 'Are you sure?',
@@ -172,4 +190,5 @@
        }
    });
    };  
-   </script>
+
+</script>

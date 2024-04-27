@@ -204,13 +204,6 @@ class Index extends Component
         ]);
     }   
 
-    public function updatedFilter()
-    {
-        if ($this->filter === 'Last 7 Days') {
-            $this->transactions = Transaction::whereDate('transaction_date', '>=', now()->subDays(7))->get();
-        } else {
-            $this->transactions = Transaction::all();
-        }
-    }
+   
 
 }

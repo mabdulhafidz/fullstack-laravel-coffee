@@ -20,14 +20,10 @@
             <form id="export-form" action="{{ route('admin.categories.export') }}" method="POST" style="display: none;">
                 @csrf
             </form>
-            <a href="{{ route('admin.categories.pdf') }}"
-            onclick="event.preventDefault(); document.getElementById('export-pdf').submit();"
-            class="px-4 py-2 bg-blue-500 hover:bg-blue-700 rounded-lg text-white">
+            <a href="{{ route('admin.tess') }}"
+            class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
             Export Pdf
         </a>
-        <form id="export-pdf" action="{{ route('admin.categories.pdf') }}" method="POST" style="display: none;">
-        @csrf
-        </form>
             <a href="{{ route('admin.categories.import') }}"
                 onclick="event.preventDefault(); document.getElementById('file-input').click();"
                 class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
@@ -81,9 +77,8 @@
 
                         </thead>
                         <tbody>
-                            @if($categories)
                             @foreach ($categories as $category)
-                                <!-- Table Body -->
+
                         <tbody>
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                                 <td
@@ -111,7 +106,8 @@
                                           @csrf
                                           @method('DELETE')
                                           <button type="submit" id="btn-submit">Delete</button>
-                                      </form>                                      
+                                      </form>      
+                         
                                     </div>
                                 </td>
                             </tr>
@@ -120,8 +116,6 @@
 
                         </tbody>
                         @endforeach
-                        @else
-                        @endif
                         </tbody>
                     </table>
                 </div>

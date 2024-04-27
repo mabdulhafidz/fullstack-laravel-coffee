@@ -8,6 +8,7 @@ use App\Http\Requests\StockStoreRequest;
 use App\Imports\StockImport;
 use App\Models\Menu;
 use App\Models\Stock;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -18,6 +19,8 @@ class StockController extends Controller
      */
     public function index()
     {
+        // $this->authorize('view-any', Stock::class);
+
         $stocks = Stock::all();
         $stocks = Stock::paginate(5);
         return view('admin.stocks.index', compact('stocks'));
@@ -35,12 +38,11 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StockStoreRequest $request)
+    public function store(StockStoreRequest $request, $stock)
     {
-       
         $validatedData = $request->validate([
-            'jumlah' => 'required|integer',
             'menu_id' => 'required|exists:menus,id',
+            'jumlah' => 'required|integer',
         ]);
         
         Stock::create($validatedData);
@@ -51,8 +53,9 @@ class StockController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Stock $stock)
+    public function edit($id)
     {
+        $stock = Stock::findOrFail($id);
         return view('admin.stocks.edit', compact('stock'));
     }
 
@@ -63,7 +66,7 @@ class StockController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StockStoreRequest $request, Stock $menuId)
+    public function update(StockStoreRequest $request, Stock $menuId, $stock)
     {
         try {
             $stock = Stock::where('menu_id', $menuId)->firstOrFail();
@@ -89,6 +92,8 @@ class StockController extends Controller
      */
     public function destroy(Stock $stock)
     {
+        $this->authorize('delete', $stock);
+
         $stock->delete();
         $stock->delete();
 
@@ -98,6 +103,13 @@ class StockController extends Controller
     public function export() 
     {
         return Excel::download(new StockExport, 'stocks.xlsx');
+    }
+
+    public function pdf()
+    {
+     $data ['stocks'] = Stock::get();
+        $pdf = Pdf::loadView('admin.stocks.exportpdf', $data);
+        return $pdf->stream('');
     }
 
     public function import(Request $request)

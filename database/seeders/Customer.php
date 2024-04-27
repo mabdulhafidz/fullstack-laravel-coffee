@@ -14,13 +14,13 @@ class Customer extends Seeder
      */
     public function run(): void
     {
-         User::create([
-            'name' => 'Nama Pengguna',
-            'email' => 'email@example.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'remember_token' => Str::random(10),
-            'role' => '3', 
-        ]);                                         
+        //  User::create([
+        //     'name' => 'Nama Pengguna',
+        //     'email' => 'email@example.com',
+        //     'email_verified_at' => now(),
+        //     'password' => bcrypt('password'),
+        //     'remember_token' => Str::random(10),
+        //     'role' => '3', 
+        // ]);                                         
     }
 }

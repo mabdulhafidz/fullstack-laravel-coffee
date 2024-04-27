@@ -9,6 +9,7 @@ use App\Http\Requests\EmployeeUpdateRequest;
 use App\Imports\EmployeeImport;
 use App\Models\Employee;
 use App\Models\Golongan;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -105,6 +106,13 @@ class EmployeeController extends Controller
     public function export() 
     {
         return Excel::download(new EmployeeExport, 'employees.xlsx');
+    }
+    
+    public function pdf()
+    {
+     $data ['employee'] = Employee::get();
+        $pdf = Pdf::loadView('admin.employees.exportpdf', $data);
+        return $pdf->stream('');
     }
 
     

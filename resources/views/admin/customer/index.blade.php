@@ -14,16 +14,13 @@
                 <form id="export-form" action="{{ route('admin.customer.export') }}" method="POST" style="display: none;">
                     @csrf
                 </form>
-                <a href="{{ route('admin.customer.export') }}" onclick="event.preventDefault(); document.getElementById('export-form').submit();" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
+                <a href="{{ route('admin.pd') }}" class="px-4 py-2 bg-blue-600 hover:to-blue-500 rounded-lg text-white">
                     Export Pdf
                 </a>
-                <form id="export-form" action="{{ route('admin.customer.export') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
                 <a href="{{route('admin.customer.import')}}" id="import-form" onclick="event.preventDefault(); document.getElementById('file-input').click();" class="px-4 py-2 bg-green-500 hover:bg-green-700 rounded-lg text-white">
                     Import
                 </a>
-                <form id="import-form" action="{{ route('admin.customer.import') }}" method="post" enctype="multipart/form-data" style="display: none;">
+                <form id="import-form" action="{{ route('admin.customer.import') }}" method="POST" enctype="multipart/form-data" style="display: none;">
                     @csrf
                     <input type="file" name="file" id="file-input" onchange="document.getElementById('import-form').submit();">
                 </form>

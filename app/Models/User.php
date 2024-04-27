@@ -17,7 +17,7 @@ class User extends Authenticatable
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
-     */
+     */ 
     protected $fillable = [
         'name',
         'email',
@@ -47,5 +47,10 @@ class User extends Authenticatable
     public function customers()
     {
         return $this->hasOne(Customer::class);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole('super-admin');
     }
 }

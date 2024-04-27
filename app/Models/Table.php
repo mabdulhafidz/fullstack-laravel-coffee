@@ -6,6 +6,7 @@ use App\Enums\TableLocation;
 use App\Enums\TableStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 class Table extends Model
 {

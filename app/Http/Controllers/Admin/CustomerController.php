@@ -18,6 +18,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
+        // $this->authorize('view-any', Customer::class);
+
         $customer = Customer::all();
         $customer = Customer::paginate(5);
         return view('admin.customer.index', compact('customer'));
@@ -28,7 +30,8 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('admin.customer.create');
+        $customer = Customer::all();
+        return view('admin.customer.create', compact('customer'));
     }
 
     /**
@@ -36,6 +39,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerStoreRequest $request)
     {
+
         customer::create([
             'nama' => $request->nama,
             'alamat' => $request->alamat,
@@ -49,8 +53,9 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Customer $customer)
+    public function edit($id)
     {
+        $customer = Customer::findOrFail($id);
         return view('admin.customer.edit', compact('customer'));
     }
 
@@ -59,6 +64,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
+
         $request->validate([
             'nama' => 'required',
             'alamat' => 'required',
@@ -80,6 +86,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
+
         $customer->delete();
         return to_route('admin.customer.index')->with('danger', 'customer is deleted.');
     }
@@ -93,12 +100,12 @@ class CustomerController extends Controller
         }
     }
 
-    // public function exportPdf()
-    // {
-    //     $data = Customer::all();
-    //     $pdf = Pdf::loadView('admin.customer.index', ['data' => $data]);
-    //     return $pdf->stream('');
-    // }
+    public function pdf()
+    {
+     $data ['customer'] = Customer::get();
+        $pdf = PDF::loadView('admin.customer.exportpdf', $data);
+        return $pdf->stream('');
+    }
     
     public function import(Request $request)
     {

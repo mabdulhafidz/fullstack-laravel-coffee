@@ -37,8 +37,8 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryStoreRequest $request)
-    {
+    public function store(CategoryStoreRequest $request, $category)
+    {   
         $image = $request->file('image')->store('public/categories');
 
         Category::create([
@@ -61,8 +61,9 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = Category::findOrFail($id);
         return view('admin.categories.edit', compact('category'));
     }
 
@@ -71,6 +72,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+
         $request->validate([
             'name' => 'required',
             'description' => 'required'
@@ -95,6 +97,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+
         Storage::delete($category->image);
         $category->menus()->detach();
         $category->delete();
@@ -113,12 +116,10 @@ class CategoryController extends Controller
 
     public function pdf()
     {
-        $data = Category::all();
-    
-        $pdf = PDF::loadView('admin.categories.category-pdf', compact('data'));
-        return $pdf->download('category-pdf.pdf');
+     $data ['categories'] = Category::get();
+        $pdf = PDF::loadView('admin.categories.exportpdf', $data);
+        return $pdf->stream('');
     }
-    
     
     public function import(Request $request)
     {

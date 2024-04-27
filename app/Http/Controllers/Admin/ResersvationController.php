@@ -9,6 +9,7 @@ use App\Http\Requests\ResersvationStoreRequest;
 use App\Imports\ResersvationImport;
 use App\Models\Resersvation;
 use App\Models\Table;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -103,6 +104,13 @@ class ResersvationController extends Controller
     public function export() 
     {
         return Excel::download(new ResersvationExport, 'resersvation.xlsx');
+    }
+
+    public function pdf()
+    {
+     $data ['resersvation'] = Resersvation::get();
+        $pdf = Pdf::loadView('admin.resersvation.exportpdf', $data);
+        return $pdf->stream('');
     }
 
     public function import(Request $request)

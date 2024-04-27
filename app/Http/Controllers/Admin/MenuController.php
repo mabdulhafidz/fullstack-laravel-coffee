@@ -8,6 +8,7 @@ use App\Http\Requests\MenuStoreRequest;
 use App\Imports\MenuImport;
 use App\Models\Category;
 use App\Models\Menu;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,6 +22,7 @@ class MenuController extends Controller
      */
     public function index()
     {
+
         $menus = Menu::all();
         $menus = Menu::paginate(5);
         return view('admin.menus.index', compact('menus'));
@@ -33,6 +35,7 @@ class MenuController extends Controller
      */
     public function create()
     {
+
         $categories = Category::all();
         return view('admin.menus.create', compact('categories'));
     }
@@ -43,8 +46,9 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MenuStoreRequest $request)
+    public function store(MenuStoreRequest $request, $menu)
     {
+
         $image = $request->file('image')->store('public/menus');
 
         $menu = Menu::create([
@@ -70,6 +74,7 @@ class MenuController extends Controller
      */
     public function edit(Menu $menu)
     {
+
         $categories = Category::all();
         return view('admin.menus.edit', compact('menu', 'categories'));
     }
@@ -83,6 +88,7 @@ class MenuController extends Controller
      */
     public function update(Request $request, Menu $menu)
     {
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
@@ -113,17 +119,26 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $menu)
+    public function destroy(Menu $menus)
     {
-        Storage::delete($menu->image);
-        $menu->categories()->detach();
-        $menu->delete();
-        return to_route('admin.menus.index')->with('danger', 'Menu deleted successfully.');
+        if (!is_null($menus->image)) {
+            Storage::delete($menus->image);
+        }
+        $menus->categories()->detach();
+        $menus->delete();
+        return redirect()->route('admin.menus.index')->with('danger', 'Menu deleted successfully.');
     }
-
+    
     public function export() 
     {
         return Excel::download(new MenuExport, 'menus.xlsx');
+    }
+
+    public function pdf()
+    {
+     $data ['menus'] = Menu::get();
+        $pdf = Pdf::loadView('admin.menus.exportpdf', $data);
+        return $pdf->stream('');
     }
 
     public function import(Request $request)
