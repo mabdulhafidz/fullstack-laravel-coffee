@@ -44,13 +44,10 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function customers()
+ 
+    public function customer()
     {
         return $this->hasOne(Customer::class);
     }
-
-    public function isSuperAdmin(): bool
-    {
-        return $this->hasRole('super-admin');
-    }
+    
 }

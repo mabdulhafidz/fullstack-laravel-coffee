@@ -22,22 +22,28 @@
                     <x-nav-link :href="route('admin.transaction.index')" :active="request()->routeIs('transaction.index')">
                         {{ __('Transaction') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile')">
+                        {{ __('Profile') }}
+                    </x-nav-link>
                 @endif                
                 </div>
 
-                {{-- @if (Auth::check() && Auth::user()->role == 2)
-                <x-nav-link :href="route('transaksi.index')" :active="request()->routeIs('transaksi.index')">
+                @if (Auth::check() && Auth::user()->role == 2)
+                <x-nav-link :href="route('cashier.transaksi.index')" :active="request()->routeIs('transaksi.index')">
                     {{ __('Transaction') }}
                 </x-nav-link>
-            @endif                 --}}
+            @endif                
 
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if (Auth::check() && Auth::user()->role == 3)
                     <x-nav-link :href="route('menus.index')" :active="request()->routeIs('menus.index')">
                         {{ __('Menu') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.index')">
+                    {{-- <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.index')">
                         {{ __('Pembelian') }}
+                    </x-nav-link> --}}
+                    <x-nav-link :href="route('profile.edit')" :active="request()->routeIs('profile')">
+                        {{ __('Profile') }}
                     </x-nav-link>
                 @endif                
                 </div>
@@ -66,7 +72,6 @@
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
-
                             <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
                                 {{ __('Log Out') }}

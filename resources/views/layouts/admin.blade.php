@@ -23,6 +23,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <style>
+    .sidebar {
+    height: calc(100vh - 50px); 
+    overflow-y: auto;
+    }
+    </style>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -53,6 +59,7 @@
                     </svg>
                 </button>
             </div>
+            <div class="sidebar">
             <nav :class="{ 'block': open, 'hidden': !open }"
                 class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
                 <x-admin-nav-link :href="route('admin.categories.index')" :active="request()->routeIs('admin.categories.index')">
@@ -147,7 +154,7 @@
                         {{ __('Employees') }}
                     </div>
                 </x-admin-nav-link>
-                <x-admin-nav-link :href="route('admin.absensi.index')" :active="request()->routeIs('admin.absensi.index')">
+                {{-- <x-admin-nav-link :href="route('admin.absensi.index')" :active="request()->routeIs('admin.absensi.index')">
                     <div class="flex items-center ">
                         <svg class="h-4 w-4 text-black-500 mr-2" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -155,16 +162,6 @@
                                 d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
                         </svg>
                         {{ __('Absensi') }}
-                    </div>
-                </x-admin-nav-link>
-                {{-- <x-admin-nav-link :href="route('admin.absen.index')" :active="request()->routeIs('admin.absen.index')">
-                    <div class="flex items-center ">
-                        <svg class="h-4 w-4 text-black-500 mr-2" fill="none" viewBox="0 0 24 24"
-                            stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                        </svg>
-                        {{ __('Absen Pegawai') }}
                     </div>
                 </x-admin-nav-link> --}}
                 <h1 class="ml-4 m-2">Transaction</h1>
@@ -327,6 +324,7 @@
                     </div>
                 </div>
             </nav>
+            </div>
         </div>
         <main class="m-2 p-8 w-full">
             <div>

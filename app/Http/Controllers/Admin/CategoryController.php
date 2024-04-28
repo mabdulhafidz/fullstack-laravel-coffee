@@ -37,7 +37,7 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(CategoryStoreRequest $request, $category)
+    public function store(CategoryStoreRequest $request)
     {   
         $image = $request->file('image')->store('public/categories');
 
@@ -72,25 +72,36 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-
         $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
+            'image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048', // Validasi untuk tipe dan ukuran gambar
         ]);
-        $image = $category->image;
-        if($request->hasFile('image')) {
-            Storage::delete($category->image);
-            $image = $request->file('image')->store('public/categories');
-        }
-
+    
+        // Simpan path file yang lama
+        $oldImagePath = $category->image;
+    
+        // Perbarui data kategori
         $category->update([
             'name' => $request->name,
             'description' => $request->description,
-            'image' => $request->image
         ]);
-
-        return to_route('admin.categories.index')->with('success', 'Category updated Successfully.');
+    
+        // Periksa apakah ada file gambar yang diunggah
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($oldImagePath !== null) {
+                Storage::delete($oldImagePath);
+            }
+    
+            // Simpan gambar yang baru diunggah
+            $imagePath = $request->file('image')->store('public/categories');
+            $category->update(['image' => $imagePath]);
+        }
+    
+        return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
+    
 
     /**
      * Remove the specified resource from storage.

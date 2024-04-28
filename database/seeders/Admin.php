@@ -44,8 +44,8 @@ class Admin extends Seeder
             'remember_token' => Str::random(10),
             'role' => 3
         ]);
-
     }
+
 
     /**
      * Get the password, initializing it if not set.

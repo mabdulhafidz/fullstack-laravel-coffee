@@ -38,7 +38,7 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StockStoreRequest $request, $stock)
+    public function store(StockStoreRequest $request)
     {
         $validatedData = $request->validate([
             'menu_id' => 'required|exists:menus,id',

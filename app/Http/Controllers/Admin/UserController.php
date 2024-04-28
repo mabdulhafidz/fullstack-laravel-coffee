@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Customer;
 use App\Models\User;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
@@ -33,32 +34,34 @@ class UserController extends Controller
         return view('admin.user.create', compact('user'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    
+public function store(Request $request)
 {
+    // Validasi input
     $request->validate([
-        'name' => 'required',
+        'name' => 'required|string|max:255',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:6',
-        'email_verified_at' => 'nullable|date',
-        'role' => 'required|in:1,2,3', 
+        'password' => 'required|string|min:6',
+        'role' => 'required|in:1,2,3', // Pastikan role hanya boleh 1, 2, atau 3
     ]);
 
-    $password = Hash::make($request->password);
-
-        User::create([
+    // Buat pengguna baru
+    $user = User::create([
         'name' => $request->name,
         'email' => $request->email,
-        'password' => $password,
-        'email_verified_at' => $request->email_verified_at,
+        'password' => Hash::make($request->password),
         'role' => $request->role,
     ]);
 
+    // Jika peran pengguna adalah customer (role = 3), buat entri baru di dalam tabel customer
+    if ($request->role == 3) {
+        Customer::create([
+            'nama' => $request->nama,
+            'alamat' => $request->alamat,
+            'email' => $request->email,
+            'no_telp' => $request->no_telp, 
+        ]);
+    }
     return redirect()->route('admin.user.index')->with('success', 'User created successfully.');
 }
 

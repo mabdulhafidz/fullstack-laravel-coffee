@@ -37,7 +37,7 @@ class TableController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(TableStoreRequest $request, $table)
+    public function store(TableStoreRequest $request)
     {
         Table::create([
             'name' => $request->name,

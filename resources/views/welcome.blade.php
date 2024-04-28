@@ -162,7 +162,7 @@
                 </div>
                 <div>
                     <h2 class="text-3xl font-semibold text-gray-800">Hot Coffee</h2>
-                    <p class="mt-2 text-gray-600">Netral aja.</p>
+                    <p class="mt-2 text-gray-600">Rasanya Manis dan enak sekali.</p>
                 </div>
                 <div class="flex justify-end mt-4">
                     <a href="#" class="text-xl font-medium text-green-500">Hafidz</a>
@@ -175,7 +175,7 @@
                 </div>
                 <div>
                     <h2 class="text-3xl font-semibold text-gray-800">Coffee Late</h2>
-                    <p class="mt-2 text-gray-600">Menurut pendapat saya lebih baik mati daripada pilih EMYU.</p>
+                    <p class="mt-2 text-gray-600">Menurut pendapat saya coffee late ini the best!.</p>
                 </div>
                 <div class="flex justify-end mt-4">
                     <a href="#" class="text-xl font-medium text-green-500">Arkha</a>
@@ -188,8 +188,7 @@
                 </div>
                 <div>
                     <h2 class="text-3xl font-semibold text-gray-800">Ice Coffee</h2>
-                    <p class="mt-2 text-gray-600">Menurut pendapat saya CHELSEA lebih lucu dibandingkan EMYU. minimal Trofi UCL lebih dari 1
-                        - Source: Faktos!!!.com
+                    <p class="mt-2 text-gray-600"> Woenakkkk polll!
                     </p>
                 </div>
                 <div class="flex justify-end mt-4">

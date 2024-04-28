@@ -122,7 +122,7 @@ Route::middleware(['auth', 'customer'])->group(function () {
 });
 
 Route::middleware(['auth', 'cashier'])->group(function () {
-    Route::resource('/transaction', CashierTransactionController::class);
+    Route::get('/transactions', [CashierTransactionController::class, 'index'])->name('cashier.transaksi.index');
     Route::resource('/transactionlist', TransactionListController::class);
     Route::get('/transactionlist/search', [TransactionListController::class, 'search'])->name('transactionlist.search');
     // Route::get('/transactionlist/{id}', [TransactionListController::class, 'show'])->name('transactionlist.show');

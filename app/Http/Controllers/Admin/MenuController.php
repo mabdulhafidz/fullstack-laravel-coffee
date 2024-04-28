@@ -46,7 +46,7 @@ class MenuController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(MenuStoreRequest $request, $menu)
+    public function store(MenuStoreRequest $request)
     {
 
         $image = $request->file('image')->store('public/menus');

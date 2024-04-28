@@ -4,7 +4,6 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
-
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex m-2 p-2">
@@ -51,15 +50,33 @@
                             <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
                             <div class="mt-1">
                                 <select id="role" name="role" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5">
-                                    {{-- @if(Auth::user()->role == 1) --}}
-                                        <option value="1">Admin</option>
-                                    {{-- @elseif(Auth::user()->role == 2) --}}
-                                        <option value="2">Cashier</option>
-                                    {{-- @elseif(Auth::user()->role == 3) --}}
-                                        <option value="3">Customer</option>
-                                    {{-- @endif --}}
+                                    <option value="1">Admin</option>
+                                    <option value="2">Cashier</option>
+                                    <option value="3">Customer</option>
                                 </select>
                             </div>
+                        </div>
+                        
+                        <div id="additionalFields" class="hidden">
+                            <div class="sm:col-span-6">
+                                <label for="alamat" class="block text-sm font-medium text-gray-700"> Alamat </label>
+                                <div class="mt-1">
+                                    <input type="text" id="alamat" name="alamat" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                                </div>
+                                @error('alamat')
+                                    <div class="text-sm text-red-400">{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="sm:col-span-6">
+                                <label for="no_telp" class="block text-sm font-medium text-gray-700"> Nomor Telepon </label>
+                                <div class="mt-1">
+                                    <input type="text" id="no_telp" name="no_telp" class="block w-full appearance-none bg-white border border-gray-400 rounded-md py-2 px-3 text-base leading-normal transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+                                </div>
+                                @error('no_telp')
+                                    <div class="text-sm text-red-400">{{ $message }}</div>
+                                @enderror
+                            </div>
+                        </div>                                                    
                         </div>
                         
                             @error('role')
@@ -79,3 +96,18 @@
         </div>
     </div>
 </x-admin-layout>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var roleSelect = document.getElementById('role');
+        var additionalFields = document.getElementById('additionalFields');
+
+        roleSelect.addEventListener('change', function() {
+            if (roleSelect.value === '3') {
+                additionalFields.classList.remove('hidden');
+            } else {
+                additionalFields.classList.add('hidden');
+            }
+        });
+    });
+    </script>
