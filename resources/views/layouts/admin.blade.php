@@ -20,7 +20,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <!-- Include DataTables -->
 <script src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
-
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <style>
