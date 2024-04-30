@@ -126,7 +126,7 @@ class MenuController extends Controller
         }
         $menus->categories()->detach();
         $menus->delete();
-        return redirect()->route('admin.menus.index')->with('danger', 'Menu deleted successfully.');
+        return redirect()->route('admin.menus.index')->with('success', 'Menu deleted successfully.');
     }
     
     public function export() 

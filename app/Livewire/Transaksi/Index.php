@@ -31,14 +31,33 @@ class Index extends Component
     public $alert;
     public $transaction_id;
     public $transactions;
+    public $c;
+    public $selectedCategory;
+    public $m;
 
     use LivewireAlert;
 
-    public function select($categoryId)
+    public function mount()
     {
-        $this->select = $categoryId;
+        $this->c = Category::all();
     }
 
+    public function select($categoryId)
+    {
+        $this->selectedCategory = $categoryId;
+        $this->loadMenus();
+    }
+
+    public function loadMenus()
+    {
+        if ($this->selectedCategory) {
+            $this->m = Menu::whereHas('categories', function ($query) {
+                $query->where('category_id', $this->selectedCategory);
+            })->get();
+        } else {
+            $this->m = Menu::all();
+        }
+    }
     public function render()
     {
         $menus = Menu::all();

@@ -20,7 +20,7 @@ class Admin extends Component
     public $customer;
     public $menu;
     public $chartData;
-    public $lowStockItems;
+    public $highStockItems;
     public $mostOrderedMenus;
     public $revenueData = [];
     public $transaction_date;
@@ -38,7 +38,7 @@ class Admin extends Component
         $transactions = Transaction::all();
         $this->customers = Customer::all();
 
-        $this->lowStockItems = Stock::orderBy('jumlah')
+        $this->highStockItems = Stock::orderbyDesc('jumlah')
         ->with('menu')
         ->take(5)
         ->get();
