@@ -10,10 +10,12 @@
             width: 100%;
            border-collapse: collapse;
         }
+        td {
+            text-align: center;
+        }
 
        table, td, th {
         border: 1px solid black;
-        padding: 8px;
        }
  </style>
 

@@ -26,11 +26,11 @@ class Admin extends Component
     public $transaction_date;
     public $transactions;
     public $customers;
+    public $recentTransactions;
 
     public function mount()
     {
         $this->filterDate = now()->format('Y-m-d');
-        // $this->calculateTotalRevenue();
         $this->totalRevenue = Transaction::sum('total_amount');
         $this->transactionCount = Transaction::count();
         $this->customer = Customer::count();
@@ -39,19 +39,16 @@ class Admin extends Component
         $this->customers = Customer::all();
 
         $this->highStockItems = Stock::orderbyDesc('jumlah')
-        ->with('menu')
-        ->take(5)
-        ->get();
-    
+            ->with('menu')
+            ->take(5)
+            ->get();
 
         $this->chartData = [10, 20, 30, 40, 50];
 
         $menuOrders = [];
 
-        // Mengambil semua detail transaksi
         $transactionDetails = TransactionDetail::all();
 
-        // Menghitung jumlah pemesanan untuk setiap menu
         foreach ($transactionDetails as $detail) {
             $menuId = $detail->menu_id;
             if (array_key_exists($menuId, $menuOrders)) {
@@ -73,7 +70,6 @@ class Admin extends Component
             return $transactionDate->format('Y-m-d');
         });
 
-        // Hitung total pendapatan untuk setiap tanggal
         $groupedTransactions = Transaction::all()->groupBy(function($transaction) {
             return Carbon::parse($transaction->transaction_date)->format('Y-m-d');
         });
@@ -87,15 +83,18 @@ class Admin extends Component
             $this->revenueData[] = [
                 'date' => $date,
                 'revenue' => $dailyRevenue,
-                'percentage' => round($percentage, 2) // Round to 2 decimal places
+                'percentage' => round($percentage, 2)
             ];
         }
+
+        $this->recentTransactions = Transaction::latest()->take(5)->get();
     }
     
     public function render()
     {
         return view('livewire.admin', [
             'transactions' => $this->transactions,
+            'recentTransactions' => $this->recentTransactions,
         ]);
     }
 

@@ -2,7 +2,6 @@
     <div class="w-[100wh-60px] lg:w-[100wh-250px] ml-[60px] lg:ml-[240px] p-5 right-0 transition-all duration-500 ease-in-out overflow-y-auto">
     <section id="content"
     class="w-[100wh-60px] lg:w-[100wh-250px] ml-[60px] lg:ml-[240px] p-5 right-0 transition-all duration-500 ease-in-out">
-    <!-- user summary -->
     <div class="">
         <form wire:submit.prevent="updatedFilterDateAttribute" class="flex items-center">
             <label for="filterDate" class="mr-2">Filter by Date:</label>
@@ -58,16 +57,12 @@
     </div>
 
     <div class="grid grid-cols-1 gap-2 lg:grid-cols-2">
-        <!-- chart  -->
         <div id="revenue-chart" style="width: 100%; height: 500px;" wire:ignore>
             <canvas></canvas>
         </div>
 <div class="container mx-auto my-8">
     <div class="flex justify-between items-center mb-4">
       <h2 class="text-xl font-semibold">Pendapatan Harian dan Persentase</h2>
-      {{-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        SEE ALL
-      </button> --}}
     </div>
   
     <div class="overflow-x-auto">
@@ -91,13 +86,39 @@
       </table>
     </div>
   </div>
+  <div class="container mx-auto my-8">
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-xl font-semibold">Transaksi Terbaru</h2>
+    </div>
+
+    <div class="overflow-x-auto">
+        <table class="table-auto w-full">
+            <thead>
+                <tr class="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                    <th class="py-3 px-6 text-left">ID</th>
+                    <th class="py-3 px-6 text-left">Deskripsi</th>
+                    <th class="py-3 px-6 text-left">Total Amount</th>
+                    <th class="py-3 px-6 text-left">Tanggal Transaksi</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-600 text-sm font-light">
+                @foreach ($recentTransactions as $transaction)
+                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                    <td class="py-3 px-6 text-left whitespace-nowrap">{{ $transaction->id }}</td>
+                    <td class="py-3 px-6 text-left">{{ $transaction->description ?? 'murah' }}</td>
+                    <td class="py-3 px-6 text-left">${{ $transaction->total_amount }}</td>
+                    <td class="py-3 px-6 text-left">{{ $transaction->transaction_date }}</td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+</div>
+
   
         <div class="container mx-auto my-8">
             <div class="flex justify-between items-center mb-4">
               <h2 class="text-xl font-semibold">Customer</h2>
-              {{-- <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                SEE ALL
-              </button> --}}
             </div>
           
             <div class="overflow-x-auto">

@@ -42,7 +42,7 @@ class ResersvationExport implements FromCollection, WithHeadings, WithStyles
     */
     public function styles(Worksheet $sheet)
     {
-        $cellRange = 'A1:G1';
+        $cellRange = 'A1:J1';
 
         $styleArray = [
             'font' => [
@@ -61,7 +61,7 @@ class ResersvationExport implements FromCollection, WithHeadings, WithStyles
             ],
         ];
 
-        $sheet->getStyle('A2:G' . ($sheet->getHighestRow()))->applyFromArray([
+        $sheet->getStyle('A2:J' . ($sheet->getHighestRow()))->applyFromArray([
             'borders' => [
                 'allBorders' => [
                     'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
